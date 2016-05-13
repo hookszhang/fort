@@ -45,7 +45,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToMany {
-    SecurityAuthority{resource} to SecurityResourceEntity{resource}
+    SecurityAuthority{resource} to SecurityResourceEntity{authority}
 }
 
 entity SecurityRole {
@@ -59,7 +59,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToMany {
-    SecurityRole{authority} to SecurityAuthority{authority}
+    SecurityRole{authority} to SecurityAuthority{role}
 }
 
 entity SecurityUser {
@@ -75,7 +75,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToMany {
-    SecurityUser{role} to SecurityRole{role}
+    SecurityUser{role} to SecurityRole{user}
 }
 
 // paginate with pagination
