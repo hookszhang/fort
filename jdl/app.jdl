@@ -1,0 +1,85 @@
+// jdl-studio http://jhipster.github.io/jdl-studio/
+// author zhanghua
+
+entity SecurityApp {
+    appName String required maxlength(50),
+    appKey String maxlength(20),
+    appSecret String maxlength(20),
+    st String maxlength(60)
+}
+
+entity SecurityResourceEntity {
+    name String required maxlength(50),
+    url String required,
+    description String,
+    st String maxlength(60)
+}
+
+relationship ManyToOne {
+    SecurityResourceEntity{app} to SecurityApp
+}
+
+entity SecurityNav {
+    name String required maxlength(50),
+    icon String,
+    description String,
+    st String maxlength(60)
+}
+
+relationship OneToOne {
+    SecurityNav{parent} to SecurityNav
+}
+
+relationship OneToOne {
+    SecurityNav{resource} to SecurityResourceEntity
+}
+
+entity SecurityAuthority {
+    name String required maxlength(50),
+    description String,
+    st String maxlength(60)
+}
+
+relationship ManyToOne {
+    SecurityAuthority{app} to SecurityApp
+}
+
+relationship ManyToMany {
+    SecurityAuthority{resource} to SecurityResourceEntity{resource}
+}
+
+entity SecurityRole {
+    name String required maxlength(50),
+    description String,
+    st String maxlength(60)
+}
+
+relationship ManyToOne {
+    SecurityRole{app} to SecurityApp
+}
+
+relationship ManyToMany {
+    SecurityRole{authority} to SecurityAuthority{authority}
+}
+
+entity SecurityUser {
+    login String required maxlength(50),
+    passwordHash String required maxlength(60),
+    email String maxlength(100),
+    activated Boolean required,
+    st String maxlength(60)
+}
+
+relationship ManyToOne {
+    SecurityUser{app} to SecurityApp
+}
+
+relationship ManyToMany {
+    SecurityUser{role} to SecurityRole{role}
+}
+
+// paginate with pagination
+paginate SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser with pagination
+
+// generate service class
+service SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser with serviceClass

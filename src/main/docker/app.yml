@@ -1,0 +1,21 @@
+version: '2'
+services:
+    fort-app:
+        image: fort
+        external_links:
+            - fort-mysql:mysql
+            - fort-elasticsearch:elasticsearch
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/fort?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9300
+        ports:
+            - 8080:8080
+    fort-mysql:
+        extends:
+            file: mysql.yml
+            service: fort-mysql
+    fort-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: fort-elasticsearch
