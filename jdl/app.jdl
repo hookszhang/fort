@@ -12,7 +12,13 @@ entity SecurityResourceEntity {
     name String required maxlength(50),
     url String required,
     description String,
+    resourceType ResourceEntityType,
     st String maxlength(60)
+}
+
+enum ResourceEntityType {
+    FUNCTION,
+    NAV
 }
 
 relationship ManyToOne {
@@ -62,6 +68,16 @@ relationship ManyToMany {
     SecurityRole{authority} to SecurityAuthority{role}
 }
 
+entity SecurityGroup {
+    name String required maxlength(50),
+    description String,
+    st String maxlength(60)
+}
+
+relationship ManyToOne {
+    SecurityGroup{app} to SecurityApp
+}
+
 entity SecurityUser {
     login String required maxlength(50),
     passwordHash String required maxlength(60),
@@ -76,6 +92,10 @@ relationship ManyToOne {
 
 relationship ManyToMany {
     SecurityUser{role} to SecurityRole{user}
+}
+
+relationship ManyToMany {
+    SecurityUser{role} to SecurityGroup{user}
 }
 
 // paginate with pagination
