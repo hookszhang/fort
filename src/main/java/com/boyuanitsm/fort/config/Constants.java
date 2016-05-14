@@ -21,6 +21,8 @@ public final class Constants {
 
     public static final String SYSTEM_ACCOUNT = "system";
 
+    public static final int GENERATE_APP_KEY_LENGTH = 12;
+
     private Constants() {
     }
 }
