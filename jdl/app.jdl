@@ -95,7 +95,7 @@ relationship ManyToMany {
 }
 
 relationship ManyToMany {
-    SecurityUser{role} to SecurityGroup{user}
+    SecurityUser{group} to SecurityGroup{user}
 }
 
 entity SecurityLoginEvent {
