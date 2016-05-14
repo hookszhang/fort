@@ -98,8 +98,19 @@ relationship ManyToMany {
     SecurityUser{role} to SecurityGroup{user}
 }
 
+entity SecurityLoginEvent {
+    tokenValue String,
+    tokenOverdueTime ZonedDateTime,
+    ipAddress String maxlength(39),
+    userAgent String
+}
+
+relationship ManyToOne {
+    SecurityLoginEvent{user} to SecurityUser
+}
+
 // paginate with pagination
 paginate SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser with pagination
 
 // generate service class
-service SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser with serviceClass
+service SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser, SecurityLoginEvent with serviceClass
