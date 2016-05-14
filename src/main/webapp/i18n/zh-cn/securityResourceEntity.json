@@ -1,0 +1,28 @@
+{
+    "fortApp": {
+        "securityResourceEntity" : {
+            "home": {
+                "title": "Security Resource Entities",
+                "createLabel": "Create a new Security Resource Entity",
+                "createOrEditLabel": "Create or edit a Security Resource Entity",
+                "search": "Search for Security Resource Entity"
+            },
+            "created": "A new Security Resource Entity is created with identifier {{ param }}",
+            "updated": "A Security Resource Entity is updated with identifier {{ param }}",
+            "deleted": "A Security Resource Entity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security Resource Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Security Resource Entity"
+            },
+            "name": "Name",
+            "url": "Url",
+            "description": "Description",
+            "resourceType": "Resource Type",
+            "st": "St",
+            "app": "App",
+            "authority": "Authority"
+        }
+    }
+}

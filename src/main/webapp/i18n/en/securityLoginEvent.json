@@ -1,0 +1,26 @@
+{
+    "fortApp": {
+        "securityLoginEvent" : {
+            "home": {
+                "title": "Security Login Events",
+                "createLabel": "Create a new Security Login Event",
+                "createOrEditLabel": "Create or edit a Security Login Event",
+                "search": "Search for Security Login Event"
+            },
+            "created": "A new Security Login Event is created with identifier {{ param }}",
+            "updated": "A Security Login Event is updated with identifier {{ param }}",
+            "deleted": "A Security Login Event is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security Login Event {{ id }}?"
+            },
+            "detail": {
+                "title": "Security Login Event"
+            },
+            "tokenValue": "Token Value",
+            "tokenOverdueTime": "Token Overdue Time",
+            "ipAddress": "Ip Address",
+            "userAgent": "User Agent",
+            "user": "User"
+        }
+    }
+}

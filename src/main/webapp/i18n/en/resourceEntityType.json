@@ -1,0 +1,9 @@
+{
+    "fortApp": {
+        "ResourceEntityType" : {
+            "null": "",
+            "FUNCTION": "FUNCTION",
+            "NAV": "NAV"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "fortApp": {
+        "securityAuthority" : {
+            "home": {
+                "title": "Security Authorities",
+                "createLabel": "Create a new Security Authority",
+                "createOrEditLabel": "Create or edit a Security Authority",
+                "search": "Search for Security Authority"
+            },
+            "created": "A new Security Authority is created with identifier {{ param }}",
+            "updated": "A Security Authority is updated with identifier {{ param }}",
+            "deleted": "A Security Authority is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security Authority {{ id }}?"
+            },
+            "detail": {
+                "title": "Security Authority"
+            },
+            "name": "Name",
+            "description": "Description",
+            "st": "St",
+            "app": "App",
+            "resource": "Resource",
+            "role": "Role"
+        }
+    }
+}

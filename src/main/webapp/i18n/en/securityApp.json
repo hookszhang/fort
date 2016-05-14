@@ -1,0 +1,25 @@
+{
+    "fortApp": {
+        "securityApp" : {
+            "home": {
+                "title": "Security Apps",
+                "createLabel": "Create a new Security App",
+                "createOrEditLabel": "Create or edit a Security App",
+                "search": "Search for Security App"
+            },
+            "created": "A new Security App is created with identifier {{ param }}",
+            "updated": "A Security App is updated with identifier {{ param }}",
+            "deleted": "A Security App is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security App {{ id }}?"
+            },
+            "detail": {
+                "title": "Security App"
+            },
+            "appName": "App Name",
+            "appKey": "App Key",
+            "appSecret": "App Secret",
+            "st": "St"
+        }
+    }
+}

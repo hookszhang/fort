@@ -1,0 +1,33 @@
+
+<div>
+    <h2><span translate="fortApp.securityLoginEvent.detail.title">Security Login Event</span> {{vm.securityLoginEvent.id}}</h2>
+    <hr>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="fortApp.securityLoginEvent.tokenValue">Token Value</span></dt>
+        <dd>
+            <span>{{vm.securityLoginEvent.tokenValue}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityLoginEvent.tokenOverdueTime">Token Overdue Time</span></dt>
+        <dd>
+            <span>{{vm.securityLoginEvent.tokenOverdueTime | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityLoginEvent.ipAddress">Ip Address</span></dt>
+        <dd>
+            <span>{{vm.securityLoginEvent.ipAddress}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityLoginEvent.userAgent">User Agent</span></dt>
+        <dd>
+            <span>{{vm.securityLoginEvent.userAgent}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityLoginEvent.user">User</span></dt>
+        <dd>
+            <a ui-sref="security-user-detail({id:vm.securityLoginEvent.user.id})">{{vm.securityLoginEvent.user.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,160 @@
+(function() {
+    'use strict';
+
+    angular
+        .module('fortApp')
+        .config(stateConfig);
+
+    stateConfig.$inject = ['$stateProvider'];
+
+    function stateConfig($stateProvider) {
+        $stateProvider
+        .state('security-app', {
+            parent: 'entity',
+            url: '/security-app?page&sort&search',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'fortApp.securityApp.home.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/security-app/security-apps.html',
+                    controller: 'SecurityAppController',
+                    controllerAs: 'vm'
+                }
+            },
+            params: {
+                page: {
+                    value: '1',
+                    squash: true
+                },
+                sort: {
+                    value: 'id,asc',
+                    squash: true
+                },
+                search: null
+            },
+            resolve: {
+                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                    return {
+                        page: PaginationUtil.parsePage($stateParams.page),
+                        sort: $stateParams.sort,
+                        predicate: PaginationUtil.parsePredicate($stateParams.sort),
+                        ascending: PaginationUtil.parseAscending($stateParams.sort),
+                        search: $stateParams.search
+                    };
+                }],
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('securityApp');
+                    $translatePartialLoader.addPart('global');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        .state('security-app-detail', {
+            parent: 'entity',
+            url: '/security-app/{id}',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'fortApp.securityApp.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/security-app/security-app-detail.html',
+                    controller: 'SecurityAppDetailController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('securityApp');
+                    return $translate.refresh();
+                }],
+                entity: ['$stateParams', 'SecurityApp', function($stateParams, SecurityApp) {
+                    return SecurityApp.get({id : $stateParams.id});
+                }]
+            }
+        })
+        .state('security-app.new', {
+            parent: 'security-app',
+            url: '/new',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/security-app/security-app-dialog.html',
+                    controller: 'SecurityAppDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: function () {
+                            return {
+                                appName: null,
+                                appKey: null,
+                                appSecret: null,
+                                st: null,
+                                id: null
+                            };
+                        }
+                    }
+                }).result.then(function() {
+                    $state.go('security-app', null, { reload: true });
+                }, function() {
+                    $state.go('security-app');
+                });
+            }]
+        })
+        .state('security-app.edit', {
+            parent: 'security-app',
+            url: '/{id}/edit',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/security-app/security-app-dialog.html',
+                    controller: 'SecurityAppDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: ['SecurityApp', function(SecurityApp) {
+                            return SecurityApp.get({id : $stateParams.id});
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('security-app', null, { reload: true });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
+        .state('security-app.delete', {
+            parent: 'security-app',
+            url: '/{id}/delete',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/security-app/security-app-delete-dialog.html',
+                    controller: 'SecurityAppDeleteController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: ['SecurityApp', function(SecurityApp) {
+                            return SecurityApp.get({id : $stateParams.id});
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('security-app', null, { reload: true });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        });
+    }
+
+})();

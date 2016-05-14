@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity SecurityUser.
+    -->
+    <changeSet id="20160514090714-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="app_id"
+                                 baseTableName="security_user"
+                                 constraintName="fk_securityuser_app_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_app"/>
+
+        <addForeignKeyConstraint baseColumnNames="security_users_id"
+                                 baseTableName="security_user_role"
+                                 constraintName="fk_security_user_role_securityrole_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_user"/>
+        <addForeignKeyConstraint baseColumnNames="roles_id"
+                                 baseTableName="security_user_role"
+                                 constraintName="fk_security_user_role_securityuser_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_role"/>
+        
+        <addForeignKeyConstraint baseColumnNames="security_users_id"
+                                 baseTableName="security_user_group"
+                                 constraintName="fk_security_user_group_securitygroup_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_user"/>
+        <addForeignKeyConstraint baseColumnNames="groups_id"
+                                 baseTableName="security_user_group"
+                                 constraintName="fk_security_user_group_securityuser_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_group"/>
+        
+    </changeSet>
+</databaseChangeLog>

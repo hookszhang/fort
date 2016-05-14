@@ -1,0 +1,27 @@
+{
+    "fortApp": {
+        "securityNav" : {
+            "home": {
+                "title": "Security Navs",
+                "createLabel": "Create a new Security Nav",
+                "createOrEditLabel": "Create or edit a Security Nav",
+                "search": "Search for Security Nav"
+            },
+            "created": "A new Security Nav is created with identifier {{ param }}",
+            "updated": "A Security Nav is updated with identifier {{ param }}",
+            "deleted": "A Security Nav is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security Nav {{ id }}?"
+            },
+            "detail": {
+                "title": "Security Nav"
+            },
+            "name": "Name",
+            "icon": "Icon",
+            "description": "Description",
+            "st": "St",
+            "parent": "Parent",
+            "resource": "Resource"
+        }
+    }
+}

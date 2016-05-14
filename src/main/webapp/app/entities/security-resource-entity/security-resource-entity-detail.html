@@ -1,0 +1,37 @@
+
+<div>
+    <h2><span translate="fortApp.securityResourceEntity.detail.title">Security Resource Entity</span> {{vm.securityResourceEntity.id}}</h2>
+    <hr>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="fortApp.securityResourceEntity.name">Name</span></dt>
+        <dd>
+            <span>{{vm.securityResourceEntity.name}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityResourceEntity.url">Url</span></dt>
+        <dd>
+            <span>{{vm.securityResourceEntity.url}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityResourceEntity.description">Description</span></dt>
+        <dd>
+            <span>{{vm.securityResourceEntity.description}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityResourceEntity.resourceType">Resource Type</span></dt>
+        <dd>
+            <span translate="{{'fortApp.ResourceEntityType.' + vm.securityResourceEntity.resourceType}}">{{vm.securityResourceEntity.resourceType}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityResourceEntity.st">St</span></dt>
+        <dd>
+            <span>{{vm.securityResourceEntity.st}}</span>
+        </dd>
+        <dt><span translate="fortApp.securityResourceEntity.app">App</span></dt>
+        <dd>
+            <a ui-sref="security-app-detail({id:vm.securityResourceEntity.app.id})">{{vm.securityResourceEntity.app.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

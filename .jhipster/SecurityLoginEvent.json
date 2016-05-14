@@ -1,0 +1,42 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "user",
+      "otherEntityName": "securityUser",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "tokenValue",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "tokenOverdueTime",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "ipAddress",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 39
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "userAgent",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160514090715",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceClass",
+  "entityTableName": "security_login_event"
+}

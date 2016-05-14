@@ -1,0 +1,47 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "appName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required",
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 50
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "appKey",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 20
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "appSecret",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 20
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "st",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 60
+    }
+  ],
+  "changelogDate": "20160514090708",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "entityTableName": "security_app"
+}

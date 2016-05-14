@@ -1,0 +1,27 @@
+{
+    "fortApp": {
+        "securityRole" : {
+            "home": {
+                "title": "Security Roles",
+                "createLabel": "Create a new Security Role",
+                "createOrEditLabel": "Create or edit a Security Role",
+                "search": "Search for Security Role"
+            },
+            "created": "A new Security Role is created with identifier {{ param }}",
+            "updated": "A Security Role is updated with identifier {{ param }}",
+            "deleted": "A Security Role is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security Role {{ id }}?"
+            },
+            "detail": {
+                "title": "Security Role"
+            },
+            "name": "Name",
+            "description": "Description",
+            "st": "St",
+            "app": "App",
+            "authority": "Authority",
+            "user": "User"
+        }
+    }
+}

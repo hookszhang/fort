@@ -1,0 +1,29 @@
+{
+    "fortApp": {
+        "securityUser" : {
+            "home": {
+                "title": "Security Users",
+                "createLabel": "Create a new Security User",
+                "createOrEditLabel": "Create or edit a Security User",
+                "search": "Search for Security User"
+            },
+            "created": "A new Security User is created with identifier {{ param }}",
+            "updated": "A Security User is updated with identifier {{ param }}",
+            "deleted": "A Security User is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security User {{ id }}?"
+            },
+            "detail": {
+                "title": "Security User"
+            },
+            "login": "Login",
+            "passwordHash": "Password Hash",
+            "email": "Email",
+            "activated": "Activated",
+            "st": "St",
+            "app": "App",
+            "role": "Role",
+            "group": "Group"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "fortApp": {
+        "securityGroup" : {
+            "home": {
+                "title": "Security Groups",
+                "createLabel": "Create a new Security Group",
+                "createOrEditLabel": "Create or edit a Security Group",
+                "search": "Search for Security Group"
+            },
+            "created": "A new Security Group is created with identifier {{ param }}",
+            "updated": "A Security Group is updated with identifier {{ param }}",
+            "deleted": "A Security Group is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Security Group {{ id }}?"
+            },
+            "detail": {
+                "title": "Security Group"
+            },
+            "name": "Name",
+            "description": "Description",
+            "st": "St",
+            "app": "App",
+            "user": "User"
+        }
+    }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity SecurityAuthority.
+    -->
+    <changeSet id="20160514090711-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="app_id"
+                                 baseTableName="security_authority"
+                                 constraintName="fk_securityauthority_app_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_app"/>
+
+        <addForeignKeyConstraint baseColumnNames="security_authorities_id"
+                                 baseTableName="security_authority_resource"
+                                 constraintName="fk_security_authority_resource_securityresourceentity_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_authority"/>
+        <addForeignKeyConstraint baseColumnNames="resources_id"
+                                 baseTableName="security_authority_resource"
+                                 constraintName="fk_security_authority_resource_securityauthority_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_resource_entity"/>
+        
+    </changeSet>
+</databaseChangeLog>

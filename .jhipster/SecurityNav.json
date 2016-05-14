@@ -1,0 +1,58 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-one",
+      "relationshipName": "parent",
+      "otherEntityName": "securityNav",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "securityNav"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-one",
+      "relationshipName": "resource",
+      "otherEntityName": "securityResourceEntity",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "securityNav"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required",
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 50
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "icon",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "st",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 60
+    }
+  ],
+  "changelogDate": "20160514090710",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "entityTableName": "security_nav"
+}

@@ -1,0 +1,83 @@
+<div>
+    <h2 translate="fortApp.securityLoginEvent.home.title">Security Login Events</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="security-login-event.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="hidden-xs"  translate="fortApp.securityLoginEvent.home.createLabel">
+                        Create new Security Login Event
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'fortApp.securityLoginEvent.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                        <span class="input-group-btn width-min" ng-if="vm.currentSearch">
+                            <button class="btn btn-info" ng-click="vm.clear()">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="fortApp.securityLoginEvent.tokenValue">Token Value</span></th>
+                    <th><span translate="fortApp.securityLoginEvent.tokenOverdueTime">Token Overdue Time</span></th>
+                    <th><span translate="fortApp.securityLoginEvent.ipAddress">Ip Address</span></th>
+                    <th><span translate="fortApp.securityLoginEvent.userAgent">User Agent</span></th>
+                    <th><span translate="fortApp.securityLoginEvent.user">User</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="securityLoginEvent in vm.securityLoginEvents track by securityLoginEvent.id">
+                    <td><a ui-sref="security-login-event-detail({id:securityLoginEvent.id})">{{securityLoginEvent.id}}</a></td>
+                    <td>{{securityLoginEvent.tokenValue}}</td>
+                    <td>{{securityLoginEvent.tokenOverdueTime | date:'medium'}}</td>
+                    <td>{{securityLoginEvent.ipAddress}}</td>
+                    <td>{{securityLoginEvent.userAgent}}</td>
+                    <td>
+                        <a ui-sref="security-user-detail({id:securityLoginEvent.user.id})">{{securityLoginEvent.user.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="security-login-event-detail({id:securityLoginEvent.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="security-login-event.edit({id:securityLoginEvent.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="security-login-event.delete({id:securityLoginEvent.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
