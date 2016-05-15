@@ -10,6 +10,6 @@ import java.util.List;
  * Spring Data JPA repository for the SecurityApp entity.
  */
 @SuppressWarnings("unused")
-public interface SecurityAppRepository extends JpaRepository<SecurityApp,Long> {
+public interface SecurityAppRepository extends MyJpaRepository<SecurityApp,Long> {
 
 }

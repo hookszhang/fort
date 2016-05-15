@@ -2,6 +2,7 @@ package com.boyuanitsm.fort.config;
 
 import com.boyuanitsm.fort.config.liquibase.AsyncSpringLiquibase;
 
+import com.boyuanitsm.fort.repository.SimpleMyJpaRepository;
 import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariDataSource;
@@ -17,7 +18,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -29,7 +29,8 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 
 @Configuration
-@EnableJpaRepositories("com.boyuanitsm.fort.repository")
+// @EnableJpaRepositories("com.boyuanitsm.fort.repository")
+@EnableJpaRepositories(value = "com.boyuanitsm.fort.repository", repositoryBaseClass = SimpleMyJpaRepository.class)
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 @EnableElasticsearchRepositories("com.boyuanitsm.fort.repository.search")

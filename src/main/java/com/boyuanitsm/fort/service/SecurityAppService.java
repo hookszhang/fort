@@ -64,7 +64,7 @@ public class SecurityAppService {
     @Transactional(readOnly = true)
     public Page<SecurityApp> findAll(Pageable pageable) {
         log.debug("Request to get all SecurityApps");
-        Page<SecurityApp> result = securityAppRepository.findAll(pageable);
+        Page<SecurityApp> result = securityAppRepository.findOwnAll(pageable);
         return result;
     }
 
