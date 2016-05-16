@@ -10,5 +10,11 @@ import java.io.Serializable;
 @NoRepositoryBean
 public interface MyJpaRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
+    /**
+     * Return own create data list.
+     *
+     * @param var1
+     * @return
+     */
     Page<T> findOwnAll(Pageable var1);
 }
