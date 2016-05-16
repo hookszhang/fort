@@ -9,6 +9,10 @@ public final class RandomUtil {
 
     private static final int DEF_COUNT = 20;
 
+    private static final int APP_KEY_COUNT = 12;
+
+    private static final int APP_SECRET_COUNT = 12;
+
     private RandomUtil() {
     }
 
@@ -37,5 +41,23 @@ public final class RandomUtil {
     */
     public static String generateResetKey() {
         return RandomStringUtils.randomNumeric(DEF_COUNT);
+    }
+
+    /**
+     * Generates a app key.
+     *
+     * @return the generated app key
+     */
+    public static String generateAppKey() {
+        return RandomStringUtils.randomAlphanumeric(APP_KEY_COUNT);
+    }
+
+    /**
+     * Generates a app secret.
+     *
+     * @return the generated app secret
+     */
+    public static String generateAppSecret() {
+        return RandomStringUtils.randomAlphanumeric(APP_SECRET_COUNT);
     }
 }

@@ -4,6 +4,7 @@ import com.boyuanitsm.fort.config.Constants;
 import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.repository.SecurityAppRepository;
 import com.boyuanitsm.fort.repository.search.SecurityAppSearchRepository;
+import com.boyuanitsm.fort.service.util.RandomUtil;
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +46,14 @@ public class SecurityAppService {
 
         if (securityApp.getId() == null) {
             // generate app key & app secret
-            securityApp.setAppKey(RandomStringUtils.randomAlphanumeric(Constants.GENERATE_APP_KEY_LENGTH));
-            securityApp.setAppSecret(RandomStringUtils.randomAlphanumeric(Constants.GENERATE_APP_KEY_LENGTH));
+            String appKey = RandomUtil.generateAppKey();
+            String appSecret = RandomUtil.generateAppSecret();
+            // set security app
+            securityApp.setAppKey(appKey);
+            securityApp.setAppSecret(appSecret);
             log.debug("Generate app key & app secret finished SecurityApp : {}", securityApp);
+            // create new user
+
         }
 
         SecurityApp result = securityAppRepository.save(securityApp);
