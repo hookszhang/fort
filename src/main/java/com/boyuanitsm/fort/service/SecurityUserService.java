@@ -25,16 +25,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityUserService {
 
     private final Logger log = LoggerFactory.getLogger(SecurityUserService.class);
-    
+
     @Inject
     private SecurityUserRepository securityUserRepository;
-    
+
     @Inject
     private SecurityUserSearchRepository securityUserSearchRepository;
-    
+
     /**
      * Save a securityUser.
-     * 
+     *
      * @param securityUser the entity to save
      * @return the persisted entity
      */
@@ -47,14 +47,14 @@ public class SecurityUserService {
 
     /**
      *  Get all the securityUsers.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<SecurityUser> findAll(Pageable pageable) {
         log.debug("Request to get all SecurityUsers");
-        Page<SecurityUser> result = securityUserRepository.findAll(pageable); 
+        Page<SecurityUser> result = securityUserRepository.findOwnAll(pageable);
         return result;
     }
 
@@ -64,7 +64,7 @@ public class SecurityUserService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public SecurityUser findOne(Long id) {
         log.debug("Request to get SecurityUser : {}", id);
         SecurityUser securityUser = securityUserRepository.findOneWithEagerRelationships(id);
@@ -73,7 +73,7 @@ public class SecurityUserService {
 
     /**
      *  Delete the  securityUser by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

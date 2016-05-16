@@ -11,7 +11,7 @@ import java.util.List;
  * Spring Data JPA repository for the SecurityUser entity.
  */
 @SuppressWarnings("unused")
-public interface SecurityUserRepository extends JpaRepository<SecurityUser,Long> {
+public interface SecurityUserRepository extends MyJpaRepository<SecurityUser,Long> {
 
     @Query("select distinct securityUser from SecurityUser securityUser left join fetch securityUser.roles left join fetch securityUser.groups")
     List<SecurityUser> findAllWithEagerRelationships();

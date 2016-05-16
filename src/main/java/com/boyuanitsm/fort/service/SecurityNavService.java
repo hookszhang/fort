@@ -25,16 +25,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityNavService {
 
     private final Logger log = LoggerFactory.getLogger(SecurityNavService.class);
-    
+
     @Inject
     private SecurityNavRepository securityNavRepository;
-    
+
     @Inject
     private SecurityNavSearchRepository securityNavSearchRepository;
-    
+
     /**
      * Save a securityNav.
-     * 
+     *
      * @param securityNav the entity to save
      * @return the persisted entity
      */
@@ -47,14 +47,14 @@ public class SecurityNavService {
 
     /**
      *  Get all the securityNavs.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<SecurityNav> findAll(Pageable pageable) {
         log.debug("Request to get all SecurityNavs");
-        Page<SecurityNav> result = securityNavRepository.findAll(pageable); 
+        Page<SecurityNav> result = securityNavRepository.findOwnAll(pageable);
         return result;
     }
 
@@ -64,7 +64,7 @@ public class SecurityNavService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public SecurityNav findOne(Long id) {
         log.debug("Request to get SecurityNav : {}", id);
         SecurityNav securityNav = securityNavRepository.findOne(id);
@@ -73,7 +73,7 @@ public class SecurityNavService {
 
     /**
      *  Delete the  securityNav by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

@@ -25,16 +25,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityAuthorityService {
 
     private final Logger log = LoggerFactory.getLogger(SecurityAuthorityService.class);
-    
+
     @Inject
     private SecurityAuthorityRepository securityAuthorityRepository;
-    
+
     @Inject
     private SecurityAuthoritySearchRepository securityAuthoritySearchRepository;
-    
+
     /**
      * Save a securityAuthority.
-     * 
+     *
      * @param securityAuthority the entity to save
      * @return the persisted entity
      */
@@ -47,14 +47,14 @@ public class SecurityAuthorityService {
 
     /**
      *  Get all the securityAuthorities.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<SecurityAuthority> findAll(Pageable pageable) {
         log.debug("Request to get all SecurityAuthorities");
-        Page<SecurityAuthority> result = securityAuthorityRepository.findAll(pageable); 
+        Page<SecurityAuthority> result = securityAuthorityRepository.findOwnAll(pageable);
         return result;
     }
 
@@ -64,7 +64,7 @@ public class SecurityAuthorityService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public SecurityAuthority findOne(Long id) {
         log.debug("Request to get SecurityAuthority : {}", id);
         SecurityAuthority securityAuthority = securityAuthorityRepository.findOneWithEagerRelationships(id);
@@ -73,7 +73,7 @@ public class SecurityAuthorityService {
 
     /**
      *  Delete the  securityAuthority by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {
