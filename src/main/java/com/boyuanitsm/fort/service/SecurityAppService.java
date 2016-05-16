@@ -35,6 +35,9 @@ public class SecurityAppService {
     @Inject
     private SecurityAppSearchRepository securityAppSearchRepository;
 
+    @Inject
+    private UserService userService;
+
     /**
      * Save a securityApp.
      *
@@ -53,7 +56,7 @@ public class SecurityAppService {
             securityApp.setAppSecret(appSecret);
             log.debug("Generate app key & app secret finished SecurityApp : {}", securityApp);
             // create new user
-
+            userService.createSecurityAppUser(appKey, appSecret);
         }
 
         SecurityApp result = securityAppRepository.save(securityApp);

@@ -116,6 +116,32 @@ public class UserService {
         return newUser;
     }
 
+    /**
+     * create security app user.
+     *
+     * @param appKey appKey is login.
+     * @param appSecret appSecret is password.
+     * @return new user
+     */
+    public User createSecurityAppUser(String appKey, String appSecret) {
+        User newUser = new User();
+        Authority authority = authorityRepository.findOne("ROLE_SECURITY_APP");
+        Set<Authority> authorities = new HashSet<>();
+        String encryptedPassword = passwordEncoder.encode(appSecret);
+        newUser.setLogin(appKey);
+        // new user gets initially a generated password
+        newUser.setPassword(encryptedPassword);
+        newUser.setLangKey("zh-cn");
+        // default is active
+        newUser.setActivated(true);
+        authorities.add(authority);
+        newUser.setAuthorities(authorities);
+        userRepository.save(newUser);
+        userSearchRepository.save(newUser);
+        log.debug("Created Security App for User: {}", newUser);
+        return newUser;
+    }
+
     public User createUser(ManagedUserDTO managedUserDTO) {
         User user = new User();
         user.setLogin(managedUserDTO.getLogin());
