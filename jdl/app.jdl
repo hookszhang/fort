@@ -110,7 +110,7 @@ relationship ManyToOne {
 }
 
 // paginate with pagination
-paginate SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser with pagination
+paginate SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser, SecurityGroup with pagination
 
 // generate service class
-service SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser, SecurityLoginEvent with serviceClass
+service SecurityApp, SecurityResourceEntity, SecurityNav, SecurityAuthority, SecurityRole, SecurityUser, SecurityLoginEvent, SecurityGroup with serviceClass

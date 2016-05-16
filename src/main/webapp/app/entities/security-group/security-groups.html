@@ -34,12 +34,12 @@
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr>
-                    <th><span translate="global.field.id">ID</span></th>
-                    <th><span translate="fortApp.securityGroup.name">Name</span></th>
-                    <th><span translate="fortApp.securityGroup.description">Description</span></th>
-                    <th><span translate="fortApp.securityGroup.st">St</span></th>
-                    <th><span translate="fortApp.securityGroup.app">App</span></th>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span translate="fortApp.securityGroup.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span translate="fortApp.securityGroup.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="st"><span translate="fortApp.securityGroup.st">St</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="app.id"><span translate="fortApp.securityGroup.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -77,5 +77,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
 </div>

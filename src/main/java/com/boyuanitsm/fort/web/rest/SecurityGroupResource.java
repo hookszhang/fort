@@ -2,11 +2,13 @@ package com.boyuanitsm.fort.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityGroup;
-import com.boyuanitsm.fort.repository.SecurityGroupRepository;
-import com.boyuanitsm.fort.repository.search.SecurityGroupSearchRepository;
+import com.boyuanitsm.fort.service.SecurityGroupService;
 import com.boyuanitsm.fort.web.rest.util.HeaderUtil;
+import com.boyuanitsm.fort.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,10 +36,7 @@ public class SecurityGroupResource {
     private final Logger log = LoggerFactory.getLogger(SecurityGroupResource.class);
         
     @Inject
-    private SecurityGroupRepository securityGroupRepository;
-    
-    @Inject
-    private SecurityGroupSearchRepository securityGroupSearchRepository;
+    private SecurityGroupService securityGroupService;
     
     /**
      * POST  /security-groups : Create a new securityGroup.
@@ -55,8 +54,7 @@ public class SecurityGroupResource {
         if (securityGroup.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityGroup", "idexists", "A new securityGroup cannot already have an ID")).body(null);
         }
-        SecurityGroup result = securityGroupRepository.save(securityGroup);
-        securityGroupSearchRepository.save(result);
+        SecurityGroup result = securityGroupService.save(securityGroup);
         return ResponseEntity.created(new URI("/api/security-groups/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("securityGroup", result.getId().toString()))
             .body(result);
@@ -80,8 +78,7 @@ public class SecurityGroupResource {
         if (securityGroup.getId() == null) {
             return createSecurityGroup(securityGroup);
         }
-        SecurityGroup result = securityGroupRepository.save(securityGroup);
-        securityGroupSearchRepository.save(result);
+        SecurityGroup result = securityGroupService.save(securityGroup);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("securityGroup", securityGroup.getId().toString()))
             .body(result);
@@ -90,16 +87,20 @@ public class SecurityGroupResource {
     /**
      * GET  /security-groups : get all the securityGroups.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of securityGroups in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/security-groups",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<SecurityGroup> getAllSecurityGroups() {
-        log.debug("REST request to get all SecurityGroups");
-        List<SecurityGroup> securityGroups = securityGroupRepository.findAll();
-        return securityGroups;
+    public ResponseEntity<List<SecurityGroup>> getAllSecurityGroups(Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of SecurityGroups");
+        Page<SecurityGroup> page = securityGroupService.findAll(pageable); 
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-groups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -114,7 +115,7 @@ public class SecurityGroupResource {
     @Timed
     public ResponseEntity<SecurityGroup> getSecurityGroup(@PathVariable Long id) {
         log.debug("REST request to get SecurityGroup : {}", id);
-        SecurityGroup securityGroup = securityGroupRepository.findOne(id);
+        SecurityGroup securityGroup = securityGroupService.findOne(id);
         return Optional.ofNullable(securityGroup)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -134,8 +135,7 @@ public class SecurityGroupResource {
     @Timed
     public ResponseEntity<Void> deleteSecurityGroup(@PathVariable Long id) {
         log.debug("REST request to delete SecurityGroup : {}", id);
-        securityGroupRepository.delete(id);
-        securityGroupSearchRepository.delete(id);
+        securityGroupService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("securityGroup", id.toString())).build();
     }
 
@@ -150,11 +150,12 @@ public class SecurityGroupResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<SecurityGroup> searchSecurityGroups(@RequestParam String query) {
-        log.debug("REST request to search SecurityGroups for query {}", query);
-        return StreamSupport
-            .stream(securityGroupSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+    public ResponseEntity<List<SecurityGroup>> searchSecurityGroups(@RequestParam String query, Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to search for a page of SecurityGroups for query {}", query);
+        Page<SecurityGroup> page = securityGroupService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/security-groups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 }

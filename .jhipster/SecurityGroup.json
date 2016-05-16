@@ -44,7 +44,7 @@
   ],
   "changelogDate": "20160514090713",
   "dto": "no",
-  "pagination": "no",
-  "service": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
   "entityTableName": "security_group"
 }

@@ -3,6 +3,7 @@ package com.boyuanitsm.fort.web.rest;
 import com.boyuanitsm.fort.FortApp;
 import com.boyuanitsm.fort.domain.SecurityGroup;
 import com.boyuanitsm.fort.repository.SecurityGroupRepository;
+import com.boyuanitsm.fort.service.SecurityGroupService;
 import com.boyuanitsm.fort.repository.search.SecurityGroupSearchRepository;
 
 import org.junit.Before;
@@ -53,6 +54,9 @@ public class SecurityGroupResourceIntTest {
     private SecurityGroupRepository securityGroupRepository;
 
     @Inject
+    private SecurityGroupService securityGroupService;
+
+    @Inject
     private SecurityGroupSearchRepository securityGroupSearchRepository;
 
     @Inject
@@ -69,8 +73,7 @@ public class SecurityGroupResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         SecurityGroupResource securityGroupResource = new SecurityGroupResource();
-        ReflectionTestUtils.setField(securityGroupResource, "securityGroupSearchRepository", securityGroupSearchRepository);
-        ReflectionTestUtils.setField(securityGroupResource, "securityGroupRepository", securityGroupRepository);
+        ReflectionTestUtils.setField(securityGroupResource, "securityGroupService", securityGroupService);
         this.restSecurityGroupMockMvc = MockMvcBuilders.standaloneSetup(securityGroupResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -172,8 +175,8 @@ public class SecurityGroupResourceIntTest {
     @Transactional
     public void updateSecurityGroup() throws Exception {
         // Initialize the database
-        securityGroupRepository.saveAndFlush(securityGroup);
-        securityGroupSearchRepository.save(securityGroup);
+        securityGroupService.save(securityGroup);
+
         int databaseSizeBeforeUpdate = securityGroupRepository.findAll().size();
 
         // Update the securityGroup
@@ -205,8 +208,8 @@ public class SecurityGroupResourceIntTest {
     @Transactional
     public void deleteSecurityGroup() throws Exception {
         // Initialize the database
-        securityGroupRepository.saveAndFlush(securityGroup);
-        securityGroupSearchRepository.save(securityGroup);
+        securityGroupService.save(securityGroup);
+
         int databaseSizeBeforeDelete = securityGroupRepository.findAll().size();
 
         // Get the securityGroup
@@ -227,8 +230,7 @@ public class SecurityGroupResourceIntTest {
     @Transactional
     public void searchSecurityGroup() throws Exception {
         // Initialize the database
-        securityGroupRepository.saveAndFlush(securityGroup);
-        securityGroupSearchRepository.save(securityGroup);
+        securityGroupService.save(securityGroup);
 
         // Search the securityGroup
         restSecurityGroupMockMvc.perform(get("/api/_search/security-groups?query=id:" + securityGroup.getId()))
