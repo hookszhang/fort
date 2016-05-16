@@ -25,16 +25,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityResourceEntityService {
 
     private final Logger log = LoggerFactory.getLogger(SecurityResourceEntityService.class);
-    
+
     @Inject
     private SecurityResourceEntityRepository securityResourceEntityRepository;
-    
+
     @Inject
     private SecurityResourceEntitySearchRepository securityResourceEntitySearchRepository;
-    
+
     /**
      * Save a securityResourceEntity.
-     * 
+     *
      * @param securityResourceEntity the entity to save
      * @return the persisted entity
      */
@@ -47,14 +47,14 @@ public class SecurityResourceEntityService {
 
     /**
      *  Get all the securityResourceEntities.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<SecurityResourceEntity> findAll(Pageable pageable) {
         log.debug("Request to get all SecurityResourceEntities");
-        Page<SecurityResourceEntity> result = securityResourceEntityRepository.findAll(pageable); 
+        Page<SecurityResourceEntity> result = securityResourceEntityRepository.findOwnAll(pageable);
         return result;
     }
 
@@ -64,7 +64,7 @@ public class SecurityResourceEntityService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public SecurityResourceEntity findOne(Long id) {
         log.debug("Request to get SecurityResourceEntity : {}", id);
         SecurityResourceEntity securityResourceEntity = securityResourceEntityRepository.findOne(id);
@@ -73,7 +73,7 @@ public class SecurityResourceEntityService {
 
     /**
      *  Delete the  securityResourceEntity by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {
