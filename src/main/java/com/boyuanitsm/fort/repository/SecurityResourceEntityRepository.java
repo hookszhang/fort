@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.repository;
 
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 
 /**
@@ -8,4 +9,5 @@ import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 @SuppressWarnings("unused")
 public interface SecurityResourceEntityRepository extends MyJpaRepository<SecurityResourceEntity,Long> {
 
+    SecurityResourceEntity findByAppAndUrl(SecurityApp app, String url);
 }

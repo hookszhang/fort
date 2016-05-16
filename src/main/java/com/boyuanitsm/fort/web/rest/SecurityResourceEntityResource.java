@@ -34,10 +34,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityResourceEntityResource {
 
     private final Logger log = LoggerFactory.getLogger(SecurityResourceEntityResource.class);
-        
+
     @Inject
     private SecurityResourceEntityService securityResourceEntityService;
-    
+
     /**
      * POST  /security-resource-entities : Create a new securityResourceEntity.
      *
@@ -53,6 +53,11 @@ public class SecurityResourceEntityResource {
         log.debug("REST request to save SecurityResourceEntity : {}", securityResourceEntity);
         if (securityResourceEntity.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityResourceEntity", "idexists", "A new securityResourceEntity cannot already have an ID")).body(null);
+        }
+        // unique url on same app
+        if (securityResourceEntityService.findByAppAndUrl(
+                securityResourceEntity.getApp(), securityResourceEntity.getUrl()) != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityResourceEntity", "urlexists", "A new securityResourceEntity cannot already have an url")).body(null);
         }
         SecurityResourceEntity result = securityResourceEntityService.save(securityResourceEntity);
         return ResponseEntity.created(new URI("/api/security-resource-entities/" + result.getId()))
@@ -98,7 +103,7 @@ public class SecurityResourceEntityResource {
     public ResponseEntity<List<SecurityResourceEntity>> getAllSecurityResourceEntities(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityResourceEntities");
-        Page<SecurityResourceEntity> page = securityResourceEntityService.findAll(pageable); 
+        Page<SecurityResourceEntity> page = securityResourceEntityService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-resource-entities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

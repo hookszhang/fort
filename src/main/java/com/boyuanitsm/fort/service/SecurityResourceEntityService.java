@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.service;
 
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.repository.SecurityResourceEntityRepository;
 import com.boyuanitsm.fort.repository.search.SecurityResourceEntitySearchRepository;
@@ -92,5 +93,9 @@ public class SecurityResourceEntityService {
     public Page<SecurityResourceEntity> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityResourceEntities for query {}", query);
         return securityResourceEntitySearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    public SecurityResourceEntity findByAppAndUrl(SecurityApp app, String url) {
+        return securityResourceEntityRepository.findByAppAndUrl(app, url);
     }
 }
