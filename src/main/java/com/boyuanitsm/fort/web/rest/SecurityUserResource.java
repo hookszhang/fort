@@ -34,10 +34,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityUserResource {
 
     private final Logger log = LoggerFactory.getLogger(SecurityUserResource.class);
-        
+
     @Inject
     private SecurityUserService securityUserService;
-    
+
     /**
      * POST  /security-users : Create a new securityUser.
      *
@@ -98,7 +98,7 @@ public class SecurityUserResource {
     public ResponseEntity<List<SecurityUser>> getAllSecurityUsers(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityUsers");
-        Page<SecurityUser> page = securityUserService.findAll(pageable); 
+        Page<SecurityUser> page = securityUserService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -158,4 +158,16 @@ public class SecurityUserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/security-user/authorization",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<SecurityUser> authorization(@RequestBody SecurityUser securityUser) {
+        SecurityUser user = securityUserService.authorization(securityUser.getLogin(), securityUser.getPasswordHash());
+        if (user == null) {
+            return ResponseEntity.badRequest().body(null);
+        } else {
+            return ResponseEntity.ok(user);
+        }
+    }
 }

@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface SecurityAppRepository extends MyJpaRepository<SecurityApp,Long> {
 
+    SecurityApp findByAppKey(String appKey);
 }

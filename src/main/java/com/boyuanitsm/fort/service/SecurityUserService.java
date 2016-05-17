@@ -1,12 +1,16 @@
 package com.boyuanitsm.fort.service;
 
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityUser;
+import com.boyuanitsm.fort.repository.SecurityAppRepository;
 import com.boyuanitsm.fort.repository.SecurityUserRepository;
 import com.boyuanitsm.fort.repository.search.SecurityUserSearchRepository;
+import com.boyuanitsm.fort.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +31,16 @@ public class SecurityUserService {
     private final Logger log = LoggerFactory.getLogger(SecurityUserService.class);
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
     private SecurityUserRepository securityUserRepository;
 
     @Inject
     private SecurityUserSearchRepository securityUserSearchRepository;
+
+    @Inject
+    private SecurityAppRepository securityAppRepository;
 
     /**
      * Save a securityUser.
@@ -40,6 +50,11 @@ public class SecurityUserService {
      */
     public SecurityUser save(SecurityUser securityUser) {
         log.debug("Request to save SecurityUser : {}", securityUser);
+
+        // encode password
+        String passwordHash = securityUser.getPasswordHash();
+        securityUser.setPasswordHash(passwordEncoder.encode(passwordHash));
+
         SecurityUser result = securityUserRepository.save(securityUser);
         securityUserSearchRepository.save(result);
         return result;
@@ -92,5 +107,20 @@ public class SecurityUserService {
     public Page<SecurityUser> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityUsers for query {}", query);
         return securityUserSearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    public SecurityUser authorization(String login, String password) {
+        SecurityApp app = securityAppRepository.findByAppKey(SecurityUtils.getCurrentUserLogin());
+        SecurityUser user = securityUserRepository.findByLoginAndApp(login, app);
+
+        if (user == null) {
+            return null;
+        }
+
+        if (passwordEncoder.matches(password, user.getPasswordHash())){
+            return user;
+        }
+
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.repository;
 
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityUser;
 
 import org.springframework.data.jpa.repository.*;
@@ -19,4 +20,5 @@ public interface SecurityUserRepository extends MyJpaRepository<SecurityUser,Lon
     @Query("select securityUser from SecurityUser securityUser left join fetch securityUser.roles left join fetch securityUser.groups where securityUser.id =:id")
     SecurityUser findOneWithEagerRelationships(@Param("id") Long id);
 
+    SecurityUser findByLoginAndApp(String login, SecurityApp app);
 }
