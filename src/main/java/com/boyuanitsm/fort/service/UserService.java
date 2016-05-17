@@ -6,6 +6,7 @@ import com.boyuanitsm.fort.repository.AuthorityRepository;
 import com.boyuanitsm.fort.repository.PersistentTokenRepository;
 import com.boyuanitsm.fort.repository.UserRepository;
 import com.boyuanitsm.fort.repository.search.UserSearchRepository;
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import com.boyuanitsm.fort.service.util.RandomUtil;
 import com.boyuanitsm.fort.web.rest.dto.ManagedUserDTO;
@@ -94,7 +95,7 @@ public class UserService {
         String langKey) {
 
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
@@ -125,7 +126,7 @@ public class UserService {
      */
     public User createSecurityAppUser(String appKey, String appSecret) {
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_SECURITY_APP");
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.SECURITY_APP);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(appSecret);
         newUser.setLogin(appKey);
