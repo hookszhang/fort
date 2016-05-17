@@ -79,7 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf()
             .ignoringAntMatchers("/websocket/**")
         .and()
-            .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
+            // .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
             .exceptionHandling()
             .accessDeniedHandler(new CustomAccessDeniedHandler())
             .authenticationEntryPoint(authenticationEntryPoint)
@@ -122,7 +122,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/configuration/ui").permitAll()
             .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**").authenticated() ;
-
+        http.csrf().disable();
     }
 
     @Bean
