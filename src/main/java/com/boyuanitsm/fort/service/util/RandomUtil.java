@@ -49,7 +49,7 @@ public final class RandomUtil {
      * @return the generated app key
      */
     public static String generateAppKey() {
-        return RandomStringUtils.randomAlphanumeric(APP_KEY_COUNT);
+        return RandomStringUtils.randomAlphanumeric(APP_KEY_COUNT).toLowerCase();
     }
 
     /**
@@ -58,6 +58,6 @@ public final class RandomUtil {
      * @return the generated app secret
      */
     public static String generateAppSecret() {
-        return RandomStringUtils.randomAlphanumeric(APP_SECRET_COUNT);
+        return RandomStringUtils.randomAlphanumeric(APP_SECRET_COUNT).toLowerCase();
     }
 }
