@@ -36,4 +36,53 @@
     <cache name="com.boyuanitsm.fort.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
-    </ehcache>
+
+    <cache name="com.boyuanitsm.fort.domain.SecurityApp"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityResourceEntity"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityResourceEntity.authorities"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityNav"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityAuthority"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityAuthority.resources"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityAuthority.roles"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityRole"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityRole.users"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityRole.authorities"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityUser"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityUser.groups"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityUser.roles"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityGroup"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityLoginEvent"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="com.boyuanitsm.fort.domain.SecurityGroup.users"
+           timeToLiveSeconds="3600">
+    </cache>
+</ehcache>
