@@ -28,7 +28,7 @@ public class SecurityUser extends AbstractAuditingEntity implements Serializable
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "login", length = 50, nullable = false)
+    @Column(name = "login", length = 50, nullable = false, updatable = false)
     private String login;
 
     @NotNull

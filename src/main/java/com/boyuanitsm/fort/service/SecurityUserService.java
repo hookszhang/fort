@@ -109,8 +109,17 @@ public class SecurityUserService {
         return securityUserSearchRepository.search(queryStringQuery(query), pageable);
     }
 
+    /**
+     * Is authorization access app server
+     *
+     * @param login security user login
+     * @param password security user password
+     * @return if authorization success return SecurityUser else return null
+     */
     public SecurityUser authorization(String login, String password) {
+        // get current logged appKey
         SecurityApp app = securityAppRepository.findByAppKey(SecurityUtils.getCurrentUserLogin());
+        // get user
         SecurityUser user = securityUserRepository.findByLoginAndApp(login, app);
 
         if (user == null) {
