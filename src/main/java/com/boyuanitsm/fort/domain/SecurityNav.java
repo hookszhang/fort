@@ -39,12 +39,10 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
     @Column(name = "st", length = 60)
     private String st;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private SecurityNav parent;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private SecurityResourceEntity resource;
 
     public Long getId() {

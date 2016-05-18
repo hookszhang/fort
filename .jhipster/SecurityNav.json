@@ -2,21 +2,17 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipType": "one-to-one",
+      "relationshipType": "many-to-one",
       "relationshipName": "parent",
       "otherEntityName": "securityNav",
-      "otherEntityField": "id",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "securityNav"
+      "otherEntityField": "id"
     },
     {
       "relationshipId": 2,
-      "relationshipType": "one-to-one",
+      "relationshipType": "many-to-one",
       "relationshipName": "resource",
       "otherEntityName": "securityResourceEntity",
-      "otherEntityField": "id",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "securityNav"
+      "otherEntityField": "id"
     }
   ],
   "fields": [

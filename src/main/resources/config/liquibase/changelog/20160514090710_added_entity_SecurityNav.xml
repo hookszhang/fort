@@ -36,10 +36,13 @@
             <column name="st" type="varchar(60)">
                 <constraints nullable="true" />
             </column>
-                        <column name="parent_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>            <column name="resource_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+
+            <column name="parent_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="resource_id" type="bigint">
+                <constraints nullable="true" />
             </column>
 
             <column name="created_by" type="varchar(50)">

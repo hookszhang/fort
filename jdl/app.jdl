@@ -32,11 +32,11 @@ entity SecurityNav {
     st String maxlength(60)
 }
 
-relationship OneToOne {
+relationship ManyToOne {
     SecurityNav{parent} to SecurityNav
 }
 
-relationship OneToOne {
+relationship ManyToOne {
     SecurityNav{resource} to SecurityResourceEntity
 }
 
