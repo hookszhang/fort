@@ -1,15 +1,18 @@
 package com.boyuanitsm.fort.repository;
 
+import com.boyuanitsm.fort.domain.SecurityNav;
 import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.security.access.method.P;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +73,14 @@ public class SimpleMyJpaRepository<T, ID extends Serializable> extends SimpleJpa
     private Page<T> findOwnAllRoleSecurityApp(Pageable var1) {
         String appKey = SecurityUtils.getCurrentUserLogin();
         return this.findAll((root, query, cb) -> {
-            Path<String> appPath = root.get("app").get("appKey");
+            Path<String> appPath;
+            if (root.getJavaType().equals(SecurityNav.class)) {
+                appPath = root.get("resource").get("app").get("appKey");
+            } else {
+                appPath = root.get("app").get("appKey");
+            }
             List<Predicate> predicates = new ArrayList<>();
-            predicates.add(cb.equal(cb.lower(appPath), appKey));
+            predicates.add(cb.equal(appPath, appKey));
             query.where(predicates.toArray(new Predicate[predicates.size()]));
             return query.getRestriction();
         }, var1);
