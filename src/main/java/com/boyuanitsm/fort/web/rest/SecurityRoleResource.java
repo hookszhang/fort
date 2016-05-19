@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.web.rest;
 
+import com.boyuanitsm.fort.security.SecurityUtils;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityRole;
 import com.boyuanitsm.fort.service.SecurityRoleService;
@@ -34,10 +35,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityRoleResource {
 
     private final Logger log = LoggerFactory.getLogger(SecurityRoleResource.class);
-        
+
     @Inject
     private SecurityRoleService securityRoleService;
-    
+
     /**
      * POST  /security-roles : Create a new securityRole.
      *
@@ -98,7 +99,7 @@ public class SecurityRoleResource {
     public ResponseEntity<List<SecurityRole>> getAllSecurityRoles(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityRoles");
-        Page<SecurityRole> page = securityRoleService.findAll(pageable); 
+        Page<SecurityRole> page = securityRoleService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-roles");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -158,4 +159,19 @@ public class SecurityRoleResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * Find all this app roles with eager relationships.
+     * Role ROLE_SECURITY_APP dedicated.
+     *
+     * @return the result of the find
+     */
+    @RequestMapping(value = "/sa/security-roles",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<SecurityRole>> findAllWithEagerRelationships() {
+        String appKey = SecurityUtils.getCurrentUserLogin();
+        List<SecurityRole> roles = securityRoleService.findAllByAppKeyWithEagerRelationships(appKey);
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
 }

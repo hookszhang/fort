@@ -93,4 +93,15 @@ public class SecurityRoleService {
         log.debug("Request to search for a page of SecurityRoles for query {}", query);
         return securityRoleSearchRepository.search(queryStringQuery(query), pageable);
     }
+
+    /**
+     * Find this app all roles with eager relationships.
+     *
+     * @param appKey the appKey of the SecurityApp
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<SecurityRole> findAllByAppKeyWithEagerRelationships(String appKey) {
+        return securityRoleRepository.findAllByAppKeyWithEagerRelationships(appKey);
+    }
 }

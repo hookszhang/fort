@@ -163,7 +163,7 @@ public class SecurityAuthorityResource {
      * Find all this app authorities with eager relationships.
      * Role ROLE_SECURITY_APP dedicated.
      *
-     * @return the result of the search
+     * @return the result of the find
      */
     @RequestMapping(value = "/sa/security-authorities",
         method = RequestMethod.GET,
