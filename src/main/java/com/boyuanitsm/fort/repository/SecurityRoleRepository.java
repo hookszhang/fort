@@ -21,5 +21,5 @@ public interface SecurityRoleRepository extends MyJpaRepository<SecurityRole,Lon
     SecurityRole findOneWithEagerRelationships(@Param("id") Long id);
 
     @Query("select distinct securityRole from SecurityRole securityRole left join fetch securityRole.authorities where securityRole.app.appKey =:appKey")
-    List<SecurityRole> findAllByAppKeyWithEagerRelationships(@Param("id") String appKey);
+    List<SecurityRole> findAllByAppKeyWithEagerRelationships(@Param("appKey") String appKey);
 }
