@@ -116,17 +116,18 @@ public class SecurityUserService {
      * @param password security user password
      * @return if authorization success return SecurityUser else return null
      */
+    @Transactional
     public SecurityUser authorization(String login, String password) {
         // get current logged appKey
         SecurityApp app = securityAppRepository.findByAppKey(SecurityUtils.getCurrentUserLogin());
         // get user
         SecurityUser user = securityUserRepository.findByLoginAndApp(login, app);
-
         if (user == null) {
             return null;
         }
 
         if (passwordEncoder.matches(password, user.getPasswordHash())){
+            user = securityUserRepository.findOneWithEagerRelationships(user.getId());
             return user;
         }
 
