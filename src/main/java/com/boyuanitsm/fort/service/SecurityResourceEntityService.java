@@ -95,7 +95,19 @@ public class SecurityResourceEntityService {
         return securityResourceEntitySearchRepository.search(queryStringQuery(query), pageable);
     }
 
+    @Transactional(readOnly = true)
     public SecurityResourceEntity findByAppAndUrl(SecurityApp app, String url) {
         return securityResourceEntityRepository.findByAppAndUrl(app, url);
+    }
+
+    /**
+     * Find this app all resource entity with eager relationships.
+     *
+     * @param appKey the appKey of the SecurityApp
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<SecurityResourceEntity> findAllByAppKeyWithEagerRelationships(String appKey) {
+        return securityResourceEntityRepository.findAllByAppKeyWithEagerRelationships(appKey);
     }
 }

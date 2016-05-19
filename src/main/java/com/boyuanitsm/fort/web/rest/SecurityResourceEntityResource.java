@@ -1,5 +1,7 @@
 package com.boyuanitsm.fort.web.rest;
 
+import com.boyuanitsm.fort.config.JHipsterProperties;
+import com.boyuanitsm.fort.security.SecurityUtils;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.service.SecurityResourceEntityService;
@@ -163,4 +165,19 @@ public class SecurityResourceEntityResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * Find all this app resource entities with eager relationships.
+     * Role ROLE_SECURITY_APP dedicated.
+     *
+     * @return the result of the find
+     */
+    @RequestMapping(value = "/sa/security-resource-entities",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<SecurityResourceEntity>> findAllWithEagerRelationships() {
+        String appKey = SecurityUtils.getCurrentUserLogin();
+        List<SecurityResourceEntity> resourceEntities = securityResourceEntityService.findAllByAppKeyWithEagerRelationships(appKey);
+        return new ResponseEntity<>(resourceEntities, HttpStatus.OK);
+    }
 }
