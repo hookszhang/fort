@@ -93,4 +93,15 @@ public class SecurityAuthorityService {
         log.debug("Request to search for a page of SecurityAuthorities for query {}", query);
         return securityAuthoritySearchRepository.search(queryStringQuery(query), pageable);
     }
+
+    /**
+     * Find this app all authorities with eager relationships.
+     *
+     * @param appKey the appKey of the SecurityApp
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<SecurityAuthority> findAllByAppKeyWithEagerRelationships(String appKey) {
+        return securityAuthorityRepository.findAllByAppKeyWithEagerRelationships(appKey);
+    }
 }

@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.web.rest;
 
+import com.boyuanitsm.fort.security.SecurityUtils;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityAuthority;
 import com.boyuanitsm.fort.service.SecurityAuthorityService;
@@ -34,10 +35,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityAuthorityResource {
 
     private final Logger log = LoggerFactory.getLogger(SecurityAuthorityResource.class);
-        
+
     @Inject
     private SecurityAuthorityService securityAuthorityService;
-    
+
     /**
      * POST  /security-authorities : Create a new securityAuthority.
      *
@@ -98,7 +99,7 @@ public class SecurityAuthorityResource {
     public ResponseEntity<List<SecurityAuthority>> getAllSecurityAuthorities(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityAuthorities");
-        Page<SecurityAuthority> page = securityAuthorityService.findAll(pageable); 
+        Page<SecurityAuthority> page = securityAuthorityService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-authorities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -158,4 +159,19 @@ public class SecurityAuthorityResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * Find all this app authorities with eager relationships.
+     * Role ROLE_SECURITY_APP dedicated.
+     *
+     * @return the result of the search
+     */
+    @RequestMapping(value = "/sa/security-authorities",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<SecurityAuthority>> findAllWithEagerRelationships() {
+        String appKey = SecurityUtils.getCurrentUserLogin();
+        List<SecurityAuthority> authorities = securityAuthorityService.findAllByAppKeyWithEagerRelationships(appKey);
+        return new ResponseEntity<>(authorities, HttpStatus.OK);
+    }
 }
