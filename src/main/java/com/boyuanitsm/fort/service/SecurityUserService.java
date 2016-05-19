@@ -128,6 +128,9 @@ public class SecurityUserService {
 
         if (passwordEncoder.matches(password, user.getPasswordHash())){
             user = securityUserRepository.findOneWithEagerRelationships(user.getId());
+            // hide sensitive info
+            user.setApp(null);
+            user.setPasswordHash("[protect]");
             return user;
         }
 
