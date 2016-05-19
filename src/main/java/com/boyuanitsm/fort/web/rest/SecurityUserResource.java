@@ -165,7 +165,7 @@ public class SecurityUserResource {
     public ResponseEntity<SecurityUser> authorization(@RequestBody SecurityUser securityUser) {
         SecurityUser user = securityUserService.authorization(securityUser.getLogin(), securityUser.getPasswordHash());
         if (user == null) {
-            return ResponseEntity.badRequest().body(null);
+            return new ResponseEntity<SecurityUser>(HttpStatus.UNAUTHORIZED);
         } else {
             return ResponseEntity.ok(user);
         }
