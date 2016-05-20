@@ -167,6 +167,9 @@ public class SecurityUserResource {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } else {
+            // hide sensitive info
+            user.setApp(null);
+            user.setPasswordHash("[protect]");
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
     }
