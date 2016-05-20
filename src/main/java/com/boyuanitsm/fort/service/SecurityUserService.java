@@ -5,6 +5,7 @@ import com.boyuanitsm.fort.domain.SecurityUser;
 import com.boyuanitsm.fort.repository.SecurityAppRepository;
 import com.boyuanitsm.fort.repository.SecurityUserRepository;
 import com.boyuanitsm.fort.repository.search.SecurityUserSearchRepository;
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -50,6 +48,13 @@ public class SecurityUserService {
      */
     public SecurityUser save(SecurityUser securityUser) {
         log.debug("Request to save SecurityUser : {}", securityUser);
+
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SECURITY_APP)) {
+            // set app
+            String appKey = SecurityUtils.getCurrentUserLogin();
+            SecurityApp app = securityAppRepository.findByAppKey(appKey);
+            securityUser.setApp(app);
+        }
 
         // encode password
         String passwordHash = securityUser.getPasswordHash();
@@ -116,7 +121,7 @@ public class SecurityUserService {
      * @param password security user password
      * @return if authorization success return SecurityUser else return null
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public SecurityUser authorization(String login, String password) {
         // get current logged appKey
         SecurityApp app = securityAppRepository.findByAppKey(SecurityUtils.getCurrentUserLogin());
@@ -128,9 +133,6 @@ public class SecurityUserService {
 
         if (passwordEncoder.matches(password, user.getPasswordHash())){
             user = securityUserRepository.findOneWithEagerRelationships(user.getId());
-            // hide sensitive info
-            user.setApp(null);
-            user.setPasswordHash("[protect]");
             return user;
         }
 
