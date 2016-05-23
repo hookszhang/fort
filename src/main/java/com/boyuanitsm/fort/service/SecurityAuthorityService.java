@@ -87,10 +87,12 @@ public class SecurityAuthorityService {
      */
     public void delete(Long id) {
         log.debug("Request to delete SecurityAuthority : {}", id);
+        String appKey = securityAuthorityRepository.getOne(id).getApp().getAppKey();
+
         securityAuthorityRepository.delete(id);
         securityAuthoritySearchRepository.delete(id);
 
-        updateService.send(DELETE, SECURITY_AUTHORITY, new SecurityAuthority(id));
+        updateService.send(DELETE, SECURITY_AUTHORITY, new SecurityAuthority(id, appKey));
     }
 
     /**

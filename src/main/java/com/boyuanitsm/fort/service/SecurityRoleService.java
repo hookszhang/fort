@@ -88,10 +88,12 @@ public class SecurityRoleService {
      */
     public void delete(Long id) {
         log.debug("Request to delete SecurityRole : {}", id);
+        String appKey = securityRoleRepository.getOne(id).getApp().getAppKey();
+
         securityRoleRepository.delete(id);
         securityRoleSearchRepository.delete(id);
 
-        updateService.send(DELETE, SECURITY_ROLE, new SecurityRole(id));
+        updateService.send(DELETE, SECURITY_ROLE, new SecurityRole(id, appKey));
     }
 
     /**

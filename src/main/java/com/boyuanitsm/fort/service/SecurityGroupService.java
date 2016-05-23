@@ -87,10 +87,12 @@ public class SecurityGroupService {
      */
     public void delete(Long id) {
         log.debug("Request to delete SecurityGroup : {}", id);
+        String appKey = securityGroupRepository.getOne(id).getApp().getAppKey();
+
         securityGroupRepository.delete(id);
         securityGroupSearchRepository.delete(id);
 
-        updateService.send(DELETE, SECURITY_GROUP, new SecurityGroup(id));
+        updateService.send(DELETE, SECURITY_GROUP, new SecurityGroup(id, appKey));
     }
 
     /**

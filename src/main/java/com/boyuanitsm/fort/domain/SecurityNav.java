@@ -23,8 +23,12 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
     public SecurityNav() {
     }
 
-    public SecurityNav(Long id) {
+    public SecurityNav(Long id, String appKey) {
         this.id = id;
+        this.resource = new SecurityResourceEntity();
+        SecurityApp app = new SecurityApp();
+        app.setAppKey(appKey);
+        this.resource.setApp(app);
     }
 
     @Id

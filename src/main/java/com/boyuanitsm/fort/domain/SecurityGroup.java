@@ -50,8 +50,10 @@ public class SecurityGroup extends AbstractAuditingEntity implements Serializabl
     public SecurityGroup() {
     }
 
-    public SecurityGroup(Long id) {
+    public SecurityGroup(Long id, String appKey) {
         this.id = id;
+        this.app = new SecurityApp();
+        app.setAppKey(appKey);
     }
 
     public Long getId() {

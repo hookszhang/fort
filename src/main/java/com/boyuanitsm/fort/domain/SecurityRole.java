@@ -57,8 +57,10 @@ public class SecurityRole extends AbstractAuditingEntity implements Serializable
     public SecurityRole() {
     }
 
-    public SecurityRole(Long id) {
+    public SecurityRole(Long id, String appKey) {
         this.id = id;
+        this.app = new SecurityApp();
+        app.setAppKey(appKey);
     }
 
     public Long getId() {

@@ -88,10 +88,12 @@ public class SecurityNavService {
      */
     public void delete(Long id) {
         log.debug("Request to delete SecurityNav : {}", id);
+        String appKey = securityNavRepository.getOne(id).getResource().getApp().getAppKey();
+
         securityNavRepository.delete(id);
         securityNavSearchRepository.delete(id);
 
-        updateService.send(DELETE, SECURITY_NAV, new SecurityNav(id));
+        updateService.send(DELETE, SECURITY_NAV, new SecurityNav(id, appKey));
     }
 
     /**

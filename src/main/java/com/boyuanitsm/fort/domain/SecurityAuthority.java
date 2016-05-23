@@ -57,8 +57,10 @@ public class SecurityAuthority extends AbstractAuditingEntity implements Seriali
     public SecurityAuthority() {
     }
 
-    public SecurityAuthority(Long id) {
+    public SecurityAuthority(Long id, String appKey) {
         this.id = id;
+        this.app = new SecurityApp();
+        app.setAppKey(appKey);
     }
 
     public Long getId() {
