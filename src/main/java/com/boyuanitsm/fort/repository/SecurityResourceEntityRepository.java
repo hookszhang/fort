@@ -16,5 +16,8 @@ public interface SecurityResourceEntityRepository extends MyJpaRepository<Securi
     @Query("select distinct securityResourceEntity from SecurityResourceEntity securityResourceEntity left join fetch securityResourceEntity.authorities where securityResourceEntity.app.appKey =:appKey")
     List<SecurityResourceEntity> findAllByAppKeyWithEagerRelationships(@Param("appKey") String appKey);
 
+    @Query("select distinct securityResourceEntity from SecurityResourceEntity securityResourceEntity left join fetch securityResourceEntity.authorities where securityResourceEntity.id =:id")
+    SecurityResourceEntity findOneWithEagerRelationships(@Param("id") Long id);
+
     SecurityResourceEntity findByAppAndUrl(SecurityApp app, String url);
 }

@@ -24,6 +24,14 @@ public class SecurityResourceEntity extends AbstractAuditingEntity implements Se
 
     private static final long serialVersionUID = 1L;
 
+    public SecurityResourceEntity() {
+    }
+
+    public SecurityResourceEntity(Long id) {
+        this.id = id;
+    }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
