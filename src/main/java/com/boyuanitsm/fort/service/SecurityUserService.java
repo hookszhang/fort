@@ -133,6 +133,7 @@ public class SecurityUserService {
 
         if (passwordEncoder.matches(password, user.getPasswordHash())){
             user = securityUserRepository.findOneWithEagerRelationships(user.getId());
+            // add login event
             return user;
         }
 

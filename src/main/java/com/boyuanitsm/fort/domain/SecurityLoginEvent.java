@@ -1,14 +1,18 @@
 package com.boyuanitsm.fort.domain;
 
+import com.boyuanitsm.fort.config.Constants;
+import com.boyuanitsm.fort.domain.util.RandomUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
+import sun.misc.BASE64Encoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * A SecurityLoginEvent.
@@ -20,6 +24,21 @@ import java.util.Objects;
 public class SecurityLoginEvent extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public SecurityLoginEvent(SecurityUser user, String ipAddress, String userAgent) {
+        this.user = user;
+        this.ipAddress = ipAddress;
+        this.userAgent = userAgent;
+        this.tokenValue = RandomUtils.generateToken(Constants.SECURITY_TOKEN_LENGTH);
+    }
+
+    private String generateTokenData() {
+        byte[] newToken = new byte[30];
+        Random random = new Random();
+        random.nextBytes(newToken);
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(newToken);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -98,7 +117,7 @@ public class SecurityLoginEvent extends AbstractAuditingEntity implements Serial
             return false;
         }
         SecurityLoginEvent securityLoginEvent = (SecurityLoginEvent) o;
-        if(securityLoginEvent.id == null || id == null) {
+        if (securityLoginEvent.id == null || id == null) {
             return false;
         }
         return Objects.equals(id, securityLoginEvent.id);

@@ -26,6 +26,8 @@ public final class Constants {
      */
     public static final String ON_UPDATE_SECURITY_RESOURCE_SEND = "/topic/%s/onUpdateSecurityResource";
 
+    public static final int SECURITY_TOKEN_LENGTH = 24;
+
     private Constants() {
     }
 }
