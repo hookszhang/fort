@@ -47,6 +47,13 @@ public class SecurityGroup extends AbstractAuditingEntity implements Serializabl
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SecurityUser> users = new HashSet<>();
 
+    public SecurityGroup() {
+    }
+
+    public SecurityGroup(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
