@@ -60,7 +60,7 @@ public class SecurityResourceUpdateService {
             }
         } else if (SECURITY_NAV.equals(resourceClass)) {// update nav
             SecurityNav nav = (SecurityNav) data;
-            appKey = nav.getResource().getApp().getAppKey();
+            appKey = nav.getApp().getAppKey();
         } else if (SECURITY_AUTHORITY.equals(resourceClass)) {// update authority
             SecurityAuthority authority = (SecurityAuthority) data;
             appKey = authority.getApp().getAppKey();

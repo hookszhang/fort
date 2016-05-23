@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.service;
 
+import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityNav;
 import com.boyuanitsm.fort.repository.SecurityNavRepository;
 import com.boyuanitsm.fort.repository.search.SecurityNavSearchRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_NAV;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -29,6 +32,9 @@ public class SecurityNavService {
     @Inject
     private SecurityNavSearchRepository securityNavSearchRepository;
 
+    @Inject
+    private SecurityResourceUpdateService updateService;
+
     /**
      * Save a securityNav.
      *
@@ -37,8 +43,13 @@ public class SecurityNavService {
      */
     public SecurityNav save(SecurityNav securityNav) {
         log.debug("Request to save SecurityNav : {}", securityNav);
+
+        OnUpdateSecurityResourceOption option = securityNav.getId() == null ? POST : PUT;
+
         SecurityNav result = securityNavRepository.save(securityNav);
         securityNavSearchRepository.save(result);
+
+        updateService.send(option, SECURITY_NAV, result);
         return result;
     }
 
@@ -51,7 +62,7 @@ public class SecurityNavService {
     @Transactional(readOnly = true)
     public Page<SecurityNav> findAll(Pageable pageable) {
         log.debug("Request to get all SecurityNavs");
-        Page<SecurityNav> result = securityNavRepository.findAll(pageable);
+        Page<SecurityNav> result = securityNavRepository.findOwnAll(pageable);
         return result;
     }
 
@@ -75,8 +86,13 @@ public class SecurityNavService {
      */
     public void delete(Long id) {
         log.debug("Request to delete SecurityNav : {}", id);
+
+        String appKey = securityNavRepository.getOne(id).getApp().getAppKey();
+
         securityNavRepository.delete(id);
         securityNavSearchRepository.delete(id);
+
+        updateService.send(DELETE, SECURITY_NAV, new SecurityNav(id, appKey));
     }
 
     /**

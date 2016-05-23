@@ -48,6 +48,15 @@ public class SecurityNav implements Serializable {
     @ManyToOne
     private SecurityApp app;
 
+    public SecurityNav() {
+    }
+
+    public SecurityNav(Long id, String appKey) {
+        this.id = id;
+        this.app = new SecurityApp();
+        app.setAppKey(appKey);
+    }
+
     public Long getId() {
         return id;
     }
