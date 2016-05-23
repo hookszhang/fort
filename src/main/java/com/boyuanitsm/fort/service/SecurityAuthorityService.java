@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.service;
 
+import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityAuthority;
 import com.boyuanitsm.fort.repository.SecurityAuthorityRepository;
 import com.boyuanitsm.fort.repository.search.SecurityAuthoritySearchRepository;
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_AUTHORITY;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -32,6 +33,9 @@ public class SecurityAuthorityService {
     @Inject
     private SecurityAuthoritySearchRepository securityAuthoritySearchRepository;
 
+    @Inject
+    private SecurityResourceUpdateService updateService;
+
     /**
      * Save a securityAuthority.
      *
@@ -40,16 +44,21 @@ public class SecurityAuthorityService {
      */
     public SecurityAuthority save(SecurityAuthority securityAuthority) {
         log.debug("Request to save SecurityAuthority : {}", securityAuthority);
+
+        OnUpdateSecurityResourceOption option = securityAuthority == null ? POST : PUT;
+
         SecurityAuthority result = securityAuthorityRepository.save(securityAuthority);
         securityAuthoritySearchRepository.save(result);
+
+        updateService.send(option, SECURITY_AUTHORITY, result);
         return result;
     }
 
     /**
-     *  Get all the securityAuthorities.
+     * Get all the securityAuthorities.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<SecurityAuthority> findAll(Pageable pageable) {
@@ -59,10 +68,10 @@ public class SecurityAuthorityService {
     }
 
     /**
-     *  Get one securityAuthority by id.
+     * Get one securityAuthority by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Transactional(readOnly = true)
     public SecurityAuthority findOne(Long id) {
@@ -72,21 +81,23 @@ public class SecurityAuthorityService {
     }
 
     /**
-     *  Delete the  securityAuthority by id.
+     * Delete the  securityAuthority by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete SecurityAuthority : {}", id);
         securityAuthorityRepository.delete(id);
         securityAuthoritySearchRepository.delete(id);
+
+        updateService.send(DELETE, SECURITY_AUTHORITY, new SecurityAuthority(id));
     }
 
     /**
      * Search for the securityAuthority corresponding to the query.
      *
-     *  @param query the query of the search
-     *  @return the list of entities
+     * @param query the query of the search
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<SecurityAuthority> search(String query, Pageable pageable) {

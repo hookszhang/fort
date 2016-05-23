@@ -54,6 +54,13 @@ public class SecurityAuthority extends AbstractAuditingEntity implements Seriali
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SecurityRole> roles = new HashSet<>();
 
+    public SecurityAuthority() {
+    }
+
+    public SecurityAuthority(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
