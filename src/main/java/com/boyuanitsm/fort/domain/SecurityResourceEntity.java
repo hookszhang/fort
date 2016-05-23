@@ -27,8 +27,10 @@ public class SecurityResourceEntity extends AbstractAuditingEntity implements Se
     public SecurityResourceEntity() {
     }
 
-    public SecurityResourceEntity(Long id) {
+    public SecurityResourceEntity(Long id, String appKey) {
         this.id = id;
+        this.app = new SecurityApp();
+        this.app.setAppKey(appKey);
     }
 
 

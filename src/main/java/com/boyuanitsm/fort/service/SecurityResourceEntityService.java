@@ -88,10 +88,12 @@ public class SecurityResourceEntityService {
      */
     public void delete(Long id) {
         log.debug("Request to delete SecurityResourceEntity : {}", id);
+        String appKey = securityResourceEntityRepository.getOne(id).getApp().getAppKey();
+
         securityResourceEntityRepository.delete(id);
         securityResourceEntitySearchRepository.delete(id);
 
-        updateService.send(DELETE, SECURITY_RESOURCE_ENTITY, new SecurityResourceEntity(id));
+        updateService.send(DELETE, SECURITY_RESOURCE_ENTITY, new SecurityResourceEntity(id, appKey));
     }
 
     /**

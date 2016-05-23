@@ -1,7 +1,7 @@
 package com.boyuanitsm.fort.bean.enumeration;
 
 /**
- * Update resource class. OnUpdateSecurityResource.resourceClass.
+ * Update resource class. OnUpdateSecurityResource
  *
  * @author zhanghua on 5/23/16.
  */

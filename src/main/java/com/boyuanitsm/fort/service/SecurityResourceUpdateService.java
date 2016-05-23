@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.*;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.DELETE;
 
 /**
  * Security resource update service. on update security resource, send web socket stomp message.
@@ -53,24 +54,30 @@ public class SecurityResourceUpdateService {
         if (SECURITY_RESOURCE_ENTITY.equals(resourceClass)) {// update resource entity
             SecurityResourceEntity resourceEntity = (SecurityResourceEntity) data;
             appKey = resourceEntity.getApp().getAppKey();
-            // find eager relationships
-            data = securityResourceEntityRepository.findOneWithEagerRelationships(resourceEntity.getId());
+            if (!DELETE.equals(option)) {
+                // find eager relationships
+                data = securityResourceEntityRepository.findOneWithEagerRelationships(resourceEntity.getId());
+            }
         } else if (SECURITY_NAV.equals(resourceClass)) {// update nav
             SecurityNav nav = (SecurityNav) data;
             appKey = nav.getResource().getApp().getAppKey();
         } else if (SECURITY_AUTHORITY.equals(resourceClass)) {// update authority
             SecurityAuthority authority = (SecurityAuthority) data;
             appKey = authority.getApp().getAppKey();
-            // find eager relationships
-            data = securityAuthorityRepository.findOneWithEagerRelationships(authority.getId());
+            if (!DELETE.equals(option)) {
+                // find eager relationships
+                data = securityAuthorityRepository.findOneWithEagerRelationships(authority.getId());
+            }
         } else if (SECURITY_GROUP.equals(resourceClass)) {// update group
             SecurityGroup group = (SecurityGroup) data;
             appKey = group.getApp().getAppKey();
         } else if (SECURITY_ROLE.equals(resourceClass)) {// update role
             SecurityRole role = (SecurityRole) data;
             appKey = role.getApp().getAppKey();
-            // find eager relationships
-            data = securityRoleRepository.findOneWithEagerRelationships(role.getId());
+            if (!DELETE.equals(option)) {
+                // find eager relationships
+                data = securityRoleRepository.findOneWithEagerRelationships(role.getId());
+            }
         } else {
             // warning: we don't have this resource class
             log.warn("We don't have this resource class: {}", resourceClass);
