@@ -40,6 +40,10 @@ relationship ManyToOne {
     SecurityNav{resource} to SecurityResourceEntity
 }
 
+relationship ManyToOne {
+    SecurityNav{app} to SecurityApp
+}
+
 entity SecurityAuthority {
     name String required maxlength(50),
     description String,

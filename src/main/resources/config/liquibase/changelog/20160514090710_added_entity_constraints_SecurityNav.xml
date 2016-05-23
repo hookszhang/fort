@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="security_resource_entity"/>
 
+        <addForeignKeyConstraint baseColumnNames="app_id"
+                                 baseTableName="security_nav"
+                                 constraintName="fk_securitynav_app_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_app"/>
+
     </changeSet>
 </databaseChangeLog>

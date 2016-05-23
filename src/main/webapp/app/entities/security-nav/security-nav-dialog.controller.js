@@ -5,13 +5,14 @@
         .module('fortApp')
         .controller('SecurityNavDialogController', SecurityNavDialogController);
 
-    SecurityNavDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'SecurityNav', 'SecurityResourceEntity'];
+    SecurityNavDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'SecurityNav', 'SecurityResourceEntity', 'SecurityApp'];
 
-    function SecurityNavDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityNav, SecurityResourceEntity) {
+    function SecurityNavDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityNav, SecurityResourceEntity, SecurityApp) {
         var vm = this;
         vm.securityNav = entity;
         vm.securitynavs = SecurityNav.query();
         vm.securityresourceentities = SecurityResourceEntity.query();
+        vm.securityapps = SecurityApp.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

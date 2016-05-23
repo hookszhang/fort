@@ -16,20 +16,9 @@ import java.util.Objects;
 @Table(name = "security_nav")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "securitynav")
-public class SecurityNav extends AbstractAuditingEntity implements Serializable {
+public class SecurityNav implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public SecurityNav() {
-    }
-
-    public SecurityNav(Long id, String appKey) {
-        this.id = id;
-        this.resource = new SecurityResourceEntity();
-        SecurityApp app = new SecurityApp();
-        app.setAppKey(appKey);
-        this.resource.setApp(app);
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,6 +44,9 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
 
     @ManyToOne
     private SecurityResourceEntity resource;
+
+    @ManyToOne
+    private SecurityApp app;
 
     public Long getId() {
         return id;
@@ -110,6 +102,14 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
 
     public void setResource(SecurityResourceEntity securityResourceEntity) {
         this.resource = securityResourceEntity;
+    }
+
+    public SecurityApp getApp() {
+        return app;
+    }
+
+    public void setApp(SecurityApp securityApp) {
+        this.app = securityApp;
     }
 
     @Override

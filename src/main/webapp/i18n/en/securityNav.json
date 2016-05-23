@@ -21,7 +21,8 @@
             "description": "Description",
             "st": "St",
             "parent": "Parent",
-            "resource": "Resource"
+            "resource": "Resource",
+            "app": "App"
         }
     }
 }

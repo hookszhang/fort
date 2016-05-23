@@ -13,6 +13,13 @@
       "relationshipName": "resource",
       "otherEntityName": "securityResourceEntity",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "many-to-one",
+      "relationshipName": "app",
+      "otherEntityName": "securityApp",
+      "otherEntityField": "id"
     }
   ],
   "fields": [
