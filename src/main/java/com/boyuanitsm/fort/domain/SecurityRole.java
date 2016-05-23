@@ -54,6 +54,13 @@ public class SecurityRole extends AbstractAuditingEntity implements Serializable
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SecurityUser> users = new HashSet<>();
 
+    public SecurityRole() {
+    }
+
+    public SecurityRole(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
