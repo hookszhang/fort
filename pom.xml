@@ -395,6 +395,11 @@
             <artifactId>metrics-spark-reporter</artifactId>
             <version>${metrics-spark-reporter.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.7</version>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
     <build>
@@ -792,7 +797,7 @@
                                 <configuration>
                                     <arguments>test --no-notification</arguments>
                                 </configuration>
-                            </execution>                            
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>

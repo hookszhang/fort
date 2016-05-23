@@ -21,7 +21,10 @@ public final class Constants {
 
     public static final String SYSTEM_ACCOUNT = "system";
 
-
+    /**
+     * String.format(ON_UPDATE_SECURITY_RESOURCE_SEND, appKey)
+     */
+    public static final String ON_UPDATE_SECURITY_RESOURCE_SEND = "/topic/%s/onUpdateSecurityResource";
 
     private Constants() {
     }

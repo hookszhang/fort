@@ -1,20 +1,28 @@
 package com.boyuanitsm.fort.service;
 
+import com.alibaba.fastjson.JSON;
+import com.boyuanitsm.fort.bean.OnUpdateSecurityResource;
+import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass;
+import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
+import com.boyuanitsm.fort.config.Constants;
 import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.repository.SecurityResourceEntityRepository;
 import com.boyuanitsm.fort.repository.search.SecurityResourceEntitySearchRepository;
+import com.fasterxml.jackson.core.JsonEncoding;
+import org.json.JSONObject;
+import org.json.JSONString;
+import org.json.JSONStringer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -33,6 +41,9 @@ public class SecurityResourceEntityService {
     @Inject
     private SecurityResourceEntitySearchRepository securityResourceEntitySearchRepository;
 
+    @Inject
+    private SimpMessageSendingOperations messagingTemplate;
+
     /**
      * Save a securityResourceEntity.
      *
@@ -41,8 +52,19 @@ public class SecurityResourceEntityService {
      */
     public SecurityResourceEntity save(SecurityResourceEntity securityResourceEntity) {
         log.debug("Request to save SecurityResourceEntity : {}", securityResourceEntity);
+
+        OnUpdateSecurityResourceOption option;
+        if (securityResourceEntity.getId() == null) {
+            option = OnUpdateSecurityResourceOption.POST;
+        } else {
+            option = OnUpdateSecurityResourceOption.PUT;
+        }
+
         SecurityResourceEntity result = securityResourceEntityRepository.save(securityResourceEntity);
         securityResourceEntitySearchRepository.save(result);
+
+        OnUpdateSecurityResource onUpdateSecurityResource = new OnUpdateSecurityResource(option, OnUpdateSecurityResourceClass.SECURITY_RESOURCE_ENTITY, result);
+        messagingTemplate.convertAndSend(String.format(Constants.ON_UPDATE_SECURITY_RESOURCE_SEND, result.getApp().getAppKey()), JSON.toJSONString(onUpdateSecurityResource));
         return result;
     }
 
