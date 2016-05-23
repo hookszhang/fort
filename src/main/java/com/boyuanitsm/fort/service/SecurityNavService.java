@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.service;
 
+import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityNav;
 import com.boyuanitsm.fort.repository.SecurityNavRepository;
 import com.boyuanitsm.fort.repository.search.SecurityNavSearchRepository;
@@ -11,10 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_NAV;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.DELETE;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.POST;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.PUT;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -32,6 +34,9 @@ public class SecurityNavService {
     @Inject
     private SecurityNavSearchRepository securityNavSearchRepository;
 
+    @Inject
+    private SecurityResourceUpdateService updateService;
+
     /**
      * Save a securityNav.
      *
@@ -40,8 +45,13 @@ public class SecurityNavService {
      */
     public SecurityNav save(SecurityNav securityNav) {
         log.debug("Request to save SecurityNav : {}", securityNav);
+
+        OnUpdateSecurityResourceOption option = securityNav.getId() == null ? POST: PUT;
+
         SecurityNav result = securityNavRepository.save(securityNav);
         securityNavSearchRepository.save(result);
+
+        updateService.send(option, SECURITY_NAV, result);
         return result;
     }
 
@@ -80,6 +90,8 @@ public class SecurityNavService {
         log.debug("Request to delete SecurityNav : {}", id);
         securityNavRepository.delete(id);
         securityNavSearchRepository.delete(id);
+
+        updateService.send(DELETE, SECURITY_NAV, new SecurityNav(id));
     }
 
     /**

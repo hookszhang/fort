@@ -20,6 +20,13 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
 
     private static final long serialVersionUID = 1L;
 
+    public SecurityNav() {
+    }
+
+    public SecurityNav(Long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
