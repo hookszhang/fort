@@ -55,13 +55,6 @@ public class SecurityUserService {
     public SecurityUser save(SecurityUser securityUser) {
         log.debug("Request to save SecurityUser : {}", securityUser);
 
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SECURITY_APP)) {
-            // set app
-            String appKey = SecurityUtils.getCurrentUserLogin();
-            SecurityApp app = securityAppRepository.findByAppKey(appKey);
-            securityUser.setApp(app);
-        }
-
         // encode password
         String passwordHash = securityUser.getPasswordHash();
         securityUser.setPasswordHash(passwordEncoder.encode(passwordHash));
@@ -131,7 +124,7 @@ public class SecurityUserService {
         SecurityApp app = securityAppRepository.findByAppKey(SecurityUtils.getCurrentUserLogin());
         // get user
         SecurityUser user = securityUserRepository.findByLoginAndApp(securityUserDTO.getLogin(), app);
-        if (user == null) {
+        if (user == null || !user.isActivated()) {
             return null;
         }
 
@@ -147,5 +140,9 @@ public class SecurityUserService {
         }
 
         return null;
+    }
+
+    public SecurityUser findByLoginAndApp(String login, SecurityApp app) {
+        return securityUserRepository.findByLoginAndApp(login, app);
     }
 }

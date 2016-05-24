@@ -112,4 +112,8 @@ public class SecurityAppService {
 //        QueryBuilder builder = filteredQuery(queryStringQuery(query), filter);
         return securityAppSearchRepository.search(queryStringQuery(query), pageable);
     }
+
+    public SecurityApp findByAppKey(String appKey) {
+        return securityAppRepository.findByAppKey(appKey);
+    }
 }

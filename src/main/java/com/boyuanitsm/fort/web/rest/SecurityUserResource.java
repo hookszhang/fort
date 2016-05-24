@@ -1,5 +1,9 @@
 package com.boyuanitsm.fort.web.rest;
 
+import com.boyuanitsm.fort.domain.SecurityApp;
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
+import com.boyuanitsm.fort.security.SecurityUtils;
+import com.boyuanitsm.fort.service.SecurityAppService;
 import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityUser;
@@ -39,6 +43,9 @@ public class SecurityUserResource {
     @Inject
     private SecurityUserService securityUserService;
 
+    @Inject
+    private SecurityAppService securityAppService;
+
     /**
      * POST  /security-users : Create a new securityUser.
      *
@@ -55,6 +62,20 @@ public class SecurityUserResource {
         if (securityUser.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityUser", "idexists", "A new securityUser cannot already have an ID")).body(null);
         }
+
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SECURITY_APP)) {
+            // set app
+            String appKey = SecurityUtils.getCurrentUserLogin();
+            SecurityApp app = securityAppService.findByAppKey(appKey);
+            securityUser.setApp(app);
+        }
+
+        // validate is unique
+        SecurityUser user = securityUserService.findByLoginAndApp(securityUser.getLogin(), securityUser.getApp());
+        if (user != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityUser", "username exists", "A new securityUser cannot already have an username")).body(null);
+        }
+
         SecurityUser result = securityUserService.save(securityUser);
         return ResponseEntity.created(new URI("/api/security-users/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("securityUser", result.getId().toString()))
