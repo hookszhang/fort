@@ -1,12 +1,15 @@
 package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.domain.SecurityApp;
+import com.boyuanitsm.fort.domain.SecurityLoginEvent;
 import com.boyuanitsm.fort.domain.SecurityUser;
 import com.boyuanitsm.fort.repository.SecurityAppRepository;
+import com.boyuanitsm.fort.repository.SecurityLoginEventRepository;
 import com.boyuanitsm.fort.repository.SecurityUserRepository;
 import com.boyuanitsm.fort.repository.search.SecurityUserSearchRepository;
 import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
+import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,6 +42,9 @@ public class SecurityUserService {
 
     @Inject
     private SecurityAppRepository securityAppRepository;
+
+    @Inject
+    private SecurityLoginEventRepository securityLoginEventRepository;
 
     /**
      * Save a securityUser.
@@ -117,24 +123,27 @@ public class SecurityUserService {
     /**
      * Is authorization access app server
      *
-     * @param login security user login
-     * @param password security user password
      * @return if authorization success return SecurityUser else return null
      */
-    @Transactional(readOnly = true)
-    public SecurityUser authorization(String login, String password) {
+    @Transactional
+    public SecurityUserDTO authorization(SecurityUserDTO securityUserDTO) {
         // get current logged appKey
         SecurityApp app = securityAppRepository.findByAppKey(SecurityUtils.getCurrentUserLogin());
         // get user
-        SecurityUser user = securityUserRepository.findByLoginAndApp(login, app);
+        SecurityUser user = securityUserRepository.findByLoginAndApp(securityUserDTO.getLogin(), app);
         if (user == null) {
             return null;
         }
 
-        if (passwordEncoder.matches(password, user.getPasswordHash())){
+        // validate password
+        if (passwordEncoder.matches(securityUserDTO.getPasswordHash(), user.getPasswordHash())){
             user = securityUserRepository.findOneWithEagerRelationships(user.getId());
+
             // add login event
-            return user;
+            SecurityLoginEvent event = new SecurityLoginEvent(user, securityUserDTO.getIpAddress(), securityUserDTO.getUserAgent());
+            securityLoginEventRepository.save(event);
+
+            return new SecurityUserDTO(user, event);
         }
 
         return null;

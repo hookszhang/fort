@@ -16,7 +16,7 @@ public final class RandomUtil {
     private static final int DEF_COUNT = 20;
     private static final int APP_KEY_COUNT = 12;
     private static final int APP_SECRET_COUNT = 12;
-    private static final int USER_TOKEN_COUNT = 24;
+    private static final int USER_TOKEN_COUNT = 32;
 
     private RandomUtil() {
     }

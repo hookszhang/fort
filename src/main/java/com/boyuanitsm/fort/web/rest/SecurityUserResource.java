@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.web.rest;
 
+import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityUser;
 import com.boyuanitsm.fort.service.SecurityUserService;
@@ -162,14 +163,11 @@ public class SecurityUserResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<SecurityUser> authorization(@RequestBody SecurityUser securityUser) {
-        SecurityUser user = securityUserService.authorization(securityUser.getLogin(), securityUser.getPasswordHash());
+    public ResponseEntity<SecurityUserDTO> authorization(@RequestBody SecurityUserDTO securityUserDTO) {
+        SecurityUserDTO user = securityUserService.authorization(securityUserDTO);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } else {
-            // hide sensitive info
-            user.setApp(null);
-            user.setPasswordHash("[protect]");
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
     }
