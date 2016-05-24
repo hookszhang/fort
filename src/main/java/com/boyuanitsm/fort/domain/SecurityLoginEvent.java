@@ -1,18 +1,18 @@
 package com.boyuanitsm.fort.domain;
 
 import com.boyuanitsm.fort.config.Constants;
-import com.boyuanitsm.fort.domain.util.RandomUtils;
+import com.boyuanitsm.fort.service.util.RandomUtil;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
-import sun.misc.BASE64Encoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * A SecurityLoginEvent.
@@ -24,21 +24,6 @@ import java.util.Random;
 public class SecurityLoginEvent extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public SecurityLoginEvent(SecurityUser user, String ipAddress, String userAgent) {
-        this.user = user;
-        this.ipAddress = ipAddress;
-        this.userAgent = userAgent;
-        this.tokenValue = RandomUtils.generateToken(Constants.SECURITY_TOKEN_LENGTH);
-    }
-
-    private String generateTokenData() {
-        byte[] newToken = new byte[30];
-        Random random = new Random();
-        random.nextBytes(newToken);
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encode(newToken);
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,6 +44,19 @@ public class SecurityLoginEvent extends AbstractAuditingEntity implements Serial
 
     @ManyToOne
     private SecurityUser user;
+
+    public SecurityLoginEvent() {
+    }
+
+    public SecurityLoginEvent(SecurityUser user, String ipAddress, String userAgent) {
+        this.user = user;
+        this.ipAddress = ipAddress;
+        this.userAgent = userAgent;
+        // generate token
+        this.tokenValue = RandomUtil.generateToken();
+        // set token overdue time, now + Constants.TOKEN_EXPIRY_DATE
+        this.tokenOverdueTime = ZonedDateTime.ofInstant(new Date(System.currentTimeMillis() + Constants.TOKEN_EXPIRY_DATE).toInstant(), ZoneId.of("UTC+8"));
+    }
 
     public Long getId() {
         return id;

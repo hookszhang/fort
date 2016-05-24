@@ -1,17 +1,22 @@
 package com.boyuanitsm.fort.service.util;
 
 import org.apache.commons.lang.RandomStringUtils;
+import sun.misc.BASE64Encoder;
+
+import java.util.Random;
 
 /**
  * Utility class for generating random Strings.
  */
 public final class RandomUtil {
 
+    private static Random random = new Random();
+    private static BASE64Encoder encoder = new BASE64Encoder();
+
     private static final int DEF_COUNT = 20;
-
     private static final int APP_KEY_COUNT = 12;
-
     private static final int APP_SECRET_COUNT = 12;
+    private static final int USER_TOKEN_COUNT = 24;
 
     private RandomUtil() {
     }
@@ -59,5 +64,16 @@ public final class RandomUtil {
      */
     public static String generateAppSecret() {
         return RandomStringUtils.randomAlphanumeric(APP_SECRET_COUNT).toLowerCase();
+    }
+
+    /**
+     * Generates a token.
+     *
+     * @return the generated user token
+     */
+    public static String generateToken() {
+        byte[] newToken = new byte[USER_TOKEN_COUNT];
+        random.nextBytes(newToken);
+        return encoder.encode(newToken);
     }
 }
