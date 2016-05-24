@@ -73,7 +73,7 @@ public class SecurityUserResource {
         // validate is unique
         SecurityUser user = securityUserService.findByLoginAndApp(securityUser.getLogin(), securityUser.getApp());
         if (user != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityUser", "username exists", "A new securityUser cannot already have an username")).body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityUser", "userexists", "A new securityUser cannot already")).body(null);
         }
 
         SecurityUser result = securityUserService.save(securityUser);
