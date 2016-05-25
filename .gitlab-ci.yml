@@ -1,0 +1,10 @@
+before_script:
+    - java -version && mvn -v && cnpm -v && gulp -v
+    - cnpm install
+job1:
+    script:
+        - ./mvnw -Pprod
+    only:
+        - master
+    tags:
+        - fort
