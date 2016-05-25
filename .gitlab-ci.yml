@@ -1,6 +1,6 @@
 before_script:
     - java -version && mvn -v && cnpm -v && gulp -v
-    - cnpm install
+    - npm install
 job1:
     script:
         - ./mvnw -Pprod
