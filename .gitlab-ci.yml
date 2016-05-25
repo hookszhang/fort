@@ -3,9 +3,9 @@ before_script:
 job1:
     script:
         - ./mvnw -Pprod clean package
-        - kill 'cat ~/fort.pid'
-        - java -jar target/*.war --spring.profiles.active=prod &
-        - echo $! > ~/fort.pid
+        # - kill 'cat ~/fort.pid'
+        # - java -jar target/*.war --spring.profiles.active=prod &
+        # - echo $! > ~/fort.pid
     only:
         - master
     tags:
