@@ -3,6 +3,8 @@ before_script:
 job1:
     script:
         - ./mvnw -Pprod clean package
+        - java -jar target/*.war --spring.profiles.active=prod &
+        - echo $! > ~/fort.pid
     only:
         - master
     tags:
