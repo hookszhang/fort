@@ -36,6 +36,8 @@ public class SecurityUserDTO {
 
     private Long tokenOverdueTime;
 
+    private String appKey;
+
     public SecurityUserDTO() {
     }
 
@@ -50,6 +52,7 @@ public class SecurityUserDTO {
         this.userAgent = event.getUserAgent();
         this.token = event.getTokenValue();
         this.tokenOverdueTime = Date.from(event.getTokenOverdueTime().toInstant()).getTime();
+        this.appKey = user.getApp().getAppKey();
     }
 
     public Long getId() {
@@ -130,5 +133,13 @@ public class SecurityUserDTO {
 
     public void setTokenOverdueTime(Long tokenOverdueTime) {
         this.tokenOverdueTime = tokenOverdueTime;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
     }
 }

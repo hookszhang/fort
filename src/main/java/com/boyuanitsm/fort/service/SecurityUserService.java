@@ -1,5 +1,7 @@
 package com.boyuanitsm.fort.service;
 
+import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass;
+import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityLoginEvent;
 import com.boyuanitsm.fort.domain.SecurityUser;
@@ -22,6 +24,8 @@ import javax.inject.Inject;
 
 import java.time.ZonedDateTime;
 
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.POST;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.PUT;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -48,6 +52,9 @@ public class SecurityUserService {
     @Inject
     private SecurityLoginEventRepository securityLoginEventRepository;
 
+    @Inject
+    private SecurityResourceUpdateService updateService;
+
     /**
      * Save a securityUser.
      *
@@ -57,12 +64,23 @@ public class SecurityUserService {
     public SecurityUser save(SecurityUser securityUser) {
         log.debug("Request to save SecurityUser : {}", securityUser);
 
+        OnUpdateSecurityResourceOption option = securityUser.getId() == null ? POST : PUT;
+
         // encode password
         String passwordHash = securityUser.getPasswordHash();
         securityUser.setPasswordHash(passwordEncoder.encode(passwordHash));
 
         SecurityUser result = securityUserRepository.save(securityUser);
         securityUserSearchRepository.save(result);
+
+        if (PUT.equals(option)) {
+            SecurityLoginEvent event = securityLoginEventRepository.findByUserIdAndTokenOverdueTime(securityUser.getId(), ZonedDateTime.now());
+            if (event != null) {
+                // send update message
+                updateService.send(option, OnUpdateSecurityResourceClass.SECURITY_USER, new SecurityUserDTO(securityUser, event));
+            }
+        }
+
         return result;
     }
 

@@ -7,6 +7,7 @@ import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.config.Constants;
 import com.boyuanitsm.fort.domain.*;
 import com.boyuanitsm.fort.repository.*;
+import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -78,6 +79,9 @@ public class SecurityResourceUpdateService {
                 // find eager relationships
                 data = securityRoleRepository.findOneWithEagerRelationships(role.getId());
             }
+        } else if (SECURITY_USER.equals(resourceClass)) {
+            SecurityUserDTO userDTO = (SecurityUserDTO) data;
+            appKey = userDTO.getAppKey();
         } else {
             // warning: we don't have this resource class
             log.warn("We don't have this resource class: {}", resourceClass);
