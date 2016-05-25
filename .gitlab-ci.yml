@@ -3,7 +3,7 @@ before_script:
 job1:
     script:
         - ./mvnw -Pprod clean package
-        - \cp target/*.war /opt/fort-server-9800/webapps/
+        - \cp target/*.war ~/servers/fort-server-9800/webapps/
     only:
         - master
     tags:
