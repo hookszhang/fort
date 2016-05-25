@@ -11,7 +11,7 @@
 
     <groupId>com.boyuanitsm.fort</groupId>
     <artifactId>fort</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-BETA</version>
     <packaging>war</packaging>
     <name>fort</name>
 
