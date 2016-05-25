@@ -21,7 +21,7 @@ spring:
         url: jdbc:mysql://localhost:3306/fort?useUnicode=true&characterEncoding=utf8&useSSL=false
         name:
         username: root
-        password: GitLab#tdc
+        password: zhanghua
         hikari:
             data-source-properties:
                 cachePrepStmts: true
@@ -38,9 +38,16 @@ spring:
             hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     data:
+#        elasticsearch:
+#            cluster-name:
+#            cluster-nodes: localhost:9300
         elasticsearch:
-            cluster-name:
-            cluster-nodes: localhost:9300
+                    cluster-name:
+                    cluster-nodes:
+                    properties:
+                        path:
+                          logs: target/elasticsearch/log
+                          data: target/elasticsearch/data
     mail:
         host: localhost
         port: 25
