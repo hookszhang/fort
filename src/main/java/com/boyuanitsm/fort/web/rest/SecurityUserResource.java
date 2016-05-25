@@ -180,6 +180,12 @@ public class SecurityUserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * Authorization. check if the user is authenticated, and return its login.
+     *
+     * @param securityUserDTO the current security user information
+     * @return the login if the user is authenticated
+     */
     @RequestMapping(value = "/security-user/authorization",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -191,5 +197,20 @@ public class SecurityUserResource {
         } else {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
+    }
+
+    /**
+     * Find by user token. if token is valid, and return user dto.
+     *
+     * @param token the token of the user
+     * @return user dto
+     */
+    @RequestMapping(value = "/security-user-dto/{token}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<SecurityUserDTO> findByUserToken(@PathVariable  String token) {
+        SecurityUserDTO userDTO = securityUserService.findByUserToken(token);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }

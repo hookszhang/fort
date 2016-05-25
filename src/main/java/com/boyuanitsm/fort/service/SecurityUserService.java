@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import java.time.ZonedDateTime;
+
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -144,5 +146,22 @@ public class SecurityUserService {
 
     public SecurityUser findByLoginAndApp(String login, SecurityApp app) {
         return securityUserRepository.findByLoginAndApp(login, app);
+    }
+
+    public SecurityUserDTO findByUserToken(String userToken) {
+        if (userToken == null || userToken.isEmpty()) {
+            return null;
+        }
+
+        ZonedDateTime now = ZonedDateTime.now();
+        SecurityLoginEvent event = securityLoginEventRepository.findByTokenValueAndTokenOverdueTime(userToken, now);
+
+        if (event == null) {
+            return null;
+        }
+
+        SecurityUser user = securityUserRepository.findOneWithEagerRelationships(event.getUser().getId());
+
+        return new SecurityUserDTO(user, event);
     }
 }
