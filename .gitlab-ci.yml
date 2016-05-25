@@ -2,7 +2,7 @@ before_script:
     - java -version && mvn -v && npm -v && gulp -v
 job1:
     script:
-        - ./mvnw -Pprod
+        - ./mvnw -Pprod clean package
     only:
         - master
     tags:
