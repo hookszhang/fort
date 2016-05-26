@@ -1,9 +1,12 @@
 package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityGroup;
 import com.boyuanitsm.fort.repository.SecurityGroupRepository;
 import com.boyuanitsm.fort.repository.search.SecurityGroupSearchRepository;
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
+import com.boyuanitsm.fort.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -36,6 +39,9 @@ public class SecurityGroupService {
     @Inject
     private SecurityResourceUpdateService updateService;
 
+    @Inject
+    private SecurityAppService securityAppService;
+
     /**
      * Save a securityGroup.
      *
@@ -45,7 +51,15 @@ public class SecurityGroupService {
     public SecurityGroup save(SecurityGroup securityGroup) {
         log.debug("Request to save SecurityGroup : {}", securityGroup);
 
-        OnUpdateSecurityResourceOption option = securityGroup == null ? POST : PUT;
+        OnUpdateSecurityResourceOption option = securityGroup.getId() == null ? POST : PUT;
+
+        if (PUT.equals(option)) {// put option
+            SecurityApp app = securityAppService.findCurrentSecurityApp();
+            // set app
+            if (app != null) {
+                securityGroup.setApp(app);
+            }
+        }
 
         SecurityGroup result = securityGroupRepository.save(securityGroup);
         securityGroupSearchRepository.save(result);
