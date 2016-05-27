@@ -3,25 +3,25 @@
         "securityAuthority" : {
             "home": {
                 "title": "Security Authorities",
-                "createLabel": "Create a new Security Authority",
-                "createOrEditLabel": "Create or edit a Security Authority",
-                "search": "Search for Security Authority"
+                "createLabel": "新权限",
+                "createOrEditLabel": "创建&编辑 权限",
+                "search": "查询权限"
             },
-            "created": "A new Security Authority is created with identifier {{ param }}",
-            "updated": "A Security Authority is updated with identifier {{ param }}",
-            "deleted": "A Security Authority is deleted with identifier {{ param }}",
+            "created": "一个新的权限已创建，唯一标识 {{ param }}",
+            "updated": "一个已存在的权限已更新，唯一标识 {{ param }}",
+            "deleted": "一个已存在的权限已删除，唯一标识 {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Security Authority {{ id }}?"
+                "question": "你确定要删除权限 {{ id }}?"
             },
             "detail": {
                 "title": "Security Authority"
             },
-            "name": "Name",
-            "description": "Description",
+            "name": "名称",
+            "description": "描述",
             "st": "St",
-            "app": "App",
-            "resource": "Resource",
-            "role": "Role"
+            "app": "所属应用",
+            "resource": "资源列表",
+            "role": "角色列表"
         }
     }
 }

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="header">Authority Form</div>
+                    <!-- <div class="header">Authority Form</div> -->
                     <div class="content">
                         <form method="#" action="#">
                             <div class="form-group" ng-show="vm.securityAuthority.id">
@@ -41,17 +41,19 @@
                                     </p>
                                 </div>
                             </div>
-                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-fill btn-info">Save</button>
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-fill btn-info">
+                                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="header">Resource List</div>
+                    <div class="header" translate="fortApp.securityAuthority.resource">Resource List</div>
                     <div class="content">
                         <div class="form-group">
-                            <label translate="fortApp.securityAuthority.resource" for="field_resource">Resource</label>
+                            <!-- <label translate="fortApp.securityAuthority.resource" for="field_resource">Resource</label> -->
                             <select class="form-control" id="field_resource" multiple name="resource" ng-model="vm.securityAuthority.resources" ng-options="securityResourceEntity as securityResourceEntity.name for securityResourceEntity in vm.securityresourceentities track by securityResourceEntity.id"></select>
                         </div>
                     </div>
