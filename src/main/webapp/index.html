@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,20 +18,97 @@
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 </head>
+
 <body ng-app="fortApp">
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
-    <div class="container">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
+    <div class="wrapper">
+        <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-5.jpg">
 
-        <div class="footer" ng-cloak>
-            <p translate="footer">This is your footer</p>
+            <!--
+
+                Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+                Tip 2: you can also add an image using data-image tag
+
+            -->
+
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="http://www.creative-tim.com" class="simple-text">
+                            Creative Tim
+                        </a>
+                </div>
+
+                <ul class="nav">
+                    <li class="active">
+                        <a href="dashboard.html">
+                            <i class="pe-7s-graph"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="user.html">
+                            <i class="pe-7s-user"></i>
+                            <p>User Profile</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="table.html">
+                            <i class="pe-7s-note2"></i>
+                            <p>Table List</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="typography.html">
+                            <i class="pe-7s-news-paper"></i>
+                            <p>Typography</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons.html">
+                            <i class="pe-7s-science"></i>
+                            <p>Icons</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="maps.html">
+                            <i class="pe-7s-map-marker"></i>
+                            <p>Maps</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="notifications.html">
+                            <i class="pe-7s-bell"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
+                    <li class="active-pro">
+                        <a href="upgrade.html">
+                            <i class="pe-7s-rocket"></i>
+                            <p>Upgrade to PRO</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div ui-view="navbar" ng-cloak></div>
+            <div class="content">
+                <div class="well" ui-view="content">
+                    <!-- Angular views -->
+                </div>
+
+                <div class="footer" ng-cloak>
+                    <p translate="footer">This is your footer</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -239,4 +317,5 @@
     <!-- endbuild -->
 
 </body>
+
 </html>
