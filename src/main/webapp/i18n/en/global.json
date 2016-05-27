@@ -7,6 +7,7 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "dashboard": "Dashboard",
                 "securityApp": "Security App",
                 "securityResourceEntity": "Security Resource Entity",
                 "securityNav": "Security Nav",
