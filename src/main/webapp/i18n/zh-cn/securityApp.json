@@ -2,23 +2,23 @@
     "fortApp": {
         "securityApp" : {
             "home": {
-                "title": "Security Apps",
-                "createLabel": "Create a new Security App",
-                "createOrEditLabel": "Create or edit a Security App",
-                "search": "Search for Security App"
+                "title": "应用管理",
+                "createLabel": "新应用",
+                "createOrEditLabel": "新增或修改应用",
+                "search": "查询应用"
             },
-            "created": "A new Security App is created with identifier {{ param }}",
-            "updated": "A Security App is updated with identifier {{ param }}",
-            "deleted": "A Security App is deleted with identifier {{ param }}",
+            "created": "新应用已创建，唯一标识 {{ param }}",
+            "updated": "应用已更新，唯一标识 {{ param }}",
+            "deleted": "应用已删除，唯一标识 {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Security App {{ id }}?"
+                "question": "你真的想要删除应用 {{ id }}?"
             },
             "detail": {
-                "title": "Security App"
+                "title": "应用"
             },
-            "appName": "App Name",
-            "appKey": "App Key",
-            "appSecret": "App Secret",
+            "appName": "应用名称",
+            "appKey": "应用标识",
+            "appSecret": "应用密钥",
             "st": "St"
         }
     }
