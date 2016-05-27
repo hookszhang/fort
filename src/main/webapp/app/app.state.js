@@ -15,6 +15,9 @@
                     templateUrl: 'app/layouts/navbar/navbar.html',
                     controller: 'NavbarController',
                     controllerAs: 'vm'
+                },
+                'sidebar': {
+                    templateUrl: 'app/layouts/sidebar/sidebar.html'
                 }
             },
             resolve: {
