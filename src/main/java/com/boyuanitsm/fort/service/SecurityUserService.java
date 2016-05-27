@@ -9,7 +9,6 @@ import com.boyuanitsm.fort.repository.SecurityAppRepository;
 import com.boyuanitsm.fort.repository.SecurityLoginEventRepository;
 import com.boyuanitsm.fort.repository.SecurityUserRepository;
 import com.boyuanitsm.fort.repository.search.SecurityUserSearchRepository;
-import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import org.slf4j.Logger;
@@ -25,6 +24,8 @@ import javax.inject.Inject;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_USER;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.DELETE;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.POST;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.PUT;
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -79,7 +80,7 @@ public class SecurityUserService {
             if (!events.isEmpty()) {
                 for (SecurityLoginEvent event: events) {
                     // send update message
-                    updateService.send(option, OnUpdateSecurityResourceClass.SECURITY_USER, new SecurityUserDTO(securityUser, event));
+                    updateService.send(option, SECURITY_USER, new SecurityUserDTO(securityUser, event));
                 }
             }
         }
@@ -184,5 +185,32 @@ public class SecurityUserService {
         SecurityUser user = securityUserRepository.findOneWithEagerRelationships(event.getUser().getId());
 
         return new SecurityUserDTO(user, event);
+    }
+
+    /**
+     * Logout. userToken set overdue.
+     *
+     * @param event the token value of the SecurityLoginEvent
+     */
+    @Transactional
+    public void logout(SecurityLoginEvent event) {
+        ZonedDateTime now = ZonedDateTime.now();
+        event = securityLoginEventRepository.findByTokenValueAndTokenOverdueTime(event.getTokenValue(), now);
+
+        if (event == null) {
+            return;
+        }
+
+
+        // set overdue
+        event.setTokenOverdueTime(now);
+        securityLoginEventRepository.save(event);
+
+        SecurityUser user = securityUserRepository.findOne(event.getUser().getId());
+        user.setRoles(null);
+        user.setGroups(null);
+
+        // send message
+        updateService.send(DELETE, SECURITY_USER, new SecurityUserDTO(user, event));
     }
 }
