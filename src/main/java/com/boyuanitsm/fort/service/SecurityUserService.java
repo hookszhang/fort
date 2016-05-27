@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.POST;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.PUT;
@@ -74,10 +75,12 @@ public class SecurityUserService {
         securityUserSearchRepository.save(result);
 
         if (PUT.equals(option)) {
-            SecurityLoginEvent event = securityLoginEventRepository.findByUserIdAndTokenOverdueTime(securityUser.getId(), ZonedDateTime.now());
-            if (event != null) {
-                // send update message
-                updateService.send(option, OnUpdateSecurityResourceClass.SECURITY_USER, new SecurityUserDTO(securityUser, event));
+            List<SecurityLoginEvent> events = securityLoginEventRepository.findByUserIdAndTokenOverdueTime(securityUser.getId(), ZonedDateTime.now());
+            if (!events.isEmpty()) {
+                for (SecurityLoginEvent event: events) {
+                    // send update message
+                    updateService.send(option, OnUpdateSecurityResourceClass.SECURITY_USER, new SecurityUserDTO(securityUser, event));
+                }
             }
         }
 

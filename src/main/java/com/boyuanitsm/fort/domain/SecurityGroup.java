@@ -144,7 +144,7 @@ public class SecurityGroup extends AbstractAuditingEntity implements Serializabl
             ", st='" + st + '\'' +
             ", app=" + app +
             ", isAllowDeleting=" + isAllowDeleting +
-            ", users=" + users +
+            // ", users=" + users +
             '}';
     }
 }
