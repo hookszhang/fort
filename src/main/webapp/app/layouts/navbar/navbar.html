@@ -213,15 +213,24 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Dashboard</a>
+            <a class="navbar-brand" ng-href="#/{{toState.name}}" ng-switch="toState.name">
+                <span ng-switch-when="home" translate="global.menu.entities.dashboard"></span>
+                <span ng-switch-when="security-app" translate="global.menu.entities.securityApp"></span>
+                <span ng-switch-when="security-resource-entity" translate="global.menu.entities.securityResourceEntity"></span>
+                <span ng-switch-when="security-nav" translate="global.menu.entities.securityNav"></span>
+                <span ng-switch-when="security-authority" translate="global.menu.entities.securityAuthority"></span>
+                <span ng-switch-when="security-role" translate="global.menu.entities.securityRole"></span>
+                <span ng-switch-when="security-group" translate="global.menu.entities.securityGroup"></span>
+                <span ng-switch-when="security-user" translate="global.menu.entities.securityUser"></span>
+            </a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li>
+                <!-- <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-dashboard"></i>
                     </a>
-                </li>
+                </li> -->
                 <!-- <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-globe"></i>
