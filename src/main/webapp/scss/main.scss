@@ -345,3 +345,8 @@ $sidebar-width: 220px;
 .main-panel {
     width: calc(100% - #{$sidebar-width});
 }
+.alert-success {
+    background-color: #2d9fd8;
+    border-color: #2d9fd8;
+    color: #fff;
+}
