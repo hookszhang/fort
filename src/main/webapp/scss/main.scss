@@ -1,16 +1,19 @@
 body {
     background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, ;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif,;
     color: #333;
 }
-
 /* ==========================================================================
 Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
 ========================================================================== */
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+.ng-cloak,
+.x-ng-cloak,
+[data-ng-cloak],
+[ng-cloak],
+[ng\:cloak],
+[x-ng-cloak] {
     display: none !important;
 }
-
 /* ==========================================================================
 Developement Ribbon
 ========================================================================== */
@@ -45,15 +48,13 @@ Developement Ribbon
         pointer-events: none;
     }
 }
-
 /* ==========================================================================
 Version number in navbar
 ========================================================================== */
 .navbar-version {
     font-size: 10px;
-    color: #ccc
+    color: #ccc;
 }
-
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
@@ -63,12 +64,11 @@ Browser Upgrade Prompt
     color: #000;
     padding: 0.2em 0;
 }
-
 /* ==========================================================================
 Main page styles
 ========================================================================== */
 .hero-unit {
-    margin: 50px auto 0 auto;
+    margin: 50px auto 0;
     width: 300px;
     font-size: 18px;
     font-weight: 200;
@@ -82,7 +82,6 @@ Main page styles
         letter-spacing: -1px;
     }
 }
-
 .hipster {
     display: inline-block;
     width: 347px;
@@ -90,21 +89,13 @@ Main page styles
     background: url("../images/hipster.png") no-repeat center top;
     background-size: contain;
 }
-
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (   min--moz-device-pixel-ratio: 2),
-only screen and (     -o-min-device-pixel-ratio: 2/1),
-only screen and (        min-device-pixel-ratio: 2),
-only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) {
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and ( min--moz-device-pixel-ratio: 2), only screen and ( -o-min-device-pixel-ratio: 2/1), only screen and ( min-device-pixel-ratio: 2), only screen and ( min-resolution: 192dpi), only screen and ( min-resolution: 2dppx) {
     .hipster {
         background: url("../images/hipster2x.png") no-repeat center top;
         background-size: contain;
     }
 }
-
 /* ==========================================================================
 Generic styles
 ========================================================================== */
@@ -112,92 +103,100 @@ Generic styles
     color: white;
     background-color: red;
 }
-
 .pad {
     padding: 10px;
 }
-
 .break {
     white-space: normal;
-    word-break:break-all;
+    word-break: break-all;
 }
-
-.voffset  { margin-top: 2px; }
-.voffset1 { margin-top: 5px; }
-.voffset2 { margin-top: 10px; }
-.voffset3 { margin-top: 15px; }
-.voffset4 { margin-top: 30px; }
-.voffset5 { margin-top: 40px; }
-.voffset6 { margin-top: 60px; }
-.voffset7 { margin-top: 80px; }
-.voffset8 { margin-top: 100px; }
-.voffset9 { margin-top: 150px; }
-
+.voffset {
+    margin-top: 2px;
+}
+.voffset1 {
+    margin-top: 5px;
+}
+.voffset2 {
+    margin-top: 10px;
+}
+.voffset3 {
+    margin-top: 15px;
+}
+.voffset4 {
+    margin-top: 30px;
+}
+.voffset5 {
+    margin-top: 40px;
+}
+.voffset6 {
+    margin-top: 60px;
+}
+.voffset7 {
+    margin-top: 80px;
+}
+.voffset8 {
+    margin-top: 100px;
+}
+.voffset9 {
+    margin-top: 150px;
+}
 .readonly {
     background-color: #eee;
     opacity: 1;
 }
-
 /* ==========================================================================
 make sure browsers use the pointer cursor for anchors, even with no href
 ========================================================================== */
 a:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
-
 .hand {
     cursor: pointer;
 }
-
 /* ==========================================================================
 Metrics and Health styles
 ========================================================================== */
-#threadDump .popover, #healthCheck .popover {
+#healthCheck .popover,
+#threadDump .popover {
     top: inherit;
     display: block;
     font-size: 10px;
     max-width: 1024px;
 }
-
 #healthCheck .popover {
     margin-left: -50px;
 }
-
 .health-details {
     min-width: 400px;
 }
-
 /* ==========================================================================
 start Password strength bar style
 ========================================================================== */
 ul#strength {
-    display:inline;
-    list-style:none;
-    margin:0;
-    margin-left:15px;
-    padding:0;
-    vertical-align:2px;
+    display: inline;
+    list-style: none;
+    margin: 0 0 0 15px;
+    padding: 0;
+    vertical-align: 2px;
 }
-
 .point {
-    background:#DDD;
-    border-radius:2px;
-    display:inline-block;
-    height:5px;
-    margin-right:1px;
-    width:20px;
+    background: #DDD;
+    border-radius: 2px;
+    display: inline-block;
+    height: 5px;
+    margin-right: 1px;
+    width: 20px;
     &:last {
-        margin:0 !important;
+        margin: 0 !important;
     }
 }
-
 /* ==========================================================================
 Custom alerts for notification
 ========================================================================== */
 .alerts {
     .alert {
         text-overflow: ellipsis;
-        pre{
+        pre {
             background: none;
             border: none;
             font: inherit;
@@ -226,17 +225,14 @@ Custom alerts for notification
         }
     }
 }
-
 @media screen and (min-width: 480px) {
     .alerts .toast {
         width: 50%;
     }
 }
-
 /* ==========================================================================
 entity tables helpers
 ========================================================================== */
-
 /* Remove Bootstrap padding from the element
    http://stackoverflow.com/questions/19562903/remove-padding-from-columns-in-bootstrap-3 */
 @mixin no-padding($side) {
@@ -244,7 +240,8 @@ entity tables helpers
         .no-padding {
             padding: 0 !important;
         }
-    } @else {
+    }
+    @else {
         .no-padding-#{$side} {
             padding-#{$side}: 0 !important;
         }
@@ -255,29 +252,30 @@ entity tables helpers
 @include no-padding("top");
 @include no-padding("bottom");
 @include no-padding("all");
-
 /* bootstrap 3 input-group 100% width
    http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
-.width-min { width: 1% !important; }
-
+.width-min {
+    width: 1% !important;
+}
 /* Makes toolbar not wrap on smaller screens
    http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
 .flex-btn-group-container {
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row;
-   flex-direction: row;
-   -webkit-justify-content: flex-end;
-   justify-content: flex-end;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
 }
-
 .jh-table > {
     tbody > tr > td {
         /* Align text in td verifically (top aligned by Bootstrap) */
         vertical-align: middle;
     }
     thead > tr > th > {
-        .glyphicon-sort, .glyphicon-sort-by-attributes, .glyphicon-sort-by-attributes-alt {
+        .glyphicon-sort,
+        .glyphicon-sort-by-attributes,
+        .glyphicon-sort-by-attributes-alt {
             /* less visible sorting icons */
             opacity: 0.5;
             &:hover {
@@ -288,7 +286,6 @@ entity tables helpers
         }
     }
 }
-
 /* ==========================================================================
 entity detail page css
 ========================================================================== */
@@ -297,7 +294,6 @@ entity detail page css
         margin-bottom: 15px;
     }
 }
-
 @media screen and (min-width: 768px) {
     .dl-horizontal.jh-entity-details > {
         dt {
@@ -310,29 +306,42 @@ entity detail page css
         }
     }
 }
-
 /* ==========================================================================
 ui bootstrap tweaks
 ========================================================================== */
-.nav, .pagination, .carousel, .panel-title a {
+.carousel,
+.nav,
+.pagination,
+.panel-title a {
     cursor: pointer;
 }
-
 .datetime-picker-dropdown > li.date-picker-menu div > table .btn-default,
-.uib-datepicker-popup  > li > div.uib-datepicker > table .btn-default {
+.uib-datepicker-popup > li > div.uib-datepicker > table .btn-default {
     border: 0;
 }
-
 .datetime-picker-dropdown > li.date-picker-menu div > table:focus,
-.uib-datepicker-popup  > li > div.uib-datepicker > table:focus {
+.uib-datepicker-popup > li > div.uib-datepicker > table:focus {
     outline: none;
 }
-
-
 /* jhipster-needle-scss-add-main JHipster will add new css style */
-
 .right-top {
     position: absolute;
     right: 10px;
     top: 0;
+}
+.sidebar[data-color="blue"]:after,
+body > .navbar-collapse[data-color="blue"]:after {
+    background: #1970a9;
+    background-size: 150% 150%;
+}
+
+$sidebar-width: 220px;
+.sidebar{
+    width: $sidebar-width;
+    .sidebar-wrapper {
+        width: $sidebar-width;
+    }
+}
+.main-panel {
+    width: calc(100% - #{$sidebar-width});
 }
