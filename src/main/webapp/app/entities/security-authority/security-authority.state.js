@@ -76,8 +76,8 @@
             }
         })
         .state('security-authority-new', {
-            parent: 'entity',
-            url: '/security-authority-new',
+            parent: 'security-authority',
+            url: '/new',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'fortApp.securityAuthority.home.title'
