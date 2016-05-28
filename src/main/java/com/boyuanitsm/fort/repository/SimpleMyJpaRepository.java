@@ -5,6 +5,7 @@ import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.access.method.P;
@@ -35,6 +36,17 @@ public class SimpleMyJpaRepository<T, ID extends Serializable> extends SimpleJpa
         } else {
             return findOwnAllRoleSecurityApp(var1);
         }
+    }
+
+    @Override
+    public Page<T> findAllByAppId(Pageable var1, Long appId) {
+        return this.findAll((root, query, cb) -> {
+            Path<String> appIdPath = root.get("app").get("id");
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(cb.equal(appIdPath, appId));
+            query.where(predicates.toArray(new Predicate[predicates.size()]));
+            return query.getRestriction();
+        }, var1);
     }
 
     /**
