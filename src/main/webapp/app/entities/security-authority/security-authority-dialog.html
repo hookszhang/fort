@@ -50,11 +50,20 @@
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="header" translate="fortApp.securityAuthority.resource">Resource List</div>
+                    <div class="header" translate="fortApp.securityAuthority.resource">Resource</div>
                     <div class="content">
                         <div class="form-group">
                             <!-- <label translate="fortApp.securityAuthority.resource" for="field_resource">Resource</label> -->
-                            <select class="form-control" id="field_resource" multiple name="resource" ng-model="vm.securityAuthority.resources" ng-options="securityResourceEntity as securityResourceEntity.name for securityResourceEntity in vm.securityresourceentities track by securityResourceEntity.id"></select>
+                            <ui-select class="form-control"  multiple ng-model="vm.securityAuthority.resources" name="resource" theme="bootstrap" ng-disabled="ctrl.disabled" close-on-select="false" title="Choose a person">
+                                <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
+                                <ui-select-choices repeat="securityResourceEntity as securityResourceEntity in vm.securityresourceentities">
+                                    <div ng-bind="securityResourceEntity.name"></div>
+                                    <small>
+                                        name: {{securityResourceEntity.name}}
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                            {{vm.securityAuthority.resources}}
                         </div>
                     </div>
                 </div>
