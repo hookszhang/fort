@@ -5,9 +5,9 @@
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="row">
+            <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="card">
-                    <!-- <div class="header">Authority Form</div> -->
                     <div class="content">
                         <form method="#" action="#">
                             <div class="form-group" ng-show="vm.securityAuthority.id">
@@ -41,6 +41,18 @@
                                     </p>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label translate="fortApp.securityAuthority.resource" for="field_resource">Resource</label>
+                                <ui-select class="form-control"  multiple ng-model="vm.securityAuthority.resources" name="resource" theme="bootstrap" ng-disabled="ctrl.disabled" close-on-select="false" title="Choose a person">
+                                    <ui-select-match placeholder="Select resource...">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="securityResourceEntity as securityResourceEntity in vm.securityresourceentities">
+                                        <div ng-bind="securityResourceEntity.name"></div>
+                                        <small>
+                                            name: {{securityResourceEntity.name}}
+                                        </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
                             <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-fill btn-info">
                                 <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
                             </button>
@@ -48,25 +60,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="header" translate="fortApp.securityAuthority.resource">Resource</div>
-                    <div class="content">
-                        <div class="form-group">
-                            <!-- <label translate="fortApp.securityAuthority.resource" for="field_resource">Resource</label> -->
-                            <ui-select class="form-control"  multiple ng-model="vm.securityAuthority.resources" name="resource" theme="bootstrap" ng-disabled="ctrl.disabled" close-on-select="false" title="Choose a person">
-                                <ui-select-match placeholder="Select person...">{{$item.name}}</ui-select-match>
-                                <ui-select-choices repeat="securityResourceEntity as securityResourceEntity in vm.securityresourceentities">
-                                    <div ng-bind="securityResourceEntity.name"></div>
-                                    <small>
-                                        name: {{securityResourceEntity.name}}
-                                    </small>
-                                </ui-select-choices>
-                            </ui-select>
-                            {{vm.securityAuthority.resources}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="col-md-3"></div>
         </div>
 </form>
