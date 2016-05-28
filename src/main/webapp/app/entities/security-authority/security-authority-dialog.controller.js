@@ -8,12 +8,15 @@
 
     function SecurityAuthorityDialogController($timeout, $scope, $stateParams, $state, SecurityAuthority, SecurityApp, SecurityResourceEntity, SecurityRole) {
         var vm = this;
+        if ($stateParams.id) {
+            vm.securityAuthority = SecurityAuthority.get({id : $stateParams.id});
+        }
+
         vm.securityapps = SecurityApp.query();
         vm.securityroles = SecurityRole.query();
 
         $timeout(function() {
             angular.element('.form-group:eq(1)>input').focus();
-
         });
 
         var onSaveSuccess = function(result) {
@@ -32,9 +35,9 @@
             if (n) {
                 vm.securityresourceentities = SecurityResourceEntity.query({appId: n.id});
             }
-            if (vm.securityAuthority) {
-                vm.securityAuthority.resources = [];
-            }
+            // if (vm.securityAuthority) {
+            //     vm.securityAuthority.resources = [];
+            // }
         });
 
         vm.save = function() {
