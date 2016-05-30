@@ -4,14 +4,14 @@
             "home": {
                 "title": "权限管理",
                 "createLabel": "新权限",
-                "createOrEditLabel": "创建&编辑 权限",
+                "createOrEditLabel": "创建&编辑权限",
                 "search": "查询权限"
             },
-            "created": "一个新的权限已创建，唯一标识 {{ param }}",
-            "updated": "一个已存在的权限已更新，唯一标识 {{ param }}",
-            "deleted": "一个已存在的权限已删除，唯一标识 {{ param }}",
+            "created": "一个新的权限已创建，ID {{ param }}",
+            "updated": "权限已更新，ID {{ param }}",
+            "deleted": "权限已删除，ID {{ param }}",
             "delete": {
-                "question": "你确定要删除权限 {{ id }}?"
+                "question": "确定要删除权限 {{ id }}?"
             },
             "detail": {
                 "title": "权限"
