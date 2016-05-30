@@ -361,3 +361,7 @@ $sidebar-width: 220px;
     color: #fafafa;
     background-color: #5c5c5c;
 }
+.sidebar[data-color="black"]:after, body > .navbar-collapse[data-color="black"]:after {
+    background: #3d454d;
+    background-size: 150% 150%;
+}
