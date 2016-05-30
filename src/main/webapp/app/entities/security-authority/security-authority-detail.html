@@ -1,8 +1,9 @@
 
 <div>
     <h2><span translate="fortApp.securityAuthority.detail.title">Security Authority</span> {{vm.securityAuthority.id}}</h2>
+    <h3>{{vm.securityAuthority.app.appName}}</h3>
     <hr>
-    <dl class="dl-horizontal jh-entity-details">
+    <!-- <dl class="dl-horizontal jh-entity-details">
         <dt><span translate="fortApp.securityAuthority.name">Name</span></dt>
         <dd>
             <span>{{vm.securityAuthority.name}}</span>
@@ -25,11 +26,54 @@
                 <a ui-sref="security-resource-entity-detail({id: {{resource.id}}})">{{resource.id}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
-    </dl>
+    </dl> -->
 
-    <button type="submit"
-            onclick="window.history.back()"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
-    </button>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">
+                        Authority Info:
+                    </h4>
+                </div>
+                <div class="content">
+                    <dl class="dl-horizontal jh-entity-details">
+                        <dt><span translate="fortApp.securityAuthority.name">Name</span></dt>
+                        <dd>
+                            <span>{{vm.securityAuthority.name}}</span>
+                        </dd>
+                        <dt><span translate="fortApp.securityAuthority.description">Description</span></dt>
+                        <dd>
+                            <span>{{vm.securityAuthority.description}}</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-primary btn-fill btn-wd">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="header">
+                    <div class="title">
+                        <span translate="fortApp.securityAuthority.resource">Resource</span>
+                        <span class="badge">{{vm.securityAuthority.resources.length}}</span>
+                    </div>
+                </div>
+                <div class="content table-full-width">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat="resource in vm.securityAuthority.resources">
+                                <td><a ui-sref="security-resource-entity-detail({id: {{resource.id}}})">{{resource.name}}</a></td>
+                                <td>{{resource.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="security-authority-new">
+                <button class="btn btn-primary btn-fill btn-wd" ui-sref="security-authority-new">
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs" translate="fortApp.securityAuthority.home.createLabel">
                         Create new Security Authority
@@ -43,6 +43,7 @@
                 </p>
                 <div class="header" ui-sref="security-authority-detail({id:securityAuthority.id})">
                     <h4 class="title">{{securityAuthority.name}}</h4>
+                    <p class="category">{{securityAuthority.app.appName}}</p>
                 </div>
                 <div class="content">
                     <p>{{securityAuthority.description}}</p>

@@ -347,3 +347,17 @@ $sidebar-width: 220px;
     border-color: #2d9fd8;
     color: #fff;
 }
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 10px;
+    color: #fafafa;
+    background-color: #5c5c5c;
+}
