@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -62,6 +63,7 @@ public class SecurityResourceEntity extends AbstractAuditingEntity implements Se
     private SecurityApp app;
 
     @ManyToMany(mappedBy = "resources")
+    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SecurityAuthority> authorities = new HashSet<>();
 
