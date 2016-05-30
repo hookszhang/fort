@@ -1,0 +1,69 @@
+<div class="sidebar" data-color="blue" data-image="app/layouts/sidebar/sidebar-1.jpg">
+
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="/" class="simple-text">
+                    Fort <span class="navbar-version">v{{VERSION}}</span>
+                </a>
+            </div>
+
+            <ul class="nav">
+                <li ng-class="{active: toState.name.indexOf('home') != -1}">
+                    <a href="/">
+                        <i class="fa fa-dashboard"></i>
+                        <p translate="global.menu.entities.dashboard">Dashboard</p>
+                    </a>
+                </li>
+                <li ng-class="{active: toState.name.indexOf('security-app') != -1}">
+                    <a ui-sref="security-app">
+                        <i class="fa fa-rocket"></i>
+                        <p translate="global.menu.entities.securityApp">Security App</p>
+                    </a>
+                </li>
+                <li ng-class="{active: toState.name.indexOf('security-resource-entity') != -1}">
+                    <a ui-sref="security-resource-entity">
+                        <i class="fa fa-registered"></i>
+                        <p translate="global.menu.entities.securityResourceEntity">Security Resource Entity</p>
+                    </a>
+                </li>
+                <li ng-class="{active: toState.name.indexOf('security-nav') != -1}">
+                    <a ui-sref="security-nav">
+                        <i class="fa fa-bars"></i>
+                        <p translate="global.menu.entities.securityNav">Security Nav</p>
+                    </a>
+                </li>
+                <li ng-class="{active: toState.name.indexOf('security-authority') != -1}">
+                    <a ui-sref="security-authority">
+                        <i class="fa fa-shield"></i>
+                        <p translate="global.menu.entities.securityAuthority">Security Authority</p>
+                    </a>
+                </li>
+                <li ng-class="{active: toState.name.indexOf('security-role') != -1}">
+                    <a ui-sref="security-role">
+                        <i class="fa fa-user-secret"></i>
+                        <p translate="global.menu.entities.securityRole">Security Role</p>
+                    </a>
+                </li>
+                <li ng-class="{active: toState.name.indexOf('security-group') != -1}">
+                    <a ui-sref="security-group">
+                        <i class="fa fa-sitemap"></i>
+                        <p translate="global.menu.entities.securityGroup">Security Group</p>
+                    </a>
+                </li>
+				<li ng-class="{active: toState.name.indexOf('security-user') != -1}">
+                    <a ui-sref="security-user">
+                        <i class="fa fa-user"></i>
+                        <p translate="global.menu.entities.securityUser">Security User</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+        <!-- <div class="sidebar-background" style="background-image: url(app/layouts/sidebar/sidebar-1.jpg) "></div> -->
+    </div>

@@ -75,35 +75,20 @@
                 }]
             }
         })
-        .state('security-authority.new', {
+        .state('security-authority-new', {
             parent: 'security-authority',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER'],
+                pageTitle: 'fortApp.securityAuthority.home.title'
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-authority/security-authority-dialog.html',
                     controller: 'SecurityAuthorityDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                name: null,
-                                description: null,
-                                st: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('security-authority', null, { reload: true });
-                }, function() {
-                    $state.go('security-authority');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-authority.edit', {
             parent: 'security-authority',
@@ -111,24 +96,31 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-authority/security-authority-dialog.html',
                     controller: 'SecurityAuthorityDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['SecurityAuthority', function(SecurityAuthority) {
-                            return SecurityAuthority.get({id : $stateParams.id});
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('security-authority', null, { reload: true });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
+            // onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+            //     $uibModal.open({
+            //         templateUrl: 'app/entities/security-authority/security-authority-dialog.html',
+            //         controller: 'SecurityAuthorityDialogController',
+            //         controllerAs: 'vm',
+            //         backdrop: 'static',
+            //         size: 'lg',
+            //         resolve: {
+            //             entity: ['SecurityAuthority', function(SecurityAuthority) {
+            //                 return SecurityAuthority.get({id : $stateParams.id});
+            //             }]
+            //         }
+            //     }).result.then(function() {
+            //         $state.go('security-authority', null, { reload: true });
+            //     }, function() {
+            //         $state.go('^');
+            //     });
+            // }]
         })
         .state('security-authority.delete', {
             parent: 'security-authority',

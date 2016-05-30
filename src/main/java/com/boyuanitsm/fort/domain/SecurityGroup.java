@@ -42,6 +42,9 @@ public class SecurityGroup extends AbstractAuditingEntity implements Serializabl
     @ManyToOne
     private SecurityApp app;
 
+    @Column(name = "is_allow_deleting", nullable = false)
+    private boolean isAllowDeleting = true;
+
     @ManyToMany(mappedBy = "groups")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -104,6 +107,14 @@ public class SecurityGroup extends AbstractAuditingEntity implements Serializabl
         this.users = securityUsers;
     }
 
+    public boolean isAllowDeleting() {
+        return isAllowDeleting;
+    }
+
+    public void setAllowDeleting(boolean allowDeleting) {
+        isAllowDeleting = allowDeleting;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -128,9 +139,12 @@ public class SecurityGroup extends AbstractAuditingEntity implements Serializabl
     public String toString() {
         return "SecurityGroup{" +
             "id=" + id +
-            ", name='" + name + "'" +
-            ", description='" + description + "'" +
-            ", st='" + st + "'" +
+            ", name='" + name + '\'' +
+            ", description='" + description + '\'' +
+            ", st='" + st + '\'' +
+            ", app=" + app +
+            ", isAllowDeleting=" + isAllowDeleting +
+            // ", users=" + users +
             '}';
     }
 }

@@ -3,6 +3,8 @@ package com.boyuanitsm.fort.service;
 import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.repository.SecurityAppRepository;
 import com.boyuanitsm.fort.repository.search.SecurityAppSearchRepository;
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
+import com.boyuanitsm.fort.security.SecurityUtils;
 import com.boyuanitsm.fort.service.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,6 +116,21 @@ public class SecurityAppService {
     }
 
     public SecurityApp findByAppKey(String appKey) {
+        return securityAppRepository.findByAppKey(appKey);
+    }
+
+    /**
+     * Find current logged app. if current logged not app. return null.
+     *
+     * @return the current logged app.
+     */
+    @Transactional(readOnly = true)
+    public SecurityApp findCurrentSecurityApp() {
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SECURITY_APP)) {
+            return null;
+        }
+
+        String appKey = SecurityUtils.getCurrentUserLogin();
         return securityAppRepository.findByAppKey(appKey);
     }
 }

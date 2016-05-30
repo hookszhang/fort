@@ -7,14 +7,14 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "数据",
-                "securityApp": "Security App",
-                "securityResourceEntity": "Security Resource Entity",
-                "securityNav": "Security Nav",
-                "securityAuthority": "Security Authority",
-                "securityRole": "Security Role",
-                "securityGroup": "Security Group",
-                "securityUser": "Security User",
-                "securityLoginEvent": "Security Login Event",
+                "dashboard": "控制台",
+                "securityApp": "应用管理",
+                "securityResourceEntity": "资源管理",
+                "securityNav": "导航栏",
+                "securityAuthority": "权限管理",
+                "securityRole": "角色管理",
+                "securityGroup": "组管理",
+                "securityUser": "用户管理",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

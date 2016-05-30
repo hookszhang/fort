@@ -88,7 +88,9 @@ public class CustomPersistentRememberMeServices extends
         token.setTokenDate(LocalDate.now());
         token.setTokenValue(generateTokenData());
         token.setIpAddress(request.getRemoteAddr());
-        token.setUserAgent(request.getHeader("User-Agent"));
+        if (request.getHeader("User-Agent") != null) {
+            token.setUserAgent(request.getHeader("User-Agent"));
+        }
         try {
             persistentTokenRepository.saveAndFlush(token);
             addCookie(token, request, response);

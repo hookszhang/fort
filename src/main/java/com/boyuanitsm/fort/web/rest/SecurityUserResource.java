@@ -1,6 +1,7 @@
 package com.boyuanitsm.fort.web.rest;
 
 import com.boyuanitsm.fort.domain.SecurityApp;
+import com.boyuanitsm.fort.domain.SecurityLoginEvent;
 import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import com.boyuanitsm.fort.service.SecurityAppService;
@@ -26,10 +27,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing SecurityUser.
@@ -212,5 +209,21 @@ public class SecurityUserResource {
     public ResponseEntity<SecurityUserDTO> findByUserToken(@PathVariable  String token) {
         SecurityUserDTO userDTO = securityUserService.findByUserToken(token);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    /**
+     * PUT  /security-users : logout the "token" securityUser.
+     *
+     * @param event the tokenValue is required
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @RequestMapping(value = "/security-user-logout",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Void> logoutSecurityUser(@RequestBody SecurityLoginEvent event) {
+        log.debug("REST request to logout SecurityLoginEvent : {}", event);
+        securityUserService.logout(event);
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("securityUser.logout", "logout success")).build();
     }
 }

@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,26 +12,46 @@
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
+
+    <!--     Fonts and icons     -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'> -->
 </head>
+
 <body ng-app="fortApp">
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
-    <div class="container">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
-
-        <div class="footer" ng-cloak>
-            <p translate="footer">This is your footer</p>
+    <div class="wrapper">
+        <div ui-view="sidebar"></div>
+        <div class="main-panel">
+            <div ui-view="navbar" ng-cloak></div>
+            <div class="content">
+                <div ui-view="content">
+                    <!-- Angular views -->
+                </div>
+            </div>
+            <div class="footer" ng-cloak>
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="#"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy; 2016 <a href="/">Fort Team</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -66,6 +87,7 @@
     <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
     <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
@@ -239,4 +261,5 @@
     <!-- endbuild -->
 
 </body>
+
 </html>

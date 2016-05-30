@@ -18,5 +18,5 @@ public interface SecurityLoginEventRepository extends JpaRepository<SecurityLogi
     SecurityLoginEvent findByTokenValueAndTokenOverdueTime(@Param("tokenValue") String tokenValue, @Param("tokenOverdueTime") ZonedDateTime tokenOverdueTime);
 
     @Query("select securityLoginEvent from SecurityLoginEvent securityLoginEvent where securityLoginEvent.user.id =:userId and  securityLoginEvent.tokenOverdueTime > :tokenOverdueTime")
-    SecurityLoginEvent findByUserIdAndTokenOverdueTime(@Param("userId") Long userId, @Param("tokenOverdueTime") ZonedDateTime tokenOverdueTime);
+    List<SecurityLoginEvent> findByUserIdAndTokenOverdueTime(@Param("userId") Long userId, @Param("tokenOverdueTime") ZonedDateTime tokenOverdueTime);
 }

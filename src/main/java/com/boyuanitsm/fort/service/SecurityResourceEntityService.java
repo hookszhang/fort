@@ -59,13 +59,18 @@ public class SecurityResourceEntityService {
      *  Get all the securityResourceEntities.
      *
      *  @param pageable the pagination information
-     *  @return the list of entities
+     *  @param appId the app of the id
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<SecurityResourceEntity> findAll(Pageable pageable) {
+    public Page<SecurityResourceEntity> findAll(Pageable pageable, Long appId) {
         log.debug("Request to get all SecurityResourceEntities");
-        Page<SecurityResourceEntity> result = securityResourceEntityRepository.findOwnAll(pageable);
-        return result;
+
+        if (appId != null) {
+            return securityResourceEntityRepository.findAllByAppId(pageable, appId);
+        } else {
+            return securityResourceEntityRepository.findOwnAll(pageable);
+        }
     }
 
     /**
