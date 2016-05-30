@@ -1,5 +1,11 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
+V 1.1.0-BETA
+
+    - 同一时间有多个user token同时有效
+    - 部分UI变更
+    - 稳定性提升
+
 v 1.0.0-BETA
 
     - 应用、资源、导航、权限、角色、组、用户的基本实现
