@@ -1,10 +1,9 @@
 <div>
-    <h2 translate="fortApp.securityNav.home.title">Security Navs</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-info" ui-sref="security-nav.new" >
+                <button class="btn btn-fill btn-info" ui-sref="security-nav.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs"  translate="fortApp.securityNav.home.createLabel">
                         Create new Security Nav
@@ -35,11 +34,9 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="fortApp.securityNav.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="icon"><span translate="fortApp.securityNav.icon">Icon</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="fortApp.securityNav.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="st"><span translate="fortApp.securityNav.st">St</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="parent.id"><span translate="fortApp.securityNav.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="resource.id"><span translate="fortApp.securityNav.resource">Resource</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="app.id"><span translate="fortApp.securityNav.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -48,11 +45,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="securityNav in vm.securityNavs track by securityNav.id">
-                    <td><a ui-sref="security-nav-detail({id:securityNav.id})">{{securityNav.id}}</a></td>
                     <td>{{securityNav.name}}</td>
                     <td>{{securityNav.icon}}</td>
                     <td>{{securityNav.description}}</td>
-                    <td>{{securityNav.st}}</td>
                     <td>
                         <a ui-sref="security-nav-detail({id:securityNav.parent.id})">{{securityNav.parent.id}}</a>
                     </td>

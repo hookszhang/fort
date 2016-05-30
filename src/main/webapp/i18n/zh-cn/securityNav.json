@@ -2,27 +2,27 @@
     "fortApp": {
         "securityNav" : {
             "home": {
-                "title": "Security Navs",
-                "createLabel": "Create a new Security Nav",
-                "createOrEditLabel": "Create or edit a Security Nav",
-                "search": "Search for Security Nav"
+                "title": "导航栏",
+                "createLabel": "新导航",
+                "createOrEditLabel": "创建&编辑导航",
+                "search": "查询导航"
             },
-            "created": "A new Security Nav is created with identifier {{ param }}",
-            "updated": "A Security Nav is updated with identifier {{ param }}",
-            "deleted": "A Security Nav is deleted with identifier {{ param }}",
+            "created": "一个新的导航已创建，ID {{ param }}",
+            "updated": "一个导航已更新，ID {{ param }}",
+            "deleted": "一个导航已删除，ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Security Nav {{ id }}?"
+                "question": "确定要删除导航 {{ id }}?"
             },
             "detail": {
-                "title": "Security Nav"
+                "title": "导航"
             },
-            "name": "Name",
-            "icon": "Icon",
-            "description": "Description",
+            "name": "名称",
+            "icon": "图标",
+            "description": "描述",
             "st": "St",
-            "parent": "Parent",
-            "resource": "Resource",
-            "app": "App"
+            "parent": "父导航",
+            "resource": "资源",
+            "app": "应用"
         }
     }
 }
