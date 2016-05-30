@@ -23,7 +23,8 @@
             "st": "St",
             "app": "应用",
             "role": "角色列表",
-            "group": "组列表"
+            "group": "组列表",
+            "confirmpassword": "确认密码"
         }
     }
 }

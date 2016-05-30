@@ -34,10 +34,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityGroupResource {
 
     private final Logger log = LoggerFactory.getLogger(SecurityGroupResource.class);
-        
+
     @Inject
     private SecurityGroupService securityGroupService;
-    
+
     /**
      * POST  /security-groups : Create a new securityGroup.
      *
@@ -88,6 +88,7 @@ public class SecurityGroupResource {
      * GET  /security-groups : get all the securityGroups.
      *
      * @param pageable the pagination information
+     * @param appId the id of the app
      * @return the ResponseEntity with status 200 (OK) and the list of securityGroups in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
@@ -95,10 +96,10 @@ public class SecurityGroupResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<SecurityGroup>> getAllSecurityGroups(Pageable pageable)
+    public ResponseEntity<List<SecurityGroup>> getAllSecurityGroups(Pageable pageable, Long appId)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityGroups");
-        Page<SecurityGroup> page = securityGroupService.findAll(pageable); 
+        Page<SecurityGroup> page = securityGroupService.findAll(pageable, appId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-groups");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

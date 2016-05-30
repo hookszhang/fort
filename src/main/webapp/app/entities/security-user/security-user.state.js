@@ -81,31 +81,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-user/security-user-dialog.html',
                     controller: 'SecurityUserDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                login: null,
-                                passwordHash: null,
-                                email: null,
-                                activated: false,
-                                st: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('security-user', null, { reload: true });
-                }, function() {
-                    $state.go('security-user');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-user.edit', {
             parent: 'security-user',
@@ -113,24 +95,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-user/security-user-dialog.html',
                     controller: 'SecurityUserDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['SecurityUser', function(SecurityUser) {
-                            return SecurityUser.get({id : $stateParams.id});
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('security-user', null, { reload: true });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-user.delete', {
             parent: 'security-user',

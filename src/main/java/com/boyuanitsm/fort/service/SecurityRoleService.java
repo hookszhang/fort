@@ -59,13 +59,17 @@ public class SecurityRoleService {
      * Get all the securityRoles.
      *
      * @param pageable the pagination information
+     * @param appId
      * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<SecurityRole> findAll(Pageable pageable) {
+    public Page<SecurityRole> findAll(Pageable pageable, Long appId) {
         log.debug("Request to get all SecurityRoles");
-        Page<SecurityRole> result = securityRoleRepository.findOwnAll(pageable);
-        return result;
+        if (appId != null) {
+            return securityRoleRepository.findAllByAppId(pageable, appId);
+        } else {
+            return securityRoleRepository.findOwnAll(pageable);
+        }
     }
 
     /**

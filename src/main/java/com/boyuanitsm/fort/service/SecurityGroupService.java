@@ -72,13 +72,17 @@ public class SecurityGroupService {
      *  Get all the securityGroups.
      *
      *  @param pageable the pagination information
-     *  @return the list of entities
+     *  @param appId the id of the app
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
-    public Page<SecurityGroup> findAll(Pageable pageable) {
+    public Page<SecurityGroup> findAll(Pageable pageable, Long appId) {
         log.debug("Request to get all SecurityGroups");
-        Page<SecurityGroup> result = securityGroupRepository.findAll(pageable);
-        return result;
+        if (appId != null) {
+            return securityGroupRepository.findAllByAppId(pageable, appId);
+        } else {
+            return securityGroupRepository.findOwnAll(pageable);
+        }
     }
 
     /**

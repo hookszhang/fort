@@ -89,6 +89,7 @@ public class SecurityRoleResource {
      * GET  /security-roles : get all the securityRoles.
      *
      * @param pageable the pagination information
+     * @param appId the id of the app
      * @return the ResponseEntity with status 200 (OK) and the list of securityRoles in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
@@ -96,10 +97,10 @@ public class SecurityRoleResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<SecurityRole>> getAllSecurityRoles(Pageable pageable)
+    public ResponseEntity<List<SecurityRole>> getAllSecurityRoles(Pageable pageable, Long appId)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityRoles");
-        Page<SecurityRole> page = securityRoleService.findAll(pageable);
+        Page<SecurityRole> page = securityRoleService.findAll(pageable, appId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-roles");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

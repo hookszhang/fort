@@ -17,13 +17,14 @@
                 "title": "Security User"
             },
             "login": "Login",
-            "passwordHash": "Password Hash",
+            "passwordHash": "Password",
             "email": "Email",
             "activated": "Activated",
             "st": "St",
             "app": "App",
             "role": "Role",
-            "group": "Group"
+            "group": "Group",
+            "confirmpassword": "Password Confirm"
         }
     }
 }
