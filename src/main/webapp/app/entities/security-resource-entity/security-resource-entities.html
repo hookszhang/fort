@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="security-resource-entity.new" >
+                <button class="btn btn-fill btn-primary" ui-sref="security-resource-entity.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs"  translate="fortApp.securityResourceEntity.home.createLabel">
                         Create new Security Resource Entity
@@ -34,21 +34,21 @@
         <table class="jh-table table table-striped card">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <!-- <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th> -->
                     <th jh-sort-by="name"><span translate="fortApp.securityResourceEntity.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="url"><span translate="fortApp.securityResourceEntity.url">Url</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="fortApp.securityResourceEntity.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="resourceType"><span translate="fortApp.securityResourceEntity.resourceType">Resource Type</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span translate="fortApp.securityResourceEntity.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="securityResourceEntity in vm.securityResourceEntities track by securityResourceEntity.id">
-                    <!-- <td><a ui-sref="security-resource-entity-detail({id:securityResourceEntity.id})">{{securityResourceEntity.id}}</a></td> -->
                     <td>{{securityResourceEntity.name}}</td>
                     <td>{{securityResourceEntity.url}}</td>
                     <td>{{securityResourceEntity.description}}</td>
                     <td translate="{{'fortApp.ResourceEntityType.' + securityResourceEntity.resourceType}}">{{securityResourceEntity.resourceType}}</td>
+                    <td>{{securityResourceEntity.app.appName}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

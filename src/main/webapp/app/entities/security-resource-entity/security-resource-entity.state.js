@@ -83,31 +83,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-resource-entity/security-resource-entity-dialog.html',
                     controller: 'SecurityResourceEntityDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                name: null,
-                                url: null,
-                                description: null,
-                                resourceType: null,
-                                st: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('security-resource-entity', null, { reload: true });
-                }, function() {
-                    $state.go('security-resource-entity');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-resource-entity.edit', {
             parent: 'security-resource-entity',
@@ -115,24 +97,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-resource-entity/security-resource-entity-dialog.html',
                     controller: 'SecurityResourceEntityDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['SecurityResourceEntity', function(SecurityResourceEntity) {
-                            return SecurityResourceEntity.get({id : $stateParams.id});
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('security-resource-entity', null, { reload: true });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-resource-entity.delete', {
             parent: 'security-resource-entity',
