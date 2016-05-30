@@ -2,7 +2,7 @@
     "fortApp": {
         "securityAuthority" : {
             "home": {
-                "title": "Security Authorities",
+                "title": "权限管理",
                 "createLabel": "新权限",
                 "createOrEditLabel": "创建&编辑 权限",
                 "search": "查询权限"
@@ -14,7 +14,7 @@
                 "question": "你确定要删除权限 {{ id }}?"
             },
             "detail": {
-                "title": "Security Authority"
+                "title": "权限"
             },
             "name": "名称",
             "description": "描述",
