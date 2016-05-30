@@ -44,7 +44,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="securityUser in vm.securityUsers track by securityUser.id">
-                    <td>{{securityUser.login}}</td>
+                    <td><a ui-sref="security-user-detail({id:securityUser.id})">{{securityUser.login}}</a></td>
                     <td>{{securityUser.email}}</td>
                     <td>{{securityUser.activated}}</td>
                     <td>
