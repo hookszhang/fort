@@ -1,5 +1,4 @@
 <div>
-    <h2 translate="fortApp.securityResourceEntity.home.title">Security Resource Entities</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -32,30 +31,24 @@
     </div>
     <br/>
     <div class="table-responsive">
-        <table class="jh-table table table-striped">
+        <table class="jh-table table table-striped card">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!-- <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th> -->
                     <th jh-sort-by="name"><span translate="fortApp.securityResourceEntity.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="url"><span translate="fortApp.securityResourceEntity.url">Url</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="fortApp.securityResourceEntity.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="resourceType"><span translate="fortApp.securityResourceEntity.resourceType">Resource Type</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="st"><span translate="fortApp.securityResourceEntity.st">St</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="app.id"><span translate="fortApp.securityResourceEntity.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="securityResourceEntity in vm.securityResourceEntities track by securityResourceEntity.id">
-                    <td><a ui-sref="security-resource-entity-detail({id:securityResourceEntity.id})">{{securityResourceEntity.id}}</a></td>
+                    <!-- <td><a ui-sref="security-resource-entity-detail({id:securityResourceEntity.id})">{{securityResourceEntity.id}}</a></td> -->
                     <td>{{securityResourceEntity.name}}</td>
                     <td>{{securityResourceEntity.url}}</td>
                     <td>{{securityResourceEntity.description}}</td>
                     <td translate="{{'fortApp.ResourceEntityType.' + securityResourceEntity.resourceType}}">{{securityResourceEntity.resourceType}}</td>
-                    <td>{{securityResourceEntity.st}}</td>
-                    <td>
-                        <a ui-sref="security-app-detail({id:securityResourceEntity.app.id})">{{securityResourceEntity.app.id}}</a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
