@@ -1,29 +1,31 @@
 
-<div>
-    <h2><span translate="fortApp.securityApp.detail.title">Security App</span> {{vm.securityApp.id}}</h2>
-    <hr>
-    <dl class="dl-horizontal jh-entity-details">
-        <dt><span translate="fortApp.securityApp.appName">App Name</span></dt>
-        <dd>
-            <span>{{vm.securityApp.appName}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityApp.appKey">App Key</span></dt>
-        <dd>
-            <span>{{vm.securityApp.appKey}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityApp.appSecret">App Secret</span></dt>
-        <dd>
-            <span>{{vm.securityApp.appSecret}}</span>
-        </dd>
-        <!-- <dt><span translate="fortApp.securityApp.st">St</span></dt>
-        <dd>
-            <span>{{vm.securityApp.st}}</span>
-        </dd> -->
-    </dl>
-
-    <button type="submit"
-            onclick="window.history.back()"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
-    </button>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="header">
+                <h4 class="title"><span translate="fortApp.securityApp.detail.title">Security App</span> {{vm.securityApp.id}}</h4>
+            </div>
+            <div class="content">
+                <dl class="dl-horizontal jh-entity-details">
+                    <dt><span translate="fortApp.securityApp.appName">App Name</span></dt>
+                    <dd>
+                        <span>{{vm.securityApp.appName}}</span>
+                    </dd>
+                    <dt><span translate="fortApp.securityApp.appKey">App Key</span></dt>
+                    <dd>
+                        <span>{{vm.securityApp.appKey}}</span>
+                    </dd>
+                    <dt><span translate="fortApp.securityApp.appSecret">App Secret</span></dt>
+                    <dd>
+                        <span>{{vm.securityApp.appSecret}}</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <button type="submit"
+                onclick="window.history.back()"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+    </div>
 </div>
