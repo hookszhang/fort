@@ -15,6 +15,13 @@
         vm.securityapps = SecurityApp.query();
         vm.securityroles = SecurityRole.query();
 
+        // init vm.securityAuthority.resources
+        if (!vm.securityAuthority) {
+            vm.securityAuthority = {
+                resources : []
+            }
+        }
+
         $timeout(function() {
             angular.element('.form-group:eq(1)>input').focus();
         });
@@ -34,10 +41,13 @@
         $scope.$watch('vm.securityAuthority.app', function(n, o, e) {
             if (n) {
                 vm.securityresourceentities = SecurityResourceEntity.query({appId: n.id});
+            } else {
+                vm.securityresourceentities = [];
             }
-            // if (vm.securityAuthority) {
-            //     vm.securityAuthority.resources = [];
-            // }
+
+            if (vm.securityAuthority && !vm.securityAuthority.id) {
+                vm.securityAuthority.resources = [];
+            }
         });
 
         vm.save = function() {
