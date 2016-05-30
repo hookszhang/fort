@@ -31,7 +31,7 @@
     </div>
     <br/>
     <div class="table-responsive">
-        <table class="jh-table table table-striped">
+        <table class="jh-table table table-striped card">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="name"><span translate="fortApp.securityNav.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -49,13 +49,13 @@
                     <td>{{securityNav.icon}}</td>
                     <td>{{securityNav.description}}</td>
                     <td>
-                        <a ui-sref="security-nav-detail({id:securityNav.parent.id})">{{securityNav.parent.id}}</a>
+                        <a ui-sref="security-nav-detail({id:securityNav.parent.id})">{{securityNav.parent.name}}</a>
                     </td>
                     <td>
-                        <a ui-sref="security-resource-entity-detail({id:securityNav.resource.id})">{{securityNav.resource.id}}</a>
+                        <a ui-sref="security-resource-entity-detail({id:securityNav.resource.id})">{{securityNav.resource.name}}</a>
                     </td>
                     <td>
-                        <a ui-sref="security-app-detail({id:securityNav.app.id})">{{securityNav.app.id}}</a>
+                        <a ui-sref="security-app-detail({id:securityNav.app.id})">{{securityNav.app.appName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

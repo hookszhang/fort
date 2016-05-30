@@ -81,30 +81,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-nav/security-nav-dialog.html',
                     controller: 'SecurityNavDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                name: null,
-                                icon: null,
-                                description: null,
-                                st: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('security-nav', null, { reload: true });
-                }, function() {
-                    $state.go('security-nav');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-nav.edit', {
             parent: 'security-nav',
@@ -112,24 +95,31 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-nav/security-nav-dialog.html',
                     controller: 'SecurityNavDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['SecurityNav', function(SecurityNav) {
-                            return SecurityNav.get({id : $stateParams.id});
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('security-nav', null, { reload: true });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
+            // onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+            //     $uibModal.open({
+            //         templateUrl: 'app/entities/security-nav/security-nav-dialog.html',
+            //         controller: 'SecurityNavDialogController',
+            //         controllerAs: 'vm',
+            //         backdrop: 'static',
+            //         size: 'lg',
+            //         resolve: {
+            //             entity: ['SecurityNav', function(SecurityNav) {
+            //                 return SecurityNav.get({id : $stateParams.id});
+            //             }]
+            //         }
+            //     }).result.then(function() {
+            //         $state.go('security-nav', null, { reload: true });
+            //     }, function() {
+            //         $state.go('^');
+            //     });
+            // }]
         })
         .state('security-nav.delete', {
             parent: 'security-nav',
