@@ -1,5 +1,4 @@
 <div>
-    <h2 translate="fortApp.securityRole.home.title">Security Roles</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -31,48 +30,26 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive">
-        <table class="jh-table table table-striped card">
-            <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="name"><span translate="fortApp.securityRole.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="description"><span translate="fortApp.securityRole.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="app.id"><span translate="fortApp.securityRole.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="securityRole in vm.securityRoles track by securityRole.id">
-                    <td><a ui-sref="security-role-detail({id:securityRole.id})">{{securityRole.name}}</a></td>
-                    <td>{{securityRole.description}}</td>
-                    <td>
-                        <a ui-sref="security-app-detail({id:securityRole.app.id})">{{securityRole.app.appName}}</a>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="security-role-detail({id:securityRole.id})"
-                                    class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="security-role.edit({id:securityRole.id})"
-                                    class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="security-role.delete({id:securityRole.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-md-3" ng-repeat="securityRole in vm.securityRoles track by securityRole.id">
+            <div class="card">
+                <p class="right-top">
+                    <button type="button" class="btn btn-default btn-simple btn-xs" ui-sref="security-role.edit({id:securityRole.id})">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-simple btn-xs" ui-sref="security-role.delete({id:securityRole.id})">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </p>
+                <div class="header">
+                    <h4 class="title"><a ui-sref="security-role-detail({id:securityRole.id})">{{securityRole.name}}</a></h4>
+                    <p class="category">{{securityRole.app.appName}}</p>
+                </div>
+                <div class="content">
+                    <p>{{securityRole.description}}</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="text-center">
         <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
