@@ -1,10 +1,9 @@
 <div>
-    <h2 translate="fortApp.securityGroup.home.title">Security Groups</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="security-group.new" >
+                <button class="btn btn-fill btn-default" ui-sref="security-group.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs"  translate="fortApp.securityGroup.home.createLabel">
                         Create new Security Group
@@ -16,12 +15,12 @@
                     <div class="input-group pull-right" >
                         <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'fortApp.securityGroup.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
-                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                            <button class="btn btn-default" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>
                         <span class="input-group-btn width-min" ng-if="vm.currentSearch">
-                            <button class="btn btn-info" ng-click="vm.clear()">
+                            <button class="btn btn-default" ng-click="vm.clear()">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
                         </span>
@@ -31,52 +30,26 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
-            <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="name"><span translate="fortApp.securityGroup.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="description"><span translate="fortApp.securityGroup.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="st"><span translate="fortApp.securityGroup.st">St</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="app.id"><span translate="fortApp.securityGroup.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="securityGroup in vm.securityGroups track by securityGroup.id">
-                    <td><a ui-sref="security-group-detail({id:securityGroup.id})">{{securityGroup.id}}</a></td>
-                    <td>{{securityGroup.name}}</td>
-                    <td>{{securityGroup.description}}</td>
-                    <td>{{securityGroup.st}}</td>
-                    <td>
-                        <a ui-sref="security-app-detail({id:securityGroup.app.id})">{{securityGroup.app.id}}</a>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="security-group-detail({id:securityGroup.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="security-group.edit({id:securityGroup.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="security-group.delete({id:securityGroup.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-md-3" ng-repeat="securityGroup in vm.securityGroups track by securityGroup.id">
+            <div class="card">
+                <p class="right-top">
+                    <button type="button" class="btn btn-default btn-simple btn-xs" ui-sref="security-group.edit({id:securityGroup.id})">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-simple btn-xs" ui-sref="security-group.delete({id:securityGroup.id})">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </p>
+                <div class="header">
+                    <h4 class="title"><a ui-sref="security-group-detail({id:securityGroup.id})">{{securityGroup.name}}</a></h4>
+                    <p class="category">{{securityGroup.app.appName}}</p>
+                </div>
+                <div class="content">
+                    {{securityGroup.description}}
+                </div>
+            </div>
+        </div>
     </div>
     <div class="text-center">
         <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>

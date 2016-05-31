@@ -1,10 +1,9 @@
 <div>
-    <h2 translate="fortApp.securityUser.home.title">Security Users</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="security-user.new" >
+                <button class="btn btn-fill btn-default" ui-sref="security-user.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs"  translate="fortApp.securityUser.home.createLabel">
                         Create new Security User
@@ -16,12 +15,12 @@
                     <div class="input-group pull-right" >
                         <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'fortApp.securityUser.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
-                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                            <button class="btn btn-default" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>
                         <span class="input-group-btn width-min" ng-if="vm.currentSearch">
-                            <button class="btn btn-info" ng-click="vm.clear()">
+                            <button class="btn btn-default" ng-click="vm.clear()">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
                         </span>
@@ -32,41 +31,35 @@
     </div>
     <br/>
     <div class="table-responsive">
-        <table class="jh-table table table-striped">
+        <table class="jh-table table table-striped card">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="login"><span translate="fortApp.securityUser.login">Login</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="passwordHash"><span translate="fortApp.securityUser.passwordHash">Password Hash</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="email"><span translate="fortApp.securityUser.email">Email</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="activated"><span translate="fortApp.securityUser.activated">Activated</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="st"><span translate="fortApp.securityUser.st">St</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="app.id"><span translate="fortApp.securityUser.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="securityUser in vm.securityUsers track by securityUser.id">
-                    <td><a ui-sref="security-user-detail({id:securityUser.id})">{{securityUser.id}}</a></td>
-                    <td>{{securityUser.login}}</td>
-                    <td>{{securityUser.passwordHash}}</td>
+                    <td><a ui-sref="security-user-detail({id:securityUser.id})">{{securityUser.login}}</a></td>
                     <td>{{securityUser.email}}</td>
                     <td>{{securityUser.activated}}</td>
-                    <td>{{securityUser.st}}</td>
                     <td>
-                        <a ui-sref="security-app-detail({id:securityUser.app.id})">{{securityUser.app.id}}</a>
+                        <a ui-sref="security-app-detail({id:securityUser.app.id})">{{securityUser.app.appName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="security-user-detail({id:securityUser.id})"
-                                    class="btn btn-info btn-sm">
+                                    class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
                                     ui-sref="security-user.edit({id:securityUser.id})"
-                                    class="btn btn-primary btn-sm">
+                                    class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
                             </button>

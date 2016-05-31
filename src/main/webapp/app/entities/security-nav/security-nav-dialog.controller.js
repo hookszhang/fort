@@ -5,11 +5,14 @@
         .module('fortApp')
         .controller('SecurityNavDialogController', SecurityNavDialogController);
 
-    SecurityNavDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'SecurityNav', 'SecurityResourceEntity', 'SecurityApp'];
+    SecurityNavDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityNav', 'SecurityResourceEntity', 'SecurityApp'];
 
-    function SecurityNavDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityNav, SecurityResourceEntity, SecurityApp) {
+    function SecurityNavDialogController ($timeout, $scope, $stateParams, $state, SecurityNav, SecurityResourceEntity, SecurityApp) {
         var vm = this;
-        vm.securityNav = entity;
+        // vm.securityNav = entity;
+        if ($stateParams.id) {
+            vm.securityNav = SecurityNav.get({id : $stateParams.id});
+        }
         vm.securitynavs = SecurityNav.query();
         vm.securityresourceentities = SecurityResourceEntity.query();
         vm.securityapps = SecurityApp.query();
@@ -20,7 +23,6 @@
 
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityNavUpdate', result);
-            $uibModalInstance.close(result);
             vm.isSaving = false;
         };
 
@@ -35,6 +37,7 @@
             } else {
                 SecurityNav.save(vm.securityNav, onSaveSuccess, onSaveError);
             }
+            $state.go('security-nav', null, { reload: true });
         };
 
         vm.clear = function() {

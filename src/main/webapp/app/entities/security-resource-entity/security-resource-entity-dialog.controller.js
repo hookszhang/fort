@@ -5,11 +5,13 @@
         .module('fortApp')
         .controller('SecurityResourceEntityDialogController', SecurityResourceEntityDialogController);
 
-    SecurityResourceEntityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'SecurityResourceEntity', 'SecurityApp', 'SecurityAuthority'];
+    SecurityResourceEntityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityResourceEntity', 'SecurityApp', 'SecurityAuthority'];
 
-    function SecurityResourceEntityDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityResourceEntity, SecurityApp, SecurityAuthority) {
+    function SecurityResourceEntityDialogController ($timeout, $scope, $stateParams, $state, SecurityResourceEntity, SecurityApp, SecurityAuthority) {
         var vm = this;
-        vm.securityResourceEntity = entity;
+        if ($stateParams.id) {
+            vm.securityResourceEntity = SecurityResourceEntity.get({id : $stateParams.id});
+        }
         vm.securityapps = SecurityApp.query();
         vm.securityauthorities = SecurityAuthority.query();
 
@@ -19,7 +21,6 @@
 
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityResourceEntityUpdate', result);
-            $uibModalInstance.close(result);
             vm.isSaving = false;
         };
 
@@ -34,6 +35,7 @@
             } else {
                 SecurityResourceEntity.save(vm.securityResourceEntity, onSaveSuccess, onSaveError);
             }
+            $state.go('security-resource-entity', null, { reload: true });
         };
 
         vm.clear = function() {

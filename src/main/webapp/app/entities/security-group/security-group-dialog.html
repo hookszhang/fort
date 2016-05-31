@@ -1,66 +1,55 @@
-
 <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
-
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                ng-click="vm.clear()">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.clear()">&times;</button>
         <h4 class="modal-title" id="mySecurityGroupLabel" translate="fortApp.securityGroup.home.createOrEditLabel">Create or edit a Security Group</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.securityGroup.id">
-            <label for="id" translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.securityGroup.id" readonly />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityGroup.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name"
-                    ng-model="vm.securityGroup.name"
-                    required ng-maxlength="50" />
-            <div ng-show="editForm.name.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
-                    This field cannot be longer than 50 characters.
-                </p>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="form-group" ng-show="vm.securityGroup.id">
+                            <label for="id" translate="global.field.id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id" ng-model="vm.securityGroup.id" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityGroup.name" for="field_name">Name</label>
+                            <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.securityGroup.name" required ng-maxlength="50" />
+                            <div ng-show="editForm.name.$invalid">
+                                <p class="help-block" ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block" ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                                    This field cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityGroup.description" for="field_description">Description</label>
+                            <input type="text" class="form-control" name="description" id="field_description" ng-model="vm.securityGroup.description" />
+                        </div>
+                        <div class="form-group">
+                            <label translate="fortApp.securityGroup.app" for="field_app">App</label>
+                            <select class="form-control" id="field_app" name="app" ng-model="vm.securityGroup.app" ng-options="securityApp as securityApp.appName for securityApp in vm.securityapps track by securityApp.id" required>
+                                <option value=""></option>
+                            </select>
+                            <div ng-show="editForm.app.$invalid">
+                                <p class="help-block" ng-show="editForm.app.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-fill btn-default">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityGroup.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                    ng-model="vm.securityGroup.description"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityGroup.st" for="field_st">St</label>
-            <input type="text" class="form-control" name="st" id="field_st"
-                    ng-model="vm.securityGroup.st"
-                    ng-maxlength="60" />
-            <div ng-show="editForm.st.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.st.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
-                    This field cannot be longer than 60 characters.
-                </p>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label translate="fortApp.securityGroup.app" for="field_app">App</label>
-            <select class="form-control" id="field_app" name="app" ng-model="vm.securityGroup.app" ng-options="securityApp as securityApp.id for securityApp in vm.securityapps track by securityApp.id">
-                <option value=""></option>
-            </select>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
-            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
-        </button>
     </div>
 </form>

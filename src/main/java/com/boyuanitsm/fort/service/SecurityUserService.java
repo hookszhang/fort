@@ -68,9 +68,18 @@ public class SecurityUserService {
 
         OnUpdateSecurityResourceOption option = securityUser.getId() == null ? POST : PUT;
 
-        // encode password
-        String passwordHash = securityUser.getPasswordHash();
-        securityUser.setPasswordHash(passwordEncoder.encode(passwordHash));
+        if (PUT.equals(option)) {
+            SecurityUser old = securityUserRepository.findOne(securityUser.getId());
+            if (!securityUser.getPasswordHash().equals(old.getPasswordHash())) {
+                // encode password
+                String passwordHash = securityUser.getPasswordHash();
+                securityUser.setPasswordHash(passwordEncoder.encode(passwordHash));
+            }
+        } else {
+            // encode password
+            String passwordHash = securityUser.getPasswordHash();
+            securityUser.setPasswordHash(passwordEncoder.encode(passwordHash));
+        }
 
         SecurityUser result = securityUserRepository.save(securityUser);
         securityUserSearchRepository.save(result);

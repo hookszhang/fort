@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary btn-fill btn-wd" ui-sref="security-authority-new">
+                <button class="btn btn-default btn-fill" ui-sref="security-authority-new">
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs" translate="fortApp.securityAuthority.home.createLabel">
                         Create new Security Authority
@@ -15,12 +15,12 @@
                     <div class="input-group pull-right">
                         <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'fortApp.securityAuthority.home.search' | translate }}">
                         <span class="input-group-btn width-min">
-                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                            <button class="btn btn-default" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
                         </button>
                         </span>
                         <span class="input-group-btn width-min" ng-if="vm.currentSearch">
-                            <button class="btn btn-info" ng-click="vm.clear()">
+                            <button class="btn btn-default" ng-click="vm.clear()">
                                 <span class="glyphicon glyphicon-trash"></span>
                         </button>
                         </span>
@@ -34,15 +34,15 @@
         <div class="col-md-3" ng-repeat="securityAuthority in vm.securityAuthorities track by securityAuthority.id">
             <div class="card">
                 <p class="right-top">
-                    <button type="button" class="btn btn-info btn-simple btn-xs" ui-sref="security-authority.edit({id:securityAuthority.id})">
+                    <button type="button" class="btn btn-default btn-simple btn-xs" ui-sref="security-authority.edit({id:securityAuthority.id})">
                         <i class="fa fa-edit"></i>
                     </button>
                     <button type="button" class="btn btn-danger btn-simple btn-xs" ui-sref="security-authority.delete({id:securityAuthority.id})">
                         <i class="fa fa-times"></i>
                     </button>
                 </p>
-                <div class="header" ui-sref="security-authority-detail({id:securityAuthority.id})">
-                    <h4 class="title">{{securityAuthority.name}}</h4>
+                <div class="header">
+                    <h4 class="title"><a ui-sref="security-authority-detail({id:securityAuthority.id})">{{securityAuthority.name}}</a></h4>
                     <p class="category">{{securityAuthority.app.appName}}</p>
                 </div>
                 <div class="content">

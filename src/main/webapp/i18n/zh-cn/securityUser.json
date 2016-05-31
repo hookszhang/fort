@@ -2,28 +2,29 @@
     "fortApp": {
         "securityUser" : {
             "home": {
-                "title": "Security Users",
-                "createLabel": "Create a new Security User",
-                "createOrEditLabel": "Create or edit a Security User",
-                "search": "Search for Security User"
+                "title": "用户管理",
+                "createLabel": "新用户",
+                "createOrEditLabel": "创建&编辑用户",
+                "search": "查询用户"
             },
-            "created": "A new Security User is created with identifier {{ param }}",
-            "updated": "A Security User is updated with identifier {{ param }}",
-            "deleted": "A Security User is deleted with identifier {{ param }}",
+            "created": "一个用户已创建，ID {{ param }}",
+            "updated": "一个用户已更新，ID {{ param }}",
+            "deleted": "一个用户已删除，ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Security User {{ id }}?"
+                "question": "确认删除用户 {{ id }}?"
             },
             "detail": {
-                "title": "Security User"
+                "title": "用户"
             },
-            "login": "Login",
-            "passwordHash": "Password Hash",
+            "login": "登录名",
+            "passwordHash": "密码",
             "email": "Email",
-            "activated": "Activated",
+            "activated": "启用",
             "st": "St",
-            "app": "App",
-            "role": "Role",
-            "group": "Group"
+            "app": "应用",
+            "role": "角色列表",
+            "group": "组列表",
+            "confirmpassword": "确认密码"
         }
     }
 }

@@ -1,108 +1,126 @@
-
 <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
-
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                ng-click="vm.clear()">&times;</button>
         <h4 class="modal-title" id="mySecurityUserLabel" translate="fortApp.securityUser.home.createOrEditLabel">Create or edit a Security User</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.securityUser.id">
-            <label for="id" translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.securityUser.id" readonly />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityUser.login" for="field_login">Login</label>
-            <input type="text" class="form-control" name="login" id="field_login"
-                    ng-model="vm.securityUser.login"
-                    required ng-maxlength="50" />
-            <div ng-show="editForm.login.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.login.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.login.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
-                    This field cannot be longer than 50 characters.
-                </p>
+        <div class="row">
+            <div class="alert alert-danger" ng-show="vm.doNotMatch" translate="global.messages.error.dontmatch">
+                The password and its confirmation do not match!
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="form-group" ng-show="vm.securityUser.id">
+                            <label for="id" translate="global.field.id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id" ng-model="vm.securityUser.id" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityUser.login" for="field_login">Login</label>
+                            <input type="text" class="form-control" name="login" id="field_login" ng-model="vm.securityUser.login" required ng-maxlength="50" />
+                            <div ng-show="editForm.login.$invalid">
+                                <p class="help-block" ng-show="editForm.login.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block" ng-show="editForm.login.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                                    This field cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityUser.passwordHash" for="field_passwordHash">Password Hash</label>
+                            <input type="password" class="form-control" name="passwordHash" id="field_passwordHash" ng-model="vm.securityUser.passwordHash" ng-minlength="5" ng-maxlength="60" />
+                            <div ng-show="editForm.passwordHash.$invalid">
+                                <p class="help-block" ng-show="editForm.passwordHash.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.passwordHash.$error.minlength" translate="global.messages.validate.newpassword.minlength">
+                                    Your password is required to be at least 4 characters.
+                                </p>
+                                <p class="help-block" ng-show="editForm.passwordHash.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
+                                    This field cannot be longer than 60 characters.
+                                </p>
+                            </div>
+                            <password-strength-bar password-to-check="vm.securityUser.passwordHash"></password-strength-bar>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityUser.confirmpassword" for="field_passwordHash">Password Confirm</label>
+                            <input type="password" class="form-control" name="confirmpassword" id="field_confirmpasswordHash" ng-model="vm.securityUser.confirmpassword" ng-maxlength="60" />
+                            <div ng-show="editForm.confirmpassword.$invalid">
+                                <p class="help-block" ng-show="editForm.confirmpassword.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.confirmpassword.$error.minlength" translate="global.messages.validate.confirmpassword.minlength">
+                                    Your confirmation password is required to be at least 4 characters.
+                                </p>
+                                <p class="help-block" ng-show="editForm.confirmpassword.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
+                                    This field cannot be longer than 60 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityUser.email" for="field_email">Email</label>
+                            <input type="text" class="form-control" name="email" id="field_email" ng-model="vm.securityUser.email" ng-maxlength="100" />
+                            <div ng-show="editForm.email.$invalid">
+                                <p class="help-block" ng-show="editForm.email.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                                    This field cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityUser.activated" for="field_activated">Activated</label>
+                            <input type="checkbox" class="form-control" name="activated" id="field_activated" ng-model="vm.securityUser.activated" />
+                            <div ng-show="editForm.activated.$invalid">
+                                <p class="help-block" ng-show="editForm.activated.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="fortApp.securityUser.app" for="field_app">App</label>
+                            <select class="form-control" id="field_app" name="app" ng-model="vm.securityUser.app" ng-options="securityApp as securityApp.appName for securityApp in vm.securityapps track by securityApp.id" required>
+                                <option value=""></option>
+                            </select>
+                            <div ng-show="editForm.app.$invalid">
+                                <p class="help-block" ng-show="editForm.app.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="fortApp.securityUser.role" for="field_role">Role</label>
+                            <ui-select class="form-control" id="field_role" name="role" multiple ng-model="vm.securityUser.roles"theme="bootstrap" close-on-select="false">
+                                <ui-select-match>{{$item.name}}</ui-select-match>
+                                <ui-select-choices repeat="securityRole as securityRole in vm.securityroles | filter:$select.search">
+                                    <div ng-bind="securityRole.name"></div>
+                                    <small>
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="form-group">
+                            <label translate="fortApp.securityUser.group" for="field_group">Group</label>
+                            <ui-select class="form-control" id="field_groups" name="groups" multiple ng-model="vm.securityUser.groups"theme="bootstrap" close-on-select="false">
+                                <ui-select-match>{{$item.name}}</ui-select-match>
+                                <ui-select-choices repeat="securityGroup as securityGroup in vm.securitygroups | filter:$select.search">
+                                    <div ng-bind="securityGroup.name"></div>
+                                    <small>
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-fill btn-default">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityUser.passwordHash" for="field_passwordHash">Password Hash</label>
-            <input type="text" class="form-control" name="passwordHash" id="field_passwordHash"
-                    ng-model="vm.securityUser.passwordHash"
-                    required ng-maxlength="60" />
-            <div ng-show="editForm.passwordHash.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.passwordHash.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.passwordHash.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
-                    This field cannot be longer than 60 characters.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityUser.email" for="field_email">Email</label>
-            <input type="text" class="form-control" name="email" id="field_email"
-                    ng-model="vm.securityUser.email"
-                    ng-maxlength="100" />
-            <div ng-show="editForm.email.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.email.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
-                    This field cannot be longer than 100 characters.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityUser.activated" for="field_activated">Activated</label>
-            <input type="checkbox" class="form-control" name="activated" id="field_activated"
-                    ng-model="vm.securityUser.activated"
-                     />
-            <div ng-show="editForm.activated.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.activated.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityUser.st" for="field_st">St</label>
-            <input type="text" class="form-control" name="st" id="field_st"
-                    ng-model="vm.securityUser.st"
-                    ng-maxlength="60" />
-            <div ng-show="editForm.st.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.st.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
-                    This field cannot be longer than 60 characters.
-                </p>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label translate="fortApp.securityUser.app" for="field_app">App</label>
-            <select class="form-control" id="field_app" name="app" ng-model="vm.securityUser.app" ng-options="securityApp as securityApp.id for securityApp in vm.securityapps track by securityApp.id">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label translate="fortApp.securityUser.role" for="field_role">Role</label>
-            <select class="form-control" id="field_role" multiple name="role" ng-model="vm.securityUser.roles" ng-options="securityRole as securityRole.id for securityRole in vm.securityroles track by securityRole.id"></select>
-        </div>
-        <div class="form-group">
-            <label translate="fortApp.securityUser.group" for="field_group">Group</label>
-            <select class="form-control" id="field_group" multiple name="group" ng-model="vm.securityUser.groups" ng-options="securityGroup as securityGroup.id for securityGroup in vm.securitygroups track by securityGroup.id"></select>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
-            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
-        </button>
     </div>
 </form>

@@ -3,31 +3,6 @@
     <h2><span translate="fortApp.securityAuthority.detail.title">Security Authority</span> {{vm.securityAuthority.id}}</h2>
     <h3>{{vm.securityAuthority.app.appName}}</h3>
     <hr>
-    <!-- <dl class="dl-horizontal jh-entity-details">
-        <dt><span translate="fortApp.securityAuthority.name">Name</span></dt>
-        <dd>
-            <span>{{vm.securityAuthority.name}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityAuthority.description">Description</span></dt>
-        <dd>
-            <span>{{vm.securityAuthority.description}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityAuthority.st">St</span></dt>
-        <dd>
-            <span>{{vm.securityAuthority.st}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityAuthority.app">App</span></dt>
-        <dd>
-            <a ui-sref="security-app-detail({id:vm.securityAuthority.app.id})">{{vm.securityAuthority.app.id}}</a>
-        </dd>
-        <dt><span translate="fortApp.securityAuthority.resource">Resource</span></dt>
-        <dd>
-            <span ng-repeat="resource in vm.securityAuthority.resources">
-                <a ui-sref="security-resource-entity-detail({id: {{resource.id}}})">{{resource.id}}</a>{{$last ? '' : ', '}}
-            </span>
-        </dd>
-    </dl> -->
-
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -51,17 +26,17 @@
             </div>
             <button type="submit"
                     onclick="window.history.back()"
-                    class="btn btn-primary btn-fill btn-wd">
+                    class="btn btn-default btn-fill">
                 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
             </button>
         </div>
         <div class="col-md-6">
             <div class="card">
                 <div class="header">
-                    <div class="title">
+                    <h4 class="title">
                         <span translate="fortApp.securityAuthority.resource">Resource</span>
                         <span class="badge">{{vm.securityAuthority.resources.length}}</span>
-                    </div>
+                    </h4>
                 </div>
                 <div class="content table-full-width">
                     <table class="table table-striped">

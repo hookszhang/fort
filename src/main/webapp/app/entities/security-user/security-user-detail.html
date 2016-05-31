@@ -1,49 +1,74 @@
 
 <div>
     <h2><span translate="fortApp.securityUser.detail.title">Security User</span> {{vm.securityUser.id}}</h2>
+    <h3>{{vm.securityUser.app.appName}}</h3>
     <hr>
-    <dl class="dl-horizontal jh-entity-details">
-        <dt><span translate="fortApp.securityUser.login">Login</span></dt>
-        <dd>
-            <span>{{vm.securityUser.login}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityUser.passwordHash">Password Hash</span></dt>
-        <dd>
-            <span>{{vm.securityUser.passwordHash}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityUser.email">Email</span></dt>
-        <dd>
-            <span>{{vm.securityUser.email}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityUser.activated">Activated</span></dt>
-        <dd>
-            <span>{{vm.securityUser.activated}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityUser.st">St</span></dt>
-        <dd>
-            <span>{{vm.securityUser.st}}</span>
-        </dd>
-        <dt><span translate="fortApp.securityUser.app">App</span></dt>
-        <dd>
-            <a ui-sref="security-app-detail({id:vm.securityUser.app.id})">{{vm.securityUser.app.id}}</a>
-        </dd>
-        <dt><span translate="fortApp.securityUser.role">Role</span></dt>
-        <dd>
-            <span ng-repeat="role in vm.securityUser.roles">
-                <a ui-sref="security-role-detail({id: {{role.id}}})">{{role.id}}</a>{{$last ? '' : ', '}}
-            </span>
-        </dd>
-        <dt><span translate="fortApp.securityUser.group">Group</span></dt>
-        <dd>
-            <span ng-repeat="group in vm.securityUser.groups">
-                <a ui-sref="security-group-detail({id: {{group.id}}})">{{group.id}}</a>{{$last ? '' : ', '}}
-            </span>
-        </dd>
-    </dl>
-
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">User Info:</h4>
+                </div>
+                <div class="content">
+                    <dl class="dl-horizontal jh-entity-details">
+                        <dt><span translate="fortApp.securityUser.login">Login</span></dt>
+                        <dd>
+                            <span>{{vm.securityUser.login}}</span>
+                        </dd>
+                        <dt><span translate="fortApp.securityUser.email">Email</span></dt>
+                        <dd>
+                            <span>{{vm.securityUser.email}}</span>
+                        </dd>
+                        <dt><span translate="fortApp.securityUser.activated">Activated</span></dt>
+                        <dd>
+                            <span>{{vm.securityUser.activated}}</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">
+                        <span translate="fortApp.securityUser.role">Role</span>
+                        <span class="badge">{{vm.securityUser.roles.length}}</span>
+                    </h4>
+                </div>
+                <div class="content table-full-width">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat="role in vm.securityUser.roles">
+                                <td><a ui-sref="security-role-detail({id: {{role.id}}})">{{role.name}}</a></td>
+                                <td>{{role.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">
+                        <span translate="fortApp.securityUser.group">Group</span>
+                        <span class="badge">{{vm.securityUser.groups.length}}</span>
+                    </h4>
+                </div>
+                <div class="content table-full-width">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat="group in vm.securityUser.groups">
+                                <td><a ui-sref="security-group-detail({id: {{group.id}}})">{{group.name}}</a></td>
+                                <td>{{group.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <button type="submit"
             onclick="window.history.back()"
-            class="btn btn-info">
+            class="btn btn-fill btn-default">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
     </button>
 </div>
