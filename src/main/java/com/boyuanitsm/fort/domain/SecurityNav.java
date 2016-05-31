@@ -16,7 +16,7 @@ import java.util.Objects;
 @Table(name = "security_nav")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "securitynav")
-public class SecurityNav implements Serializable {
+public class SecurityNav extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
