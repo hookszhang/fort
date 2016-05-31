@@ -45,7 +45,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="securityNav in vm.securityNavs track by securityNav.id">
-                    <td>{{securityNav.name}}</td>
+                    <td><a ui-sref="security-nav-detail({id:securityNav.id})">{{securityNav.name}}</a></td>
                     <td>{{securityNav.icon}}</td>
                     <td>{{securityNav.description}}</td>
                     <td>

@@ -44,11 +44,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="securityResourceEntity in vm.securityResourceEntities track by securityResourceEntity.id">
-                    <td>{{securityResourceEntity.name}}</td>
+                    <td><a ui-sref="security-resource-entity-detail({id:securityResourceEntity.id})">{{securityResourceEntity.name}}</a></td>
                     <td>{{securityResourceEntity.url}}</td>
                     <td>{{securityResourceEntity.description}}</td>
                     <td translate="{{'fortApp.ResourceEntityType.' + securityResourceEntity.resourceType}}">{{securityResourceEntity.resourceType}}</td>
-                    <td>{{securityResourceEntity.app.appName}}</td>
+                    <td><a ui-sref="security-app-detail({id:securityResourceEntity.app.id})">{{securityResourceEntity.app.appName}}</a></td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
