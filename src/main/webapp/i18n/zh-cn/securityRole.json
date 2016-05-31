@@ -2,25 +2,25 @@
     "fortApp": {
         "securityRole" : {
             "home": {
-                "title": "Security Roles",
-                "createLabel": "Create a new Security Role",
-                "createOrEditLabel": "Create or edit a Security Role",
-                "search": "Search for Security Role"
+                "title": "角色管理",
+                "createLabel": "新角色",
+                "createOrEditLabel": "创建&编辑角色",
+                "search": "查询角色"
             },
-            "created": "A new Security Role is created with identifier {{ param }}",
-            "updated": "A Security Role is updated with identifier {{ param }}",
-            "deleted": "A Security Role is deleted with identifier {{ param }}",
+            "created": "一个新的角色已创建，ID {{ param }}",
+            "updated": "一个角色已更新，ID {{ param }}",
+            "deleted": "一个角色已删除，ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Security Role {{ id }}?"
+                "question": "确定要删除角色 {{ id }}?"
             },
             "detail": {
-                "title": "Security Role"
+                "title": "角色"
             },
-            "name": "Name",
-            "description": "Description",
+            "name": "名称",
+            "description": "描述",
             "st": "St",
-            "app": "App",
-            "authority": "Authority",
+            "app": "应用",
+            "authority": "权限列表",
             "user": "User"
         }
     }
