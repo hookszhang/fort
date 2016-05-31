@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-default" ui-sref="security-role.new" >
+                <button class="btn btn-fill btn-default" ui-sref="security-role.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs"  translate="fortApp.securityRole.home.createLabel">
                         Create new Security Role
@@ -32,25 +32,21 @@
     </div>
     <br/>
     <div class="table-responsive">
-        <table class="jh-table table table-striped">
+        <table class="jh-table table table-striped card">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="fortApp.securityRole.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="fortApp.securityRole.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="st"><span translate="fortApp.securityRole.st">St</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="app.id"><span translate="fortApp.securityRole.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="securityRole in vm.securityRoles track by securityRole.id">
-                    <td><a ui-sref="security-role-detail({id:securityRole.id})">{{securityRole.id}}</a></td>
-                    <td>{{securityRole.name}}</td>
+                    <td><a ui-sref="security-role-detail({id:securityRole.id})">{{securityRole.name}}</a></td>
                     <td>{{securityRole.description}}</td>
-                    <td>{{securityRole.st}}</td>
                     <td>
-                        <a ui-sref="security-app-detail({id:securityRole.app.id})">{{securityRole.app.id}}</a>
+                        <a ui-sref="security-app-detail({id:securityRole.app.id})">{{securityRole.app.appName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

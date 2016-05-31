@@ -5,22 +5,37 @@
         .module('fortApp')
         .controller('SecurityRoleDialogController', SecurityRoleDialogController);
 
-    SecurityRoleDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'SecurityRole', 'SecurityApp', 'SecurityAuthority', 'SecurityUser'];
+    SecurityRoleDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityRole', 'SecurityApp', 'SecurityAuthority', 'SecurityUser'];
 
-    function SecurityRoleDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityRole, SecurityApp, SecurityAuthority, SecurityUser) {
+    function SecurityRoleDialogController ($timeout, $scope, $stateParams, $state, SecurityRole, SecurityApp, SecurityAuthority, SecurityUser) {
         var vm = this;
-        vm.securityRole = entity;
+        if ($stateParams.id) {
+            vm.securityRole = SecurityRole.get({id : $stateParams.id}, function(){
+                // add firstLoad tag
+                vm.securityRole.firstLoad = true;
+            });
+        } else {
+            vm.securityRole = {};
+        }
         vm.securityapps = SecurityApp.query();
-        vm.securityauthorities = SecurityAuthority.query();
-        vm.securityusers = SecurityUser.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });
 
+        $scope.$watch('vm.securityRole.app', function(n, o, e) {
+            if (!vm.securityRole.firstLoad) {
+                vm.securityRole.authorities = [];
+            }
+            if (n) {
+                vm.securityauthorities = SecurityAuthority.query({appId: n.id});
+                // change firstLoad tag to false
+                vm.securityRole.firstLoad = false;
+            }
+        });
+
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityRoleUpdate', result);
-            $uibModalInstance.close(result);
             vm.isSaving = false;
         };
 
@@ -35,6 +50,7 @@
             } else {
                 SecurityRole.save(vm.securityRole, onSaveSuccess, onSaveError);
             }
+            $state.go('security-role', null, { reload: true });
         };
 
         vm.clear = function() {

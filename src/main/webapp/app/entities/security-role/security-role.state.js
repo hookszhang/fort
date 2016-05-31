@@ -81,29 +81,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-role/security-role-dialog.html',
                     controller: 'SecurityRoleDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                name: null,
-                                description: null,
-                                st: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('security-role', null, { reload: true });
-                }, function() {
-                    $state.go('security-role');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-role.edit', {
             parent: 'security-role',
@@ -111,24 +95,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-role/security-role-dialog.html',
                     controller: 'SecurityRoleDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['SecurityRole', function(SecurityRole) {
-                            return SecurityRole.get({id : $stateParams.id});
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('security-role', null, { reload: true });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-role.delete', {
             parent: 'security-role',
