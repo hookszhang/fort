@@ -5,11 +5,13 @@
         .module('fortApp')
         .controller('SecurityGroupDialogController', SecurityGroupDialogController);
 
-    SecurityGroupDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'SecurityGroup', 'SecurityApp', 'SecurityUser'];
+    SecurityGroupDialogController.$inject = ['$timeout', '$scope', '$state', '$stateParams', 'SecurityGroup', 'SecurityApp', 'SecurityUser'];
 
-    function SecurityGroupDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityGroup, SecurityApp, SecurityUser) {
+    function SecurityGroupDialogController ($timeout, $scope, $state, $stateParams, SecurityGroup, SecurityApp, SecurityUser) {
         var vm = this;
-        vm.securityGroup = entity;
+        if ($stateParams.id) {
+             vm.securityGroup = SecurityGroup.get({id : $stateParams.id});
+        }
         vm.securityapps = SecurityApp.query();
         vm.securityusers = SecurityUser.query();
 
@@ -19,7 +21,6 @@
 
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityGroupUpdate', result);
-            $uibModalInstance.close(result);
             vm.isSaving = false;
         };
 
@@ -34,6 +35,7 @@
             } else {
                 SecurityGroup.save(vm.securityGroup, onSaveSuccess, onSaveError);
             }
+            $state.go('security-group', null, { reload: true });
         };
 
         vm.clear = function() {

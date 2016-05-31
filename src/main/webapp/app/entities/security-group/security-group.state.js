@@ -81,29 +81,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-group/security-group-dialog.html',
                     controller: 'SecurityGroupDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                name: null,
-                                description: null,
-                                st: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('security-group', null, { reload: true });
-                }, function() {
-                    $state.go('security-group');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-group.edit', {
             parent: 'security-group',
@@ -111,24 +95,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            views: {
+                'content@': {
                     templateUrl: 'app/entities/security-group/security-group-dialog.html',
                     controller: 'SecurityGroupDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['SecurityGroup', function(SecurityGroup) {
-                            return SecurityGroup.get({id : $stateParams.id});
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('security-group', null, { reload: true });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('security-group.delete', {
             parent: 'security-group',
