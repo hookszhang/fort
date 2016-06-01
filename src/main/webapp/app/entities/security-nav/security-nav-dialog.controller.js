@@ -13,7 +13,18 @@
         if ($stateParams.id) {
             vm.securityNav = SecurityNav.get({id : $stateParams.id});
         }
-        vm.securitynavs = SecurityNav.query();
+        vm.securitynavs = SecurityNav.query(function() {
+            if ($stateParams.id) {
+                // prevent extends loop
+                for (var i in vm.securitynavs) {
+                    var nav = vm.securitynavs[i];
+                    if ($stateParams.id == nav.id) {
+                        // remove this nav.
+                        vm.securitynavs.splice(i, 1);
+                    }
+                }
+            }
+        });
         vm.securityresourceentities = SecurityResourceEntity.query();
         vm.securityapps = SecurityApp.query();
 
