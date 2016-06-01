@@ -55,6 +55,9 @@ public class SecurityAuthorityResource {
         if (securityAuthority.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityAuthority", "idexists", "A new securityAuthority cannot already have an ID")).body(null);
         }
+        if (securityAuthorityService.findByAppAndName(securityAuthority.getApp(), securityAuthority.getName()) != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityAuthority", "nameexists", "A new securityAuthority cannot already have an name")).body(null);
+        }
         SecurityAuthority result = securityAuthorityService.save(securityAuthority);
         return ResponseEntity.created(new URI("/api/security-authorities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("securityAuthority", result.getId().toString()))
