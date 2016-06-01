@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.repository;
 
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityAuthority;
 
 import org.springframework.data.jpa.repository.*;
@@ -21,4 +22,6 @@ public interface SecurityAuthorityRepository extends MyJpaRepository<SecurityAut
 
     @Query("select distinct securityAuthority from SecurityAuthority securityAuthority left join fetch securityAuthority.resources where securityAuthority.app.appKey =:appKey")
     List<SecurityAuthority> findAllByAppKeyWithEagerRelationships(@Param("appKey") String appKey);
+
+    SecurityAuthority findByAppAndName(SecurityApp app, String name);
 }

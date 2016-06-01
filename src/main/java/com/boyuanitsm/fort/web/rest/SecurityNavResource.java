@@ -34,10 +34,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityNavResource {
 
     private final Logger log = LoggerFactory.getLogger(SecurityNavResource.class);
-        
+
     @Inject
     private SecurityNavService securityNavService;
-    
+
     /**
      * POST  /security-navs : Create a new securityNav.
      *
@@ -78,6 +78,9 @@ public class SecurityNavResource {
         if (securityNav.getId() == null) {
             return createSecurityNav(securityNav);
         }
+        if (securityNav.getParent() != null && securityNav.getId().equals(securityNav.getParent().getId())) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityNav", "extendslooping", "A securityNav parent is own")).body(null);
+        }
         SecurityNav result = securityNavService.save(securityNav);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("securityNav", securityNav.getId().toString()))
@@ -98,7 +101,7 @@ public class SecurityNavResource {
     public ResponseEntity<List<SecurityNav>> getAllSecurityNavs(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityNavs");
-        Page<SecurityNav> page = securityNavService.findAll(pageable); 
+        Page<SecurityNav> page = securityNavService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-navs");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

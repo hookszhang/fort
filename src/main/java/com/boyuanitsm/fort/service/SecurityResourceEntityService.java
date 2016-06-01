@@ -5,6 +5,7 @@ import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.repository.SecurityResourceEntityRepository;
 import com.boyuanitsm.fort.repository.search.SecurityResourceEntitySearchRepository;
+import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,6 @@ import java.util.List;
 
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_RESOURCE_ENTITY;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.*;
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing SecurityResourceEntity.
@@ -110,7 +110,7 @@ public class SecurityResourceEntityService {
     @Transactional(readOnly = true)
     public Page<SecurityResourceEntity> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityResourceEntities for query {}", query);
-        return securityResourceEntitySearchRepository.search(queryStringQuery(query), pageable);
+        return securityResourceEntitySearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
 
     @Transactional(readOnly = true)

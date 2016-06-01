@@ -5,6 +5,7 @@ import com.boyuanitsm.fort.repository.SecurityAppRepository;
 import com.boyuanitsm.fort.repository.search.SecurityAppSearchRepository;
 import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
+import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
 import com.boyuanitsm.fort.service.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing SecurityApp.
@@ -107,12 +106,7 @@ public class SecurityAppService {
     @Transactional(readOnly = true)
     public Page<SecurityApp> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityApps for query {}", query);
-//        List<Long> idList = new ArrayList<>();
-//        idList.add(1L);
-//        idList.add(2L);
-//        FilterBuilder filter = FilterBuilders.termsFilter("id", idList);
-//        QueryBuilder builder = filteredQuery(queryStringQuery(query), filter);
-        return securityAppSearchRepository.search(queryStringQuery(query), pageable);
+        return securityAppSearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
 
     public SecurityApp findByAppKey(String appKey) {

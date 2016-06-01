@@ -4,6 +4,7 @@ import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityNav;
 import com.boyuanitsm.fort.repository.SecurityNavRepository;
 import com.boyuanitsm.fort.repository.search.SecurityNavSearchRepository;
+import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,6 @@ import javax.inject.Inject;
 
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_NAV;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.*;
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing SecurityNav.
@@ -104,6 +104,6 @@ public class SecurityNavService {
     @Transactional(readOnly = true)
     public Page<SecurityNav> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityNavs for query {}", query);
-        return securityNavSearchRepository.search(queryStringQuery(query), pageable);
+        return securityNavSearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
 }

@@ -54,6 +54,9 @@ public class SecurityGroupResource {
         if (securityGroup.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityGroup", "idexists", "A new securityGroup cannot already have an ID")).body(null);
         }
+        if (securityGroupService.findByAppAndName(securityGroup.getApp(), securityGroup.getName()) != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityGroup", "nameexists", "A new securityGroup cannot already have an name")).body(null);
+        }
         SecurityGroup result = securityGroupService.save(securityGroup);
         return ResponseEntity.created(new URI("/api/security-groups/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("securityGroup", result.getId().toString()))

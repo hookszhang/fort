@@ -34,7 +34,6 @@
 
         var onSaveError = function() {
             vm.isSaving = false;
-            $state.go('security-authority');
         };
 
         // add watch app, search resource entity when app change

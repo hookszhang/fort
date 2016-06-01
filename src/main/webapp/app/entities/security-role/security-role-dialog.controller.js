@@ -37,6 +37,7 @@
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityRoleUpdate', result);
             vm.isSaving = false;
+            $state.go('security-role', null, { reload: true });
         };
 
         var onSaveError = function () {
@@ -50,7 +51,6 @@
             } else {
                 SecurityRole.save(vm.securityRole, onSaveSuccess, onSaveError);
             }
-            $state.go('security-role', null, { reload: true });
         };
 
         vm.clear = function() {

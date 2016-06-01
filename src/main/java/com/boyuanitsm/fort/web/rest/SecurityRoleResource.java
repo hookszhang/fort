@@ -55,6 +55,9 @@ public class SecurityRoleResource {
         if (securityRole.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityRole", "idexists", "A new securityRole cannot already have an ID")).body(null);
         }
+        if (securityRoleService.findByAppAndName(securityRole.getApp(), securityRole.getName()) != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityRole", "nameexists", "A new securityRole cannot already have an name")).body(null);
+        }
         SecurityRole result = securityRoleService.save(securityRole);
         return ResponseEntity.created(new URI("/api/security-roles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("securityRole", result.getId().toString()))

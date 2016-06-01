@@ -1,6 +1,5 @@
 package com.boyuanitsm.fort.service;
 
-import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass;
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityLoginEvent;
@@ -10,6 +9,7 @@ import com.boyuanitsm.fort.repository.SecurityLoginEventRepository;
 import com.boyuanitsm.fort.repository.SecurityUserRepository;
 import com.boyuanitsm.fort.repository.search.SecurityUserSearchRepository;
 import com.boyuanitsm.fort.security.SecurityUtils;
+import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
 import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,6 @@ import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.DELETE;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.POST;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.PUT;
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing SecurityUser.
@@ -143,7 +142,7 @@ public class SecurityUserService {
     @Transactional(readOnly = true)
     public Page<SecurityUser> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityUsers for query {}", query);
-        return securityUserSearchRepository.search(queryStringQuery(query), pageable);
+        return securityUserSearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
 
     /**
