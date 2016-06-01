@@ -1,6 +1,8 @@
 package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
+import com.boyuanitsm.fort.domain.SecurityApp;
+import com.boyuanitsm.fort.domain.SecurityGroup;
 import com.boyuanitsm.fort.domain.SecurityRole;
 import com.boyuanitsm.fort.repository.SecurityRoleRepository;
 import com.boyuanitsm.fort.repository.search.SecurityRoleSearchRepository;
@@ -120,5 +122,9 @@ public class SecurityRoleService {
     @Transactional(readOnly = true)
     public List<SecurityRole> findAllByAppKeyWithEagerRelationships(String appKey) {
         return securityRoleRepository.findAllByAppKeyWithEagerRelationships(appKey);
+    }
+
+    public SecurityRole findByAppAndName(SecurityApp app, String name) {
+        return securityRoleRepository.findByAppAndName(app, name);
     }
 }
