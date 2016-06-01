@@ -121,4 +121,8 @@ public class SecurityGroupService {
         log.debug("Request to search for a page of SecurityGroups for query {}", query);
         return securityGroupSearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
+
+    public SecurityGroup findByAppAndName(SecurityApp app, String name) {
+        return securityGroupRepository.findByAppAndName(app, name);
+    }
 }

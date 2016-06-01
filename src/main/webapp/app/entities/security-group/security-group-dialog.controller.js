@@ -21,6 +21,7 @@
 
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityGroupUpdate', result);
+            $state.go('security-group', null, { reload: true });
             vm.isSaving = false;
         };
 
@@ -35,7 +36,6 @@
             } else {
                 SecurityGroup.save(vm.securityGroup, onSaveSuccess, onSaveError);
             }
-            $state.go('security-group', null, { reload: true });
         };
 
         vm.clear = function() {
