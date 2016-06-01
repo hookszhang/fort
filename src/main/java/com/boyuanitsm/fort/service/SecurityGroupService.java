@@ -5,8 +5,7 @@ import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityGroup;
 import com.boyuanitsm.fort.repository.SecurityGroupRepository;
 import com.boyuanitsm.fort.repository.search.SecurityGroupSearchRepository;
-import com.boyuanitsm.fort.security.AuthoritiesConstants;
-import com.boyuanitsm.fort.security.SecurityUtils;
+import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,8 +17,6 @@ import javax.inject.Inject;
 
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_GROUP;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.*;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing SecurityGroup.
@@ -122,6 +119,6 @@ public class SecurityGroupService {
     @Transactional(readOnly = true)
     public Page<SecurityGroup> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityGroups for query {}", query);
-        return securityGroupSearchRepository.search(queryStringQuery(query), pageable);
+        return securityGroupSearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
 }

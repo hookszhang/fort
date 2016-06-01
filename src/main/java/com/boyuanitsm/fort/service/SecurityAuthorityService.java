@@ -4,6 +4,7 @@ import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityAuthority;
 import com.boyuanitsm.fort.repository.SecurityAuthorityRepository;
 import com.boyuanitsm.fort.repository.search.SecurityAuthoritySearchRepository;
+import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,6 @@ import java.util.List;
 
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_AUTHORITY;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.*;
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing SecurityAuthority.
@@ -104,7 +104,7 @@ public class SecurityAuthorityService {
     @Transactional(readOnly = true)
     public Page<SecurityAuthority> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityAuthorities for query {}", query);
-        return securityAuthoritySearchRepository.search(queryStringQuery(query), pageable);
+        return securityAuthoritySearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
 
     /**
