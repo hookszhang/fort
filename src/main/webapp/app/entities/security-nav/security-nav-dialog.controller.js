@@ -34,6 +34,7 @@
 
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityNavUpdate', result);
+            $state.go('security-nav', null, { reload: true });
             vm.isSaving = false;
         };
 
@@ -48,7 +49,6 @@
             } else {
                 SecurityNav.save(vm.securityNav, onSaveSuccess, onSaveError);
             }
-            $state.go('security-nav', null, { reload: true });
         };
 
         vm.clear = function() {

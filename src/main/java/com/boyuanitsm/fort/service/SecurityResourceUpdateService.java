@@ -10,6 +10,7 @@ import com.boyuanitsm.fort.repository.*;
 import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,6 +82,11 @@ public class SecurityResourceUpdateService {
             }
         } else if (SECURITY_USER.equals(resourceClass)) {
             SecurityUserDTO userDTO = (SecurityUserDTO) data;
+
+            // set roles, groups is null to fix stack overflow when json serialization
+            userDTO.setRoles(null);
+            userDTO.setGroups(null);
+
             appKey = userDTO.getAppKey();
         } else {
             // warning: we don't have this resource class
