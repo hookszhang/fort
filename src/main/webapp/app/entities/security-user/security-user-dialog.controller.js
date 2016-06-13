@@ -33,11 +33,13 @@
                 vm.securityUser.groups = [];
             }
             if (n) {
-                console.log(vm.securityUser);
                 vm.securityroles = SecurityRole.query({appId: n.id});
                 vm.securitygroups = SecurityGroup.query({appId: n.id});
                 // change firstLoad tag to false
                 vm.securityUser.firstLoad = false;
+            } else {
+                vm.securityroles = [];
+                vm.securitygroups = [];
             }
         });
 
