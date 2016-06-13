@@ -2,8 +2,8 @@ before_script:
     - java -version && mvn -v && npm -v && gulp -v
 job1:
     script:
-        - ./mvnw -Pprod clean package
-        - \cp target/*.war ~/servers/fort-server-9800/webapps/
+        - ./mvnw -Pprod package
+        - \cp target/*.war ~/release/fort/
     only:
         - master
     tags:
