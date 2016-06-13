@@ -43,6 +43,7 @@
 
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityUserUpdate', result);
+            $state.go('security-user', null, { reload: true });
             vm.isSaving = false;
         };
 
@@ -61,7 +62,6 @@
                 } else {
                     SecurityUser.save(vm.securityUser, onSaveSuccess, onSaveError);
                 }
-                $state.go('security-user', null, { reload: true });
             }
         };
 

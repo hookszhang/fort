@@ -21,6 +21,7 @@
 
         var onSaveSuccess = function (result) {
             $scope.$emit('fortApp:securityResourceEntityUpdate', result);
+            $state.go('security-resource-entity', null, { reload: true });
             vm.isSaving = false;
         };
 
@@ -35,7 +36,6 @@
             } else {
                 SecurityResourceEntity.save(vm.securityResourceEntity, onSaveSuccess, onSaveError);
             }
-            $state.go('security-resource-entity', null, { reload: true });
         };
 
         vm.clear = function() {
