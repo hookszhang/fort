@@ -215,8 +215,6 @@ public class SecurityUserService {
         securityLoginEventRepository.save(event);
 
         SecurityUser user = securityUserRepository.findOne(event.getUser().getId());
-        user.setRoles(null);
-        user.setGroups(null);
 
         // send message
         updateService.send(DELETE, SECURITY_USER, new SecurityUserDTO(user, event));
