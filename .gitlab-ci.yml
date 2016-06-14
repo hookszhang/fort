@@ -3,7 +3,9 @@ before_script:
 job1:
     script:
         - ./mvnw -Pprod package
-        - \cp target/*.war ~/servers/fort-server-9800/webapps/ROOT.war
+        - rm -rf ~/servers/fort-server-9800/project/fort
+        - mkdir -p ~/servers/fort-server-9800/project/fort
+        - unzip -o target/*.war -d ~/servers/fort-server-9800/project/fort
     only:
         - master
     tags:
