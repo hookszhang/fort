@@ -1,12 +1,18 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
-V 1.1.1-BETA
+v 1.1.2-BETA
+
+    - 修复了新增数据之后，数据表格没有刷新
+    - 修复用户角色莫名消失的问题
+    - 修复登出失败
+
+v 1.1.1-BETA
 
     - UI界面改版
     - Elasticsearch 只能查询到自己创建的数据
     - 增加权限、角色、组 名称在应用中唯一验证
 
-V 1.1.0-BETA
+v 1.1.0-BETA
 
     - 同一时间有多个user token同时有效
     - 部分UI变更
