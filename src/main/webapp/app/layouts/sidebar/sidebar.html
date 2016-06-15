@@ -13,51 +13,50 @@
                     Fort <span class="navbar-version">v{{VERSION}}</span>
                 </a>
             </div>
-
-            <ul class="nav">
+            <ul class="nav" ng-switch="vm.isAuthenticated()">
                 <li ng-class="{active: toState.name.indexOf('home') != -1}">
                     <a href="#/">
                         <i class="fa fa-dashboard"></i>
                         <p translate="global.menu.entities.dashboard">Dashboard</p>
                     </a>
                 </li>
-                <li ng-class="{active: toState.name.indexOf('security-app') != -1}">
+                <li ng-class="{active: toState.name.indexOf('security-app') != -1}" ng-switch-when="true">
                     <a ui-sref="security-app">
                         <i class="fa fa-rocket"></i>
                         <p translate="global.menu.entities.securityApp">Security App</p>
                     </a>
                 </li>
-                <li ng-class="{active: toState.name.indexOf('security-resource-entity') != -1}">
+                <li ng-class="{active: toState.name.indexOf('security-resource-entity') != -1}" ng-switch-when="true">
                     <a ui-sref="security-resource-entity">
                         <i class="fa fa-registered"></i>
                         <p translate="global.menu.entities.securityResourceEntity">Security Resource Entity</p>
                     </a>
                 </li>
-                <li ng-class="{active: toState.name.indexOf('security-nav') != -1}">
+                <li ng-class="{active: toState.name.indexOf('security-nav') != -1}" ng-switch-when="true">
                     <a ui-sref="security-nav">
                         <i class="fa fa-bars"></i>
                         <p translate="global.menu.entities.securityNav">Security Nav</p>
                     </a>
                 </li>
-                <li ng-class="{active: toState.name.indexOf('security-authority') != -1}">
+                <li ng-class="{active: toState.name.indexOf('security-authority') != -1}" ng-switch-when="true">
                     <a ui-sref="security-authority">
                         <i class="fa fa-shield"></i>
                         <p translate="global.menu.entities.securityAuthority">Security Authority</p>
                     </a>
                 </li>
-                <li ng-class="{active: toState.name.indexOf('security-role') != -1}">
+                <li ng-class="{active: toState.name.indexOf('security-role') != -1}" ng-switch-when="true">
                     <a ui-sref="security-role">
                         <i class="fa fa-user-secret"></i>
                         <p translate="global.menu.entities.securityRole">Security Role</p>
                     </a>
                 </li>
-                <li ng-class="{active: toState.name.indexOf('security-group') != -1}">
+                <li ng-class="{active: toState.name.indexOf('security-group') != -1}" ng-switch-when="true">
                     <a ui-sref="security-group">
                         <i class="fa fa-sitemap"></i>
                         <p translate="global.menu.entities.securityGroup">Security Group</p>
                     </a>
                 </li>
-				<li ng-class="{active: toState.name.indexOf('security-user') != -1}">
+				<li ng-class="{active: toState.name.indexOf('security-user') != -1}" ng-switch-when="true">
                     <a ui-sref="security-user">
                         <i class="fa fa-user"></i>
                         <p translate="global.menu.entities.securityUser">Security User</p>

@@ -1,6 +1,5 @@
 package com.boyuanitsm.fort.service;
 
-import com.alibaba.fastjson.JSON;
 import com.boyuanitsm.fort.bean.OnUpdateSecurityResource;
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass;
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
@@ -8,6 +7,8 @@ import com.boyuanitsm.fort.config.Constants;
 import com.boyuanitsm.fort.domain.*;
 import com.boyuanitsm.fort.repository.*;
 import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -42,6 +43,13 @@ public class SecurityResourceUpdateService {
 
     @Inject
     private SimpMessageSendingOperations messagingTemplate;
+
+    private ObjectMapper mapper;
+
+    @Inject
+    public SecurityResourceUpdateService(Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
+        mapper = jackson2ObjectMapperBuilder.build();
+    }
 
     /**
      * send web socket stomp message.
@@ -82,11 +90,6 @@ public class SecurityResourceUpdateService {
             }
         } else if (SECURITY_USER.equals(resourceClass)) {
             SecurityUserDTO userDTO = (SecurityUserDTO) data;
-
-            // set roles, groups is null to fix stack overflow when json serialization
-            userDTO.setRoles(null);
-            userDTO.setGroups(null);
-
             appKey = userDTO.getAppKey();
         } else {
             // warning: we don't have this resource class
@@ -95,6 +98,11 @@ public class SecurityResourceUpdateService {
         }
 
         OnUpdateSecurityResource onUpdateSecurityResource = new OnUpdateSecurityResource(option, resourceClass, data);
-        messagingTemplate.convertAndSend(String.format(Constants.ON_UPDATE_SECURITY_RESOURCE_SEND, appKey), JSON.toJSONString(onUpdateSecurityResource));
+        try {
+            String json = mapper.writeValueAsString(onUpdateSecurityResource);
+            messagingTemplate.convertAndSend(String.format(Constants.ON_UPDATE_SECURITY_RESOURCE_SEND, appKey), json);
+        } catch (JsonProcessingException e) {
+            log.warn("Send resource update message error!", e);
+        }
     }
 }
