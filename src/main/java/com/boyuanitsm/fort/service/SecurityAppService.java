@@ -92,6 +92,13 @@ public class SecurityAppService {
      * @param id the id of the entity
      */
     public void delete(Long id) {
+        SecurityApp app = securityAppRepository.findOne(id);
+
+        if (app != null) {
+            // delete user
+            userService.deleteUserInformation(app.getAppKey());
+        }
+
         log.debug("Request to delete SecurityApp : {}", id);
         securityAppRepository.delete(id);
         securityAppSearchRepository.delete(id);
