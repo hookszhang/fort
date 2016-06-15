@@ -46,7 +46,10 @@ spring:
                   logs: target/elasticsearch/log
                   data: target/elasticsearch/data
     mail:
-        host: localhost
+        host: smtp.163.com
+        username: fort_serve@163.com
+        password: fort123
+        protocol: smtp
     messages:
         cache-seconds: 1
     thymeleaf:
@@ -72,7 +75,7 @@ jhipster:
             # security key (this key should be unique for your application, and kept secret)
             key: e7210166f1868205dc398189f4da61acf917bea6
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: fort@localhost
+        from: fort_serve@163.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
