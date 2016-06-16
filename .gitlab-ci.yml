@@ -5,7 +5,7 @@ job1:
         - ./mvnw -Pprod package
         - rm -rf ~/servers/fort-server-9800/project/fort
         - mkdir -p ~/servers/fort-server-9800/project/fort
-        - unzip -o target/*.war -d ~/servers/fort-server-9800/project/fort
+        - cp -r target/fort*/* ~/servers/fort-server-9800/project/fort
     only:
         - master
     tags:
