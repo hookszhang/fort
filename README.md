@@ -81,5 +81,5 @@ To setup this project in Jenkins, use the following configuration:
 
 ## TODO
 
-- A key to log in
+- Embed Model
 - Add super user, the super user have all the permissions
