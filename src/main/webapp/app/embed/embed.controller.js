@@ -3,17 +3,17 @@
 
     angular
         .module('fortApp')
-        .controller('OneKeyLoginController', OneKeyLoginController);
+        .controller('EmbedController', EmbedController);
 
-    OneKeyLoginController.$inject = ['$scope', 'Principal', '$stateParams', '$state', 'Auth', '$rootScope'];
+    EmbedController.$inject = ['$scope', 'Principal', '$stateParams', '$state', 'Auth', '$rootScope'];
 
-    function OneKeyLoginController ($scope, Principal, $stateParams, $state, Auth, $rootScope) {
+    function EmbedController ($scope, Principal, $stateParams, $state, Auth, $rootScope) {
         $rootScope.enable_embedded_mode = true;
         var vm = this;
         vm.isAuthenticated = Principal.isAuthenticated;
-        console.log(vm.isAuthenticated());
         if (vm.isAuthenticated()) {
             // $state.go('home');
+            $state.go($stateParams.m);
             return;
         }
 

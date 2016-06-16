@@ -8,16 +8,16 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('onekey-login', {
+        $stateProvider.state('embed', {
             parent: 'app',
-            url: '/onekey-login?u&p',
+            url: '/embed?u&p&m',
             data: {
                 authorities: []
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/onekey-login/onekey-login.html',
-                    controller: 'OneKeyLoginController',
+                    templateUrl: 'app/embed/embed.html',
+                    controller: 'EmbedController',
                     controllerAs: 'vm'
                 }
             },
