@@ -29,16 +29,19 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <page-ribbon></page-ribbon>
-    <div class="wrapper">
-        <div ui-view="sidebar"></div>
-        <div class="main-panel">
-            <div ui-view="navbar" ng-cloak></div>
+    <div class="wrapper" ng-cloak>
+        <!-- Left sidebar -->
+        <div ui-view="sidebar" ng-if="!enable_embedded_mode"></div>
+        <div class="main-panel" ng-class="{'main-panel-embedded': enable_embedded_mode}">
+            <!-- Top sidebar -->
+            <div ui-view="navbar" ng-if="!enable_embedded_mode"></div>
             <div class="content">
                 <div ui-view="content">
                     <!-- Angular views -->
                 </div>
             </div>
-            <div class="footer" ng-cloak>
+            <!-- Bottom footer -->
+            <div class="footer" ng-if="!enable_embedded_mode">
                 <div class="container-fluid">
                     <nav class="pull-left">
                         <ul>
@@ -54,16 +57,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
-    <script>
-        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='//www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>-->
 
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
@@ -176,6 +169,8 @@
     <script src="app/entities/security-app/security-app.search.service.js"></script>
     <script src="app/entities/security-app/security-app.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
+    <script src="app/embed/embed.state.js"></script>
+    <script src="app/embed/embed.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>
