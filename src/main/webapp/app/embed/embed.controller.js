@@ -7,27 +7,34 @@
 
     EmbedController.$inject = ['$scope', 'Principal', '$stateParams', '$state', 'Auth', '$rootScope'];
 
-    function EmbedController ($scope, Principal, $stateParams, $state, Auth, $rootScope) {
-        $rootScope.enable_embedded_mode = true;
+    function EmbedController($scope, Principal, $stateParams, $state, Auth, $rootScope) {
         var vm = this;
-        vm.isAuthenticated = Principal.isAuthenticated;
-        if (vm.isAuthenticated()) {
-            // $state.go('home');
+        $rootScope.enable_embedded_mode = true;
+
+        // validate
+        if (!$stateParams.u) {
+            vm.tip = 'The param "u"(username) can\'t be null!';
+            return;
+        } else if (!stateParams.p) {
+            vm.tip = 'The param "p"(password) can\'t be null!';
+            return;
+        } else if (!stateParams.m) {
+            vm.tip = 'The param "m"(model) can\'t be null!';
+            return;
+        }
+
+        if (Principal.isAuthenticated()) {
             $state.go($stateParams.m);
             return;
         }
 
-        if ($stateParams.u && $stateParams.p) {
-            Auth.login({
-                username: $stateParams.u,
-                password: $stateParams.p
-            }).then(function () {
-                // $state.go('home');
-            }).catch(function () {
-                console.warn('login error!');
-            });
-        } else {
-            console.warn("Params u & p can't be null!");
-        }
+        Auth.login({
+            username: $stateParams.u,
+            password: $stateParams.p
+        }).then(function() {
+            $state.go($stateParams.m);
+        }).catch(function() {
+            vm.tip = 'Embed error, 401 the bad username or password!';
+        });
     }
 })();
