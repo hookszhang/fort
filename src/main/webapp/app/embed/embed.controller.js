@@ -15,10 +15,10 @@
         if (!$stateParams.u) {
             vm.tip = 'The param "u"(username) can\'t be null!';
             return;
-        } else if (!stateParams.p) {
+        } else if (!$stateParams.p) {
             vm.tip = 'The param "p"(password) can\'t be null!';
             return;
-        } else if (!stateParams.m) {
+        } else if (!$stateParams.m) {
             vm.tip = 'The param "m"(model) can\'t be null!';
             return;
         }
