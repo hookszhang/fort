@@ -21,7 +21,7 @@
             "description": "描述",
             "resourceType": "资源类型",
             "st": "St",
-            "app": "App",
+            "app": "应用",
             "authority": "Authority"
         }
     }

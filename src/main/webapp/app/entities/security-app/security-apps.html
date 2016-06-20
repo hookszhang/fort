@@ -46,7 +46,7 @@
                     <p class="category">
                         <b>App Key:</b> {{securityApp.appKey}}
                         <br>
-                        <b>App Secret:</b> {{securityApp.appSecret}}
+                        <b>App Secret:</b> <a href="javascript:void(0)" ui-sref="security-app.reset({id:securityApp.id})">{{securityApp.appSecret}}</a>
                     </p>
                 </div>
                 <div class="content">

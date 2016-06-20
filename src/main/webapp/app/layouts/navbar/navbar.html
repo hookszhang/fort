@@ -58,13 +58,13 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li ui-sref-active="active" ng-switch-when="true">
+                        <li ui-sref-active="active" ng-switch-when="true" has-any-authority="ROLE_ADMIN,ROLE_USER">
                             <a ui-sref="settings" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-wrench"></span>&nbsp;
                                 <span translate="global.menu.account.settings">Settings</span>
                             </a>
                         </li>
-                        <li ui-sref-active="active" ng-switch-when="true">
+                        <li ui-sref-active="active" ng-switch-when="true" has-any-authority="ROLE_ADMIN,ROLE_USER">
                             <a ui-sref="password" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-lock"></span>
                                 <span translate="global.menu.account.password">Password</span>

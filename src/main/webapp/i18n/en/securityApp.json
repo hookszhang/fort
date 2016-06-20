@@ -13,6 +13,9 @@
             "delete": {
                 "question": "Are you sure you want to delete Security App {{ id }}?"
             },
+            "resetAppSecret": {
+                "question": "Are you sure you want to reset app secret Security App {{ id }}?"
+            },
             "detail": {
                 "title": "Security App"
             },

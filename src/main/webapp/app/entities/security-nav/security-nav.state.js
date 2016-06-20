@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/security-nav?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP'],
                 pageTitle: 'fortApp.securityNav.home.title'
             },
             views: {
@@ -55,7 +55,7 @@
             parent: 'entity',
             url: '/security-nav/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP'],
                 pageTitle: 'fortApp.securityNav.detail.title'
             },
             views: {
@@ -79,7 +79,7 @@
             parent: 'security-nav',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP']
             },
             views: {
                 'content@': {
@@ -93,7 +93,7 @@
             parent: 'security-nav',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP']
             },
             views: {
                 'content@': {
@@ -102,30 +102,12 @@
                     controllerAs: 'vm'
                 }
             }
-            // onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-            //     $uibModal.open({
-            //         templateUrl: 'app/entities/security-nav/security-nav-dialog.html',
-            //         controller: 'SecurityNavDialogController',
-            //         controllerAs: 'vm',
-            //         backdrop: 'static',
-            //         size: 'lg',
-            //         resolve: {
-            //             entity: ['SecurityNav', function(SecurityNav) {
-            //                 return SecurityNav.get({id : $stateParams.id});
-            //             }]
-            //         }
-            //     }).result.then(function() {
-            //         $state.go('security-nav', null, { reload: true });
-            //     }, function() {
-            //         $state.go('^');
-            //     });
-            // }]
         })
         .state('security-nav.delete', {
             parent: 'security-nav',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

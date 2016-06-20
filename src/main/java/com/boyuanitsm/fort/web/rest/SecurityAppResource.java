@@ -1,5 +1,7 @@
 package com.boyuanitsm.fort.web.rest;
 
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
+import com.boyuanitsm.fort.security.SecurityUtils;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.service.SecurityAppService;
@@ -8,6 +10,7 @@ import com.boyuanitsm.fort.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,10 +38,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityAppResource {
 
     private final Logger log = LoggerFactory.getLogger(SecurityAppResource.class);
-        
+
     @Inject
     private SecurityAppService securityAppService;
-    
+
     /**
      * POST  /security-apps : Create a new securityApp.
      *
@@ -98,7 +102,16 @@ public class SecurityAppResource {
     public ResponseEntity<List<SecurityApp>> getAllSecurityApps(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityApps");
-        Page<SecurityApp> page = securityAppService.findAll(pageable); 
+        Page<SecurityApp> page;
+
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SECURITY_APP)) {
+            List<SecurityApp> list = new ArrayList<>();
+            list.add(securityAppService.findCurrentSecurityApp());
+            page = new PageImpl<>(list);
+        } else {
+            page = securityAppService.findAll(pageable);
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-apps");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -158,4 +171,33 @@ public class SecurityAppResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * PUT  /security-apps : Reset an existing securityApp app secret.
+     *
+     * @param securityApp the securityApp to reset(only id)
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @RequestMapping(value = "/security-apps/reset-app-secret",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Void> resetAppSecret(@RequestBody SecurityApp securityApp) {
+        if (securityApp.getId() == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityApp", "idcannotbenull", "A securityApp id cannot be null")).body(null);
+        }
+
+        securityApp = securityAppService.findOne(securityApp.getId());
+
+        if (securityApp == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) && !securityApp.getCreatedBy().equals(SecurityUtils.getCurrentUserLogin())) {
+            // this app is not current login created
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        securityAppService.resetAppSecret(securityApp);
+        return ResponseEntity.ok(null);
+    }
 }

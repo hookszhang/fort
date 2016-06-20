@@ -1,7 +1,9 @@
 package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.domain.SecurityApp;
+import com.boyuanitsm.fort.domain.User;
 import com.boyuanitsm.fort.repository.SecurityAppRepository;
+import com.boyuanitsm.fort.repository.UserRepository;
 import com.boyuanitsm.fort.repository.search.SecurityAppSearchRepository;
 import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
@@ -33,6 +35,9 @@ public class SecurityAppService {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private UserRepository userRepository;
 
     /**
      * Save a securityApp.
@@ -116,6 +121,7 @@ public class SecurityAppService {
         return securityAppSearchRepository.search(QueryBuilderUtil.build(query), pageable);
     }
 
+    @Transactional(readOnly = true)
     public SecurityApp findByAppKey(String appKey) {
         return securityAppRepository.findByAppKey(appKey);
     }
@@ -133,5 +139,14 @@ public class SecurityAppService {
 
         String appKey = SecurityUtils.getCurrentUserLogin();
         return securityAppRepository.findByAppKey(appKey);
+    }
+
+    public void resetAppSecret(SecurityApp securityApp) {
+        String secret = RandomUtil.generateAppSecret();
+        securityApp.setAppSecret(secret);
+        SecurityApp result = securityAppRepository.save(securityApp);
+        securityAppSearchRepository.save(result);
+
+        userService.changePassword(securityApp.getAppKey(), secret);
     }
 }

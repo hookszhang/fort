@@ -193,12 +193,7 @@ public class UserService {
     }
 
     public void changePassword(String password) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(u -> {
-            String encryptedPassword = passwordEncoder.encode(password);
-            u.setPassword(encryptedPassword);
-            userRepository.save(u);
-            log.debug("Changed password for User: {}", u);
-        });
+        changePassword(SecurityUtils.getCurrentUserLogin(), password);
     }
 
     @Transactional(readOnly = true)
@@ -256,5 +251,14 @@ public class UserService {
             userRepository.delete(user);
             userSearchRepository.delete(user);
         }
+    }
+
+    public void changePassword(String login, String password) {
+        userRepository.findOneByLogin(login).ifPresent(u -> {
+            String encryptedPassword = passwordEncoder.encode(password);
+            u.setPassword(encryptedPassword);
+            userRepository.save(u);
+            log.debug("Changed password for User: {}", u);
+        });
     }
 }

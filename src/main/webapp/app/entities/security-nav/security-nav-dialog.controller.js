@@ -5,28 +5,37 @@
         .module('fortApp')
         .controller('SecurityNavDialogController', SecurityNavDialogController);
 
-    SecurityNavDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityNav', 'SecurityResourceEntity', 'SecurityApp'];
+    SecurityNavDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityNav', 'SecurityResourceEntity', 'SecurityApp', 'Principal'];
 
-    function SecurityNavDialogController ($timeout, $scope, $stateParams, $state, SecurityNav, SecurityResourceEntity, SecurityApp) {
+    function SecurityNavDialogController ($timeout, $scope, $stateParams, $state, SecurityNav, SecurityResourceEntity, SecurityApp, Principal) {
         var vm = this;
-        // vm.securityNav = entity;
         if ($stateParams.id) {
             vm.securityNav = SecurityNav.get({id : $stateParams.id});
+        } else {
+            vm.securityNav = {};
         }
-        vm.securitynavs = SecurityNav.query(function() {
-            if ($stateParams.id) {
-                // prevent extends loop
-                for (var i in vm.securitynavs) {
-                    var nav = vm.securitynavs[i];
-                    if ($stateParams.id == nav.id) {
-                        // remove this nav.
-                        vm.securitynavs.splice(i, 1);
-                    }
-                }
+
+        vm.securityapps = SecurityApp.query(function(data) {
+            if (!$stateParams.id && Principal.hasAnyAuthority(['ROLE_SECURITY_APP'])) {
+                vm.securityNav.app = data[0];
             }
         });
-        vm.securityresourceentities = SecurityResourceEntity.query();
-        vm.securityapps = SecurityApp.query();
+
+        $scope.$watch('vm.securityNav.app', function(n, o, e) {
+            vm.securitynavs = SecurityNav.query({app: n}, function() {
+                if ($stateParams.id) {
+                    // prevent extends loop
+                    for (var i in vm.securitynavs) {
+                        var nav = vm.securitynavs[i];
+                        if ($stateParams.id == nav.id) {
+                            // remove this nav.
+                            vm.securitynavs.splice(i, 1);
+                        }
+                    }
+                }
+            });
+            vm.securityresourceentities = SecurityResourceEntity.query({app: n});
+        });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

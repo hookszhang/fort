@@ -154,6 +154,30 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('security-app.reset', {
+            parent: 'security-app',
+            url: '/{id}/rest',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/security-app/security-app-reset-dialog.html',
+                    controller: 'SecurityAppResetController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: ['SecurityApp', function(SecurityApp) {
+                            return SecurityApp.get({id : $stateParams.id});
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('security-app', null, { reload: true });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 

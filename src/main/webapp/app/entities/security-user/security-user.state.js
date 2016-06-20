@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/security-user?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP'],
                 pageTitle: 'fortApp.securityUser.home.title'
             },
             views: {
@@ -55,7 +55,7 @@
             parent: 'entity',
             url: '/security-user/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP'],
                 pageTitle: 'fortApp.securityUser.detail.title'
             },
             views: {
@@ -79,7 +79,7 @@
             parent: 'security-user',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP']
             },
             views: {
                 'content@': {
@@ -93,7 +93,7 @@
             parent: 'security-user',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP']
             },
             views: {
                 'content@': {
@@ -107,7 +107,7 @@
             parent: 'security-user',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_SECURITY_APP']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

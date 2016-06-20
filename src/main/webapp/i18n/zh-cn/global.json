@@ -96,7 +96,8 @@
             "edit": "编辑",
             "open": "Open",
             "save": "保存",
-            "view": "查看"
+            "view": "查看",
+            "reset": "重置"
         },
         "detail": {
             "field": "字段",
@@ -104,6 +105,9 @@
         },
         "delete": {
             "title": "确认删除操作"
+        },
+        "reset": {
+            "title": "确认重置操作"
         },
         "validation": {
             "required": "本字段不能为空.",

@@ -34,7 +34,7 @@ public class SecurityApp extends AbstractAuditingEntity implements Serializable 
     private String appKey;
 
     @Size(max = 20)
-    @Column(name = "app_secret", length = 20, updatable = false)
+    @Column(name = "app_secret", length = 20)
     private String appSecret;
 
     @Size(max = 60)

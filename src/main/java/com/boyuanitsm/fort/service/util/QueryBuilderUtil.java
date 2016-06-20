@@ -1,5 +1,6 @@
 package com.boyuanitsm.fort.service.util;
 
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -19,15 +20,33 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 public class QueryBuilderUtil {
 
     /**
-     * Only search own created data.
+     * Build elasticsearch query. if role ROLE_ADMIN, search all data.
+     * if role ROLE_USER, search own created app correlation data.
+     * if role ROLE_SECURITY_APP, search this app data.
      *
      * @param query the query string
-     * @return
+     * @return the elasticsearch query
      */
     public static QueryBuilder build(String query) {
-        List<String> idList = new ArrayList<String>();
-        idList.add(SecurityUtils.getCurrentUserLogin());
-        FilterBuilder filter = FilterBuilders.termsFilter("createdBy", idList);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            // if role ROLE_ADMIN, search all data.
+            return queryStringQuery(query);
+        }
+
+        List<String> loginList = new ArrayList<String>();
+        loginList.add(SecurityUtils.getCurrentUserLogin());
+
+
+        FilterBuilder filter;
+
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
+            // if role ROLE_USER, search own created app correlation data.
+            filter = FilterBuilders.termsFilter("app.createdBy", loginList);
+        } else {
+            // if role ROLE_SECURITY_APP, search this app data.
+            filter = FilterBuilders.termsFilter("app.appKey", loginList);
+        }
+
         return filteredQuery(queryStringQuery(query), filter);
     }
 }

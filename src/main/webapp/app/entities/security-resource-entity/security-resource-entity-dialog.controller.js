@@ -5,14 +5,19 @@
         .module('fortApp')
         .controller('SecurityResourceEntityDialogController', SecurityResourceEntityDialogController);
 
-    SecurityResourceEntityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityResourceEntity', 'SecurityApp', 'SecurityAuthority'];
+    SecurityResourceEntityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityResourceEntity', 'SecurityApp', 'SecurityAuthority', 'Principal'];
 
-    function SecurityResourceEntityDialogController ($timeout, $scope, $stateParams, $state, SecurityResourceEntity, SecurityApp, SecurityAuthority) {
+    function SecurityResourceEntityDialogController ($timeout, $scope, $stateParams, $state, SecurityResourceEntity, SecurityApp, SecurityAuthority, Principal) {
         var vm = this;
         if ($stateParams.id) {
             vm.securityResourceEntity = SecurityResourceEntity.get({id : $stateParams.id});
         }
-        vm.securityapps = SecurityApp.query();
+        vm.securityapps = SecurityApp.query(function(data) {
+            // Auto select
+            if (!$stateParams.id && Principal.hasAnyAuthority(['ROLE_SECURITY_APP'])) {
+                vm.securityResourceEntity = {app: data[0]};
+            }
+        });
         vm.securityauthorities = SecurityAuthority.query();
 
         $timeout(function (){

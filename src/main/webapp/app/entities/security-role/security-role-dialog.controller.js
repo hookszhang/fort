@@ -5,9 +5,9 @@
         .module('fortApp')
         .controller('SecurityRoleDialogController', SecurityRoleDialogController);
 
-    SecurityRoleDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityRole', 'SecurityApp', 'SecurityAuthority', 'SecurityUser'];
+    SecurityRoleDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityRole', 'SecurityApp', 'SecurityAuthority', 'SecurityUser', 'Principal'];
 
-    function SecurityRoleDialogController ($timeout, $scope, $stateParams, $state, SecurityRole, SecurityApp, SecurityAuthority, SecurityUser) {
+    function SecurityRoleDialogController ($timeout, $scope, $stateParams, $state, SecurityRole, SecurityApp, SecurityAuthority, SecurityUser, Principal) {
         var vm = this;
         if ($stateParams.id) {
             vm.securityRole = SecurityRole.get({id : $stateParams.id}, function(){
@@ -17,7 +17,11 @@
         } else {
             vm.securityRole = {};
         }
-        vm.securityapps = SecurityApp.query();
+        vm.securityapps = SecurityApp.query(function(data) {
+            if (!$stateParams.id && Principal.hasAnyAuthority(['ROLE_SECURITY_APP'])) {
+                vm.securityRole.app = data[0];
+            }
+        });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

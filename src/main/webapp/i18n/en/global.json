@@ -97,7 +97,8 @@
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
-            "view": "View"
+            "view": "View",
+            "reset": "Reset"
         },
         "detail": {
             "field": "Field",
@@ -105,6 +106,9 @@
         },
         "delete": {
             "title": "Confirm delete operation"
+        },
+        "reset": {
+            "title": "Confirm reset operation"
         },
         "validation": {
             "required": "This field is required.",
