@@ -211,6 +211,27 @@ public class SecurityUserResource {
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
+
+    /**
+     * Find by user login. if login is valid, and return user.
+     *
+     * @param login the login of the user
+     * @return user dto
+     */
+    @RequestMapping(value = "/security-user-by-login/{login}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<SecurityUser> findByUserLogin(@PathVariable String login) {
+        SecurityApp app = securityAppService.findByAppKey(SecurityUtils.getCurrentUserLogin());
+        SecurityUser securityUser = securityUserService.findByLoginAndApp(login, app);
+        return Optional.ofNullable(securityUser)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     /**
      * PUT  /security-users : logout the "token" securityUser.
      *
