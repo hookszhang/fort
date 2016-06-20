@@ -1,7 +1,8 @@
 package com.boyuanitsm.fort.web.rest;
 
-import com.boyuanitsm.fort.config.JHipsterProperties;
+import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
+import com.boyuanitsm.fort.service.SecurityAppService;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.service.SecurityResourceEntityService;
@@ -23,10 +24,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing SecurityResourceEntity.
@@ -39,6 +36,9 @@ public class SecurityResourceEntityResource {
 
     @Inject
     private SecurityResourceEntityService securityResourceEntityService;
+
+    @Inject
+    private SecurityAppService securityAppService;
 
     /**
      * POST  /security-resource-entities : Create a new securityResourceEntity.
@@ -60,6 +60,10 @@ public class SecurityResourceEntityResource {
         if (securityResourceEntityService.findByAppAndUrl(
                 securityResourceEntity.getApp(), securityResourceEntity.getUrl()) != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityResourceEntity", "urlexists", "A new securityResourceEntity cannot already have an url")).body(null);
+        }
+        // set current app
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SECURITY_APP)) {
+            securityResourceEntity.setApp(securityAppService.findCurrentSecurityApp());
         }
         SecurityResourceEntity result = securityResourceEntityService.save(securityResourceEntity);
         return ResponseEntity.created(new URI("/api/security-resource-entities/" + result.getId()))
@@ -84,6 +88,10 @@ public class SecurityResourceEntityResource {
         log.debug("REST request to update SecurityResourceEntity : {}", securityResourceEntity);
         if (securityResourceEntity.getId() == null) {
             return createSecurityResourceEntity(securityResourceEntity);
+        }
+        // set current app
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.SECURITY_APP)) {
+            securityResourceEntity.setApp(securityAppService.findCurrentSecurityApp());
         }
         SecurityResourceEntity result = securityResourceEntityService.save(securityResourceEntity);
         return ResponseEntity.ok()
