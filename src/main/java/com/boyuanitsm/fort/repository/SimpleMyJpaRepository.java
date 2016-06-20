@@ -1,19 +1,17 @@
 package com.boyuanitsm.fort.repository;
 
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityNav;
 import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.security.access.method.P;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,12 +61,24 @@ public class SimpleMyJpaRepository<T, ID extends Serializable> extends SimpleJpa
      * role is ROLE_USER.
      *
      * @param var1
-     * @return own created data.
+     * @return own created app correlation data.
      */
     private Page<T> findOwnAllRoleUser(Pageable var1) {
         String userLogin = SecurityUtils.getCurrentUserLogin();
         return this.findAll((root, query, cb) -> {
-            Path<String> createdByPath = root.get("createdBy");
+            Path<String> createdByPath;
+
+            if (root.getJavaType().equals(SecurityNav.class)) {
+                // if type is SecurityNav, createdBy path is resource.app.createdBy
+                createdByPath = root.get("resource").get("app").get("createdBy");
+            } else if (root.getJavaType().equals(SecurityApp.class)) {
+                // if type is SecurityApp, createdBy path is createdBy
+                createdByPath = root.get("createdBy");
+            } else {
+                // else, createdBy path is app.createdBy
+                createdByPath = root.get("app").get("createdBy");
+            }
+
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(cb.equal(createdByPath, userLogin));
             query.where(predicates.toArray(new Predicate[predicates.size()]));
