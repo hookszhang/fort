@@ -1,5 +1,11 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
+v 1.1.5
+
+    - 可以使用ROLE_SECURITY_APP角色的用户登录到后台管理
+    - 修复Elasticsearch权限控制, ADMIN可以查询所有数据
+    - 可以重置App Secret
+
 v 1.1.4
 
     - 可以将Fort后台管理嵌入到你的应用中
