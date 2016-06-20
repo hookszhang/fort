@@ -20,7 +20,7 @@
                         <p translate="global.menu.entities.dashboard">Dashboard</p>
                     </a>
                 </li>
-                <li ng-class="{active: toState.name.indexOf('security-app') != -1}" ng-switch-when="true">
+                <li ng-class="{active: toState.name.indexOf('security-app') != -1}" ng-switch-when="true" has-any-authority="ROLE_ADMIN,ROLE_USER">
                     <a ui-sref="security-app">
                         <i class="fa fa-rocket"></i>
                         <p translate="global.menu.entities.securityApp">Security App</p>
