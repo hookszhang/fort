@@ -81,5 +81,5 @@ To setup this project in Jenkins, use the following configuration:
 
 ## TODO
 
-- Embed Model
+- ROLE_SECURITY_APP authorize
 - Add super user, the super user have all the permissions
