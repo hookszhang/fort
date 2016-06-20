@@ -81,5 +81,10 @@ To setup this project in Jenkins, use the following configuration:
 
 ## TODO
 
-- Embed Model
+- 可以使用ROLE_SECURITY_APP角色的用户登录到后台管理, 并有以下特点:
+    - 用户不能修改自己的密码
+    - 没有应用管理的权限
+    - 任何时候不能改变资源的所属应用
+    - 创建资源时, 所属应用为当前登录的应用
+    - 不能操作其他应用的资源
 - Add super user, the super user have all the permissions
