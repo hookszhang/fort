@@ -171,4 +171,33 @@ public class SecurityAppResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * PUT  /security-apps : Reset an existing securityApp app secret.
+     *
+     * @param securityApp the securityApp to reset(only id)
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @RequestMapping(value = "/security-apps/reset-app-secret",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Void> resetAppSecret(@RequestBody SecurityApp securityApp) {
+        if (securityApp.getId() == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityApp", "idcannotbenull", "A securityApp id cannot be null")).body(null);
+        }
+
+        securityApp = securityAppService.findOne(securityApp.getId());
+
+        if (securityApp == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) && !securityApp.getCreatedBy().equals(SecurityUtils.getCurrentUserLogin())) {
+            // this app is not current login created
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        securityAppService.resetAppSecret(securityApp);
+        return ResponseEntity.ok(null);
+    }
 }

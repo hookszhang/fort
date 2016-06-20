@@ -13,6 +13,9 @@
             "delete": {
                 "question": "你真的想要删除应用 {{ id }}?"
             },
+            "resetAppSecret": {
+                "question": "你真的想要重置应用{{ id }} 的应用Secret?"
+            },
             "detail": {
                 "title": "应用"
             },
