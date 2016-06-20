@@ -4,16 +4,21 @@
     angular
         .module('fortApp')
         .controller('SecurityAuthorityDialogController', SecurityAuthorityDialogController);
-    SecurityAuthorityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityAuthority', 'SecurityApp', 'SecurityResourceEntity', 'SecurityRole'];
+    SecurityAuthorityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$state', 'SecurityAuthority', 'SecurityApp', 'SecurityResourceEntity', 'SecurityRole', 'Principal'];
 
-    function SecurityAuthorityDialogController($timeout, $scope, $stateParams, $state, SecurityAuthority, SecurityApp, SecurityResourceEntity, SecurityRole) {
+    function SecurityAuthorityDialogController($timeout, $scope, $stateParams, $state, SecurityAuthority, SecurityApp, SecurityResourceEntity, SecurityRole, Principal) {
         var vm = this;
         if ($stateParams.id) {
             vm.securityAuthority = SecurityAuthority.get({id : $stateParams.id});
+        } else {
+            vm.securityAuthority = {};
         }
 
-        vm.securityapps = SecurityApp.query();
-        vm.securityroles = SecurityRole.query();
+        vm.securityapps = SecurityApp.query(function(data) {
+            if (!$stateParams.id && Principal.hasAnyAuthority(['ROLE_SECURITY_APP'])) {
+                vm.securityAuthority.app = data[0];
+            }
+        });
 
         // init vm.securityAuthority.resources
         if (!vm.securityAuthority) {
