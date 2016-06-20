@@ -36,12 +36,6 @@
                             <input type="text" class="form-control" name="description" id="field_description" ng-model="vm.securityNav.description" />
                         </div>
                         <div class="form-group">
-                            <label translate="fortApp.securityNav.parent" for="field_parent">Parent</label>
-                            <select class="form-control" id="field_parent" name="parent" ng-model="vm.securityNav.parent" ng-options="securityNav as securityNav.name for securityNav in vm.securitynavs track by securityNav.id">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label translate="fortApp.securityNav.app" for="field_app">App</label>
                             <select class="form-control" id="field_app" name="app" ng-model="vm.securityNav.app" ng-options="securityApp as securityApp.appName for securityApp in vm.securityapps track by securityApp.id" required>
                                 <option value=""></option>
@@ -51,6 +45,12 @@
                                     This field is required.
                                 </p>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="fortApp.securityNav.parent" for="field_parent">Parent</label>
+                            <select class="form-control" id="field_parent" name="parent" ng-model="vm.securityNav.parent" ng-options="securityNav as securityNav.name for securityNav in vm.securitynavs track by securityNav.id">
+                                <option value=""></option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label translate="fortApp.securityNav.resource" for="field_resource">Resource</label>
