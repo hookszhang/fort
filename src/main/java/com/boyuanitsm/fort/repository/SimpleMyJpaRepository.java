@@ -68,10 +68,7 @@ public class SimpleMyJpaRepository<T, ID extends Serializable> extends SimpleJpa
         return this.findAll((root, query, cb) -> {
             Path<String> createdByPath;
 
-            if (root.getJavaType().equals(SecurityNav.class)) {
-                // if type is SecurityNav, createdBy path is resource.app.createdBy
-                createdByPath = root.get("resource").get("app").get("createdBy");
-            } else if (root.getJavaType().equals(SecurityApp.class)) {
+            if (root.getJavaType().equals(SecurityApp.class)) {
                 // if type is SecurityApp, createdBy path is createdBy
                 createdByPath = root.get("createdBy");
             } else {
@@ -95,12 +92,7 @@ public class SimpleMyJpaRepository<T, ID extends Serializable> extends SimpleJpa
     private Page<T> findOwnAllRoleSecurityApp(Pageable var1) {
         String appKey = SecurityUtils.getCurrentUserLogin();
         return this.findAll((root, query, cb) -> {
-            Path<String> appPath;
-            if (root.getJavaType().equals(SecurityNav.class)) {
-                appPath = root.get("resource").get("app").get("appKey");
-            } else {
-                appPath = root.get("app").get("appKey");
-            }
+            Path<String> appPath = root.get("app").get("appKey");
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(cb.equal(appPath, appKey));
             query.where(predicates.toArray(new Predicate[predicates.size()]));
