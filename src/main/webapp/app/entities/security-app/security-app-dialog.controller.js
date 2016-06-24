@@ -26,7 +26,6 @@
 
         vm.save = function () {
             vm.isSaving = true;
-            vm.securityApp.sessionMaxAge *= (1000*60*60*24);
             if (vm.securityApp.id !== null) {
                 SecurityApp.update(vm.securityApp, onSaveSuccess, onSaveError);
             } else {
