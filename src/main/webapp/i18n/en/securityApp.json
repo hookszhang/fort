@@ -22,7 +22,9 @@
             "appName": "App Name",
             "appKey": "App Key",
             "appSecret": "App Secret",
-            "st": "St"
+            "st": "St",
+            "maxSessions": "Max Sessions",
+            "sessionMaxAge": "Session Max Age(Day)"
         }
     }
 }
