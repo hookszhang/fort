@@ -1,5 +1,9 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
+v 1.1.6
+
+    - 可以在应用管理中配置应用的最大会话数与会话时间
+
 v 1.1.5
 
     - 可以使用ROLE_SECURITY_APP角色的用户登录到后台管理
