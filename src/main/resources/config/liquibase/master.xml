@@ -22,5 +22,6 @@
     <include file="classpath:config/liquibase/changelog/20160514090714_added_entity_constraints_SecurityUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160514090715_added_entity_constraints_SecurityLoginEvent.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160526133231_added_column_SecurityGroup.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160624103732_added_column_SecurityApp.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
