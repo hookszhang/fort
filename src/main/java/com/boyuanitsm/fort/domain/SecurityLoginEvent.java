@@ -48,14 +48,14 @@ public class SecurityLoginEvent extends AbstractAuditingEntity implements Serial
     public SecurityLoginEvent() {
     }
 
-    public SecurityLoginEvent(SecurityUser user, String ipAddress, String userAgent) {
+    public SecurityLoginEvent(SecurityUser user, String ipAddress, String userAgent, Long sessionMaxAge) {
         this.user = user;
         this.ipAddress = ipAddress;
         this.userAgent = userAgent;
         // generate token
         this.tokenValue = RandomUtil.generateToken();
         // set token overdue time, now + Constants.TOKEN_EXPIRY_DATE
-        this.tokenOverdueTime = ZonedDateTime.ofInstant(new Date(System.currentTimeMillis() + Constants.TOKEN_EXPIRY_DATE).toInstant(), ZoneId.of("UTC+8"));
+        this.tokenOverdueTime = ZonedDateTime.ofInstant(new Date(System.currentTimeMillis() + sessionMaxAge).toInstant(), ZoneId.of("UTC+8"));
     }
 
     public Long getId() {
