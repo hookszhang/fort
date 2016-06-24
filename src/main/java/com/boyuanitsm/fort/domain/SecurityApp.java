@@ -46,11 +46,11 @@ public class SecurityApp extends AbstractAuditingEntity implements Serializable 
     private Integer maxSessions;
 
     /**
-     * Session max age. ms
+     * Session max age. day
      */
     @NotNull
     @Column(name = "session_max_age", nullable = false)
-    private Long sessionMaxAge;
+    private Float sessionMaxAge;
 
     @Size(max = 60)
     @Column(name = "st", length = 60)
@@ -104,11 +104,11 @@ public class SecurityApp extends AbstractAuditingEntity implements Serializable 
         this.maxSessions = maxSessions;
     }
 
-    public Long getSessionMaxAge() {
+    public Float getSessionMaxAge() {
         return sessionMaxAge;
     }
 
-    public void setSessionMaxAge(Long sessionMaxAge) {
+    public void setSessionMaxAge(Float sessionMaxAge) {
         this.sessionMaxAge = sessionMaxAge;
     }
 
