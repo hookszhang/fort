@@ -26,11 +26,6 @@ public final class Constants {
      */
     public static final String ON_UPDATE_SECURITY_RESOURCE_SEND = "/topic/%s/onUpdateSecurityResource";
 
-    /**
-     * token expiry date  7 day.
-     */
-    public static final int TOKEN_EXPIRY_DATE = 60 * 60 * 24 * 7 * 1000;
-
     private Constants() {
     }
 }

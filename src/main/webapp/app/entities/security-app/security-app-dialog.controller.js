@@ -10,7 +10,6 @@
     function SecurityAppDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityApp) {
         var vm = this;
         vm.securityApp = entity;
-
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });

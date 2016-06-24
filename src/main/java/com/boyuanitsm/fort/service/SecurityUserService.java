@@ -54,6 +54,9 @@ public class SecurityUserService {
     private SecurityLoginEventRepository securityLoginEventRepository;
 
     @Inject
+    private SecurityLoginEventService securityLoginEventService;
+
+    @Inject
     private SecurityResourceUpdateService updateService;
 
     /**
@@ -163,15 +166,27 @@ public class SecurityUserService {
         // validate password
         if (passwordEncoder.matches(securityUserDTO.getPasswordHash(), user.getPasswordHash())){
             user = securityUserRepository.findOneWithEagerRelationships(user.getId());
-
+            keepMaxSessions(user);
             // add login event
-            SecurityLoginEvent event = new SecurityLoginEvent(user, securityUserDTO.getIpAddress(), securityUserDTO.getUserAgent());
+            SecurityLoginEvent event = new SecurityLoginEvent(user, securityUserDTO.getIpAddress(), securityUserDTO.getUserAgent(), app.getSessionMaxAge());
             securityLoginEventRepository.save(event);
 
             return new SecurityUserDTO(user, event);
         }
 
         return null;
+    }
+
+    private void keepMaxSessions(SecurityUser user) {
+        SecurityApp app = user.getApp();
+        ZonedDateTime now = ZonedDateTime.now();
+        List<SecurityLoginEvent> events = securityLoginEventRepository.findByUserIdAndTokenOverdueTime(user.getId(), now);
+
+        if (events.size() > app.getMaxSessions() - 1) {
+            // Get early login event, because order by securityLoginEvent.tokenOverdueTime asc so get(0)
+            SecurityLoginEvent event = events.get(0);
+            securityLoginEventService.overdue(event);
+        }
     }
 
     public SecurityUser findByLoginAndApp(String login, SecurityApp app) {
@@ -204,19 +219,6 @@ public class SecurityUserService {
     public void logout(SecurityLoginEvent event) {
         ZonedDateTime now = ZonedDateTime.now();
         event = securityLoginEventRepository.findByTokenValueAndTokenOverdueTime(event.getTokenValue(), now);
-
-        if (event == null) {
-            return;
-        }
-
-
-        // set overdue
-        event.setTokenOverdueTime(now);
-        securityLoginEventRepository.save(event);
-
-        SecurityUser user = securityUserRepository.findOne(event.getUser().getId());
-
-        // send message
-        updateService.send(DELETE, SECURITY_USER, new SecurityUserDTO(user, event));
+        securityLoginEventService.overdue(event);
     }
 }

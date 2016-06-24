@@ -1,18 +1,24 @@
 package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.domain.SecurityLoginEvent;
+import com.boyuanitsm.fort.domain.SecurityUser;
 import com.boyuanitsm.fort.repository.SecurityLoginEventRepository;
+import com.boyuanitsm.fort.repository.SecurityUserRepository;
 import com.boyuanitsm.fort.repository.search.SecurityLoginEventSearchRepository;
+import com.boyuanitsm.fort.web.rest.dto.SecurityUserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_USER;
+import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.DELETE;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -23,16 +29,22 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SecurityLoginEventService {
 
     private final Logger log = LoggerFactory.getLogger(SecurityLoginEventService.class);
-    
+
     @Inject
     private SecurityLoginEventRepository securityLoginEventRepository;
-    
+
     @Inject
     private SecurityLoginEventSearchRepository securityLoginEventSearchRepository;
-    
+
+    @Inject
+    private SecurityUserRepository securityUserRepository;
+
+    @Inject
+    private SecurityResourceUpdateService updateService;
+
     /**
      * Save a securityLoginEvent.
-     * 
+     *
      * @param securityLoginEvent the entity to save
      * @return the persisted entity
      */
@@ -45,10 +57,10 @@ public class SecurityLoginEventService {
 
     /**
      *  Get all the securityLoginEvents.
-     *  
+     *
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<SecurityLoginEvent> findAll() {
         log.debug("Request to get all SecurityLoginEvents");
         List<SecurityLoginEvent> result = securityLoginEventRepository.findAll();
@@ -61,7 +73,7 @@ public class SecurityLoginEventService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public SecurityLoginEvent findOne(Long id) {
         log.debug("Request to get SecurityLoginEvent : {}", id);
         SecurityLoginEvent securityLoginEvent = securityLoginEventRepository.findOne(id);
@@ -70,7 +82,7 @@ public class SecurityLoginEventService {
 
     /**
      *  Delete the  securityLoginEvent by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {
@@ -91,5 +103,25 @@ public class SecurityLoginEventService {
         return StreamSupport
             .stream(securityLoginEventSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * The overdue this event.
+     *
+     * @param event events will be overdue
+     */
+    public void overdue(SecurityLoginEvent event) {
+        if (event == null) {
+            return;
+        }
+
+        // set overdue
+        event.setTokenOverdueTime(ZonedDateTime.now());
+        securityLoginEventRepository.save(event);
+
+        SecurityUser user = securityUserRepository.findOne(event.getUser().getId());
+
+        // send message
+        updateService.send(DELETE, SECURITY_USER, new SecurityUserDTO(user, event));
     }
 }

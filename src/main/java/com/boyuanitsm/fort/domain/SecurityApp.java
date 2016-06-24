@@ -37,6 +37,21 @@ public class SecurityApp extends AbstractAuditingEntity implements Serializable 
     @Column(name = "app_secret", length = 20)
     private String appSecret;
 
+    /**
+     * Max session number. And the greatest at the same time, the number of login user.
+     * Max number is 99.
+     */
+    @NotNull
+    @Column(name = "max_sessions", length = 3, nullable = false)
+    private Integer maxSessions;
+
+    /**
+     * Session max age. day
+     */
+    @NotNull
+    @Column(name = "session_max_age", nullable = false)
+    private Float sessionMaxAge;
+
     @Size(max = 60)
     @Column(name = "st", length = 60)
     private String st;
@@ -81,6 +96,22 @@ public class SecurityApp extends AbstractAuditingEntity implements Serializable 
         this.st = st;
     }
 
+    public Integer getMaxSessions() {
+        return maxSessions;
+    }
+
+    public void setMaxSessions(Integer maxSessions) {
+        this.maxSessions = maxSessions;
+    }
+
+    public Float getSessionMaxAge() {
+        return sessionMaxAge;
+    }
+
+    public void setSessionMaxAge(Float sessionMaxAge) {
+        this.sessionMaxAge = sessionMaxAge;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -105,10 +136,12 @@ public class SecurityApp extends AbstractAuditingEntity implements Serializable 
     public String toString() {
         return "SecurityApp{" +
             "id=" + id +
-            ", appName='" + appName + "'" +
-            ", appKey='" + appKey + "'" +
-            ", appSecret='" + appSecret + "'" +
-            ", st='" + st + "'" +
+            ", appName='" + appName + '\'' +
+            ", appKey='" + appKey + '\'' +
+            ", appSecret='" + appSecret + '\'' +
+            ", maxSessions=" + maxSessions +
+            ", sessionMaxAge=" + sessionMaxAge +
+            ", st='" + st + '\'' +
             '}';
     }
 }
