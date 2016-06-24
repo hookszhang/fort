@@ -29,43 +29,38 @@
                 </p>
             </div>
         </div>
-        <!-- <div class="form-group">
-            <label class="control-label" translate="fortApp.securityApp.appKey" for="field_appKey">App Key</label>
-            <input type="text" class="form-control" name="appKey" id="field_appKey"
-                    ng-model="vm.securityApp.appKey"
-                    ng-maxlength="20" />
-            <div ng-show="editForm.appKey.$invalid">
+        <div class="form-group">
+            <label class="control-label" translate="fortApp.securityApp.maxSessions" for="field_maxSessions">Max Sessions</label>
+            <input type="number" class="form-control" name="maxSessions" id="field_maxSessions"
+                    ng-model="vm.securityApp.maxSessions"
+                    required ng-maxlength="2" />
+            <div ng-show="editForm.maxSessions.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.appKey.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
-                    This field cannot be longer than 20 characters.
+                    ng-show="editForm.maxSessions.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.maxSessions.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2">
+                    This field cannot be longer than 2 characters.
                 </p>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="fortApp.securityApp.appSecret" for="field_appSecret">App Secret</label>
-            <input type="text" class="form-control" name="appSecret" id="field_appSecret"
-                    ng-model="vm.securityApp.appSecret"
-                    ng-maxlength="20" />
-            <div ng-show="editForm.appSecret.$invalid">
+            <label class="control-label" translate="fortApp.securityApp.sessionMaxAge" for="field_sessionMaxAge">Session Max Age</label>
+            <input type="number" class="form-control" name="sessionMaxAge" id="field_sessionMaxAge"
+                    ng-model="vm.securityApp.sessionMaxAge"
+                    required ng-maxlength="20"/>
+            <div ng-show="editForm.sessionMaxAge.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.appSecret.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
-                    This field cannot be longer than 20 characters.
+                    ng-show="editForm.sessionMaxAge.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.sessionMaxAge.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="3">
+                    This field cannot be longer than 3 characters.
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" translate="fortApp.securityApp.st" for="field_st">St</label>
-            <input type="text" class="form-control" name="st" id="field_st"
-                    ng-model="vm.securityApp.st"
-                    ng-maxlength="60" />
-            <div ng-show="editForm.st.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.st.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
-                    This field cannot be longer than 60 characters.
-                </p>
-            </div>
-        </div> -->
-
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

@@ -22,6 +22,8 @@
             "appName": "应用名称",
             "appKey": "应用标识",
             "appSecret": "应用密钥",
+            "maxSessions": "最大会话数",
+            "sessionMaxAge": "会话时间（天）",
             "st": "St"
         }
     }

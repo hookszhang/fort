@@ -95,7 +95,9 @@
                                 appKey: null,
                                 appSecret: null,
                                 st: null,
-                                id: null
+                                id: null,
+                                maxSessions: 2,
+                                sessionMaxAge: 7
                             };
                         }
                     }

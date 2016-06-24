@@ -10,7 +10,6 @@
     function SecurityAppDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, SecurityApp) {
         var vm = this;
         vm.securityApp = entity;
-
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });
@@ -27,6 +26,7 @@
 
         vm.save = function () {
             vm.isSaving = true;
+            vm.securityApp.sessionMaxAge *= (1000*60*60*24);
             if (vm.securityApp.id !== null) {
                 SecurityApp.update(vm.securityApp, onSaveSuccess, onSaveError);
             } else {
