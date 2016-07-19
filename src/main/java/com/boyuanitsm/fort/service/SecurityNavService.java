@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_NAV;
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption.*;
 
@@ -105,5 +107,9 @@ public class SecurityNavService {
     public Page<SecurityNav> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SecurityNavs for query {}", query);
         return securityNavSearchRepository.search(QueryBuilderUtil.build(query), pageable);
+    }
+
+    public List<SecurityNav> findByParentId(Long parentId) {
+        return securityNavRepository.findByParentId(parentId);
     }
 }

@@ -138,6 +138,10 @@ public class SecurityNavResource {
     @Timed
     public ResponseEntity<Void> deleteSecurityNav(@PathVariable Long id) {
         log.debug("REST request to delete SecurityNav : {}", id);
+        List<SecurityNav> children = securityNavService.findByParentId(id);
+        if (children.size() > 0) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityNav", "haschildren", "A securityNav has children")).body(null);
+        }
         securityNavService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("securityNav", id.toString())).build();
     }
