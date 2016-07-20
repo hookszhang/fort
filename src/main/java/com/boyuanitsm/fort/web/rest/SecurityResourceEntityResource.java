@@ -1,8 +1,10 @@
 package com.boyuanitsm.fort.web.rest;
 
+import com.boyuanitsm.fort.domain.SecurityNav;
 import com.boyuanitsm.fort.security.AuthoritiesConstants;
 import com.boyuanitsm.fort.security.SecurityUtils;
 import com.boyuanitsm.fort.service.SecurityAppService;
+import com.boyuanitsm.fort.service.SecurityNavService;
 import com.codahale.metrics.annotation.Timed;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.service.SecurityResourceEntityService;
@@ -39,6 +41,9 @@ public class SecurityResourceEntityResource {
 
     @Inject
     private SecurityAppService securityAppService;
+
+    @Inject
+    private SecurityNavService securityNavService;
 
     /**
      * POST  /security-resource-entities : Create a new securityResourceEntity.
@@ -150,6 +155,10 @@ public class SecurityResourceEntityResource {
     @Timed
     public ResponseEntity<Void> deleteSecurityResourceEntity(@PathVariable Long id) {
         log.debug("REST request to delete SecurityResourceEntity : {}", id);
+        List<SecurityNav> navList = securityNavService.findByResourceId(id);
+        if (navList.size() > 0) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityResourceEntity", "usedbynav", "Has been used by the nav, don't delete")).body(null);
+        }
         securityResourceEntityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("securityResourceEntity", id.toString())).build();
     }

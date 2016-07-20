@@ -2,7 +2,9 @@ package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityNav;
+import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.repository.SecurityNavRepository;
+import com.boyuanitsm.fort.repository.SecurityResourceEntityRepository;
 import com.boyuanitsm.fort.repository.search.SecurityNavSearchRepository;
 import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceClass.SECURITY_NAV;
@@ -36,6 +39,9 @@ public class SecurityNavService {
 
     @Inject
     private SecurityResourceUpdateService updateService;
+
+    @Inject
+    private SecurityResourceEntityRepository securityResourceEntityRepository;
 
     /**
      * Save a securityNav.
@@ -111,5 +117,13 @@ public class SecurityNavService {
 
     public List<SecurityNav> findByParentId(Long parentId) {
         return securityNavRepository.findByParentId(parentId);
+    }
+
+    public List<SecurityNav> findByResourceId(Long resourceId) {
+        SecurityResourceEntity resourceEntity = securityResourceEntityRepository.findOne(resourceId);
+        if (resourceEntity == null) {
+            return new ArrayList<>();
+        }
+        return securityNavRepository.findByResource(resourceEntity);
     }
 }

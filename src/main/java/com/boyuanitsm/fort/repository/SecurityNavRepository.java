@@ -1,6 +1,7 @@
 package com.boyuanitsm.fort.repository;
 
 import com.boyuanitsm.fort.domain.SecurityNav;
+import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ import java.util.List;
 public interface SecurityNavRepository extends MyJpaRepository<SecurityNav, Long> {
 
     List<SecurityNav> findByParentId(Long parentId);
+
+    List<SecurityNav> findByResource(SecurityResourceEntity resource);
 }
