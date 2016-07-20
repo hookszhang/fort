@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <!--
+        Add Column position to security_nav
+        init sql: Update `security_nav` set position=id;
+    -->
+    <changeSet id="20160720103732-1" author="hookszhang">
+        <addColumn tableName="security_nav">
+            <column name="position" type="double" valueNumeric="1">
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
