@@ -17,7 +17,8 @@
             'ui.select',
             'infinite-scroll',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
-            'angular-loading-bar'
+            'angular-loading-bar',
+            'dndLists'
         ])
         .run(run);
 
