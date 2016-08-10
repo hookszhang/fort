@@ -52,6 +52,9 @@ public class SecurityNavService {
      * @return the persisted entity
      */
     public SecurityNav save(SecurityNav securityNav) {
+        // Set default position(Max Position + 1)
+        Double maxPosition = securityNavRepository.findMaxPosition(securityNav.getApp());
+        securityNav.setPosition(++maxPosition);
         log.debug("Request to save SecurityNav : {}", securityNav);
 
         OnUpdateSecurityResourceOption option = securityNav.getId() == null ? POST : PUT;
