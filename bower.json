@@ -21,6 +21,7 @@
     "angular-translate-storage-cookie": "2.11.0",
     "angular-ui-router": "0.2.18",
     "angular-ui-select": "0.17.1",
+    "angular-drag-and-drop-lists": "1.4.0",
     "bootstrap-sass": "3.3.6",
     "bootstrap-ui-datetime-picker": "2.3.1",
     "jquery": "2.2.2",
@@ -48,6 +49,11 @@
       }
     },
     "angular-dynamic-locale" : {
+      "dependencies": {
+        "angular": "1.5.2"
+      }
+    },
+    "angular-drag-and-drop-lists" : {
       "dependencies": {
         "angular": "1.5.2"
       }
