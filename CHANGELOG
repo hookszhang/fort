@@ -1,10 +1,5 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
-v 1.2.0
-
-    - 导航栏重构, 支持排序功能
-    - 修复所有资源的依赖关系, 不能删除有依赖的资源
-
 v 1.1.7
 
     - 修复了删除有子导航的父导航会导致导航栏管理崩溃, 增加限制:不能删除有子导航的父导航

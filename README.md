@@ -1,6 +1,6 @@
 # fort
 
-[![build status](http://172.16.8.21:20000/ppd/fort/badges/master/build.svg)](http://172.16.8.21:20000/fort/fort/commits/master)
+[![build status](http://172.16.8.21:20000/fort/fort/badges/master/build.svg)](http://172.16.8.21:20000/fort/fort/commits/master)
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
 

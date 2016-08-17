@@ -39,9 +39,6 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
     @Column(name = "st", length = 60)
     private String st;
 
-    @Column(name = "position")
-    private Double position;
-
     @ManyToOne
     private SecurityNav parent;
 
@@ -58,14 +55,6 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
         this.id = id;
         this.app = new SecurityApp();
         app.setAppKey(appKey);
-    }
-
-    public Double getPosition() {
-        return position;
-    }
-
-    public void setPosition(Double position) {
-        this.position = position;
     }
 
     public Long getId() {
@@ -156,14 +145,10 @@ public class SecurityNav extends AbstractAuditingEntity implements Serializable 
     public String toString() {
         return "SecurityNav{" +
             "id=" + id +
-            ", name='" + name + '\'' +
-            ", icon='" + icon + '\'' +
-            ", description='" + description + '\'' +
-            ", st='" + st + '\'' +
-            ", position=" + position +
-            ", parent=" + parent +
-            ", resource=" + resource +
-            ", app=" + app +
+            ", name='" + name + "'" +
+            ", icon='" + icon + "'" +
+            ", description='" + description + "'" +
+            ", st='" + st + "'" +
             '}';
     }
 }
