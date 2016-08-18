@@ -1,5 +1,10 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
+v 1.1.8
+
+    - 改变Token随机算法, 解决当Token中带/时, 不能正确查询到Token信息
+    - 资源可以配置method以支持RESTful API的权限控制
+
 v 1.1.7
 
     - 修复了删除有子导航的父导航会导致导航栏管理崩溃, 增加限制:不能删除有子导航的父导航
