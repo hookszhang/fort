@@ -188,9 +188,11 @@ public class SecurityUserResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<SecurityUserDTO> authorization(@RequestBody SecurityUserDTO securityUserDTO) {
+        log.debug("REST request to authorization login for user {}", securityUserDTO);
         SecurityUserDTO user = securityUserService.authorization(securityUserDTO);
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            // this user not acceptable, login or password wrong
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         } else {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
