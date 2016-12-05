@@ -86,6 +86,13 @@ public class SecurityResourceEntityService {
         return securityResourceEntity;
     }
 
+    @Transactional(readOnly = true)
+    public SecurityResourceEntity findOneWithEagerRelationships(Long id) {
+        log.debug("Request to get SecurityResourceEntity : {}", id);
+        SecurityResourceEntity securityResourceEntity = securityResourceEntityRepository.findOneWithEagerRelationships(id);
+        return securityResourceEntity;
+    }
+
     /**
      *  Delete the  securityResourceEntity by id.
      *

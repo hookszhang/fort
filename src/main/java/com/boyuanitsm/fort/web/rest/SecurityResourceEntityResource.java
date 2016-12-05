@@ -150,6 +150,17 @@ public class SecurityResourceEntityResource {
     @Timed
     public ResponseEntity<Void> deleteSecurityResourceEntity(@PathVariable Long id) {
         log.debug("REST request to delete SecurityResourceEntity : {}", id);
+
+        SecurityResourceEntity securityResourceEntity = securityResourceEntityService.findOneWithEagerRelationships(id);
+        if (securityResourceEntity != null) {
+            if (securityResourceEntity.getAuthorities().size() > 0) {
+                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityResourceEntity", "dependonauthority", "Depend on authority: " + securityResourceEntity.getAuthorities())).body(null);
+            }
+//            if (securityResourceEntity.getNavs().size() > 0) {
+//                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("securityResourceEntity", "dependonnav", "Depend on nav: " + securityResourceEntity.getNavs())).body(null);
+//            }
+        }
+
         securityResourceEntityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("securityResourceEntity", id.toString())).build();
     }
