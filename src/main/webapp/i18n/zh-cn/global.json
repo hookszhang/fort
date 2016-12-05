@@ -128,7 +128,9 @@
         "Size": "域 {{fieldName}} 不满足最大/最小值限制!",
         "userexists": "该用户名已存在!",
         "emailexists": "该邮箱已被使用!",
-        "idexists": "新建的 {{entityName}} 的ID已经存在"
+        "idexists": "新建的 {{entityName}} 的ID已经存在",
+        "dependonnav": "被导航栏依赖",
+        "dependonauthority": "被权限依赖"
     },
     "footer": "这里是页脚"
 }
