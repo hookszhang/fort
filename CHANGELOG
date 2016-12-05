@@ -1,5 +1,10 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
+v 1.1.9
+
+    - 修复生产环境日志不打印的问题
+    - 当资源被权限或导航栏依赖时，不允许删除
+
 v 1.1.8
 
     - 改变Token随机算法, 解决当Token中带/时, 不能正确查询到Token信息
