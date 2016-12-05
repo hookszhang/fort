@@ -2,6 +2,7 @@ package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
 import com.boyuanitsm.fort.domain.SecurityNav;
+import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.repository.SecurityNavRepository;
 import com.boyuanitsm.fort.repository.search.SecurityNavSearchRepository;
 import com.boyuanitsm.fort.service.util.QueryBuilderUtil;
@@ -79,6 +80,10 @@ public class SecurityNavService {
         log.debug("Request to get SecurityNav : {}", id);
         SecurityNav securityNav = securityNavRepository.findOne(id);
         return securityNav;
+    }
+
+    public List<SecurityNav> findByResource(SecurityResourceEntity resource) {
+        return securityNavRepository.findByResource(resource);
     }
 
     /**
