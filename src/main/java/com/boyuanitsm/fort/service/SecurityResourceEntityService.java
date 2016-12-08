@@ -37,6 +37,9 @@ public class SecurityResourceEntityService {
     @Inject
     private SecurityResourceUpdateService updateService;
 
+    @Inject
+    private SecurityAppService securityAppService;
+
     /**
      * Save a securityResourceEntity.
      *
@@ -47,6 +50,12 @@ public class SecurityResourceEntityService {
         log.debug("Request to save SecurityResourceEntity : {}", securityResourceEntity);
 
         OnUpdateSecurityResourceOption option = securityResourceEntity.getId() == null ? POST: PUT;
+
+        SecurityApp app = securityAppService.findCurrentSecurityApp();
+        // set app
+        if (app != null) {
+            securityResourceEntity.setApp(app);
+        }
 
         SecurityResourceEntity result = securityResourceEntityRepository.save(securityResourceEntity);
         securityResourceEntitySearchRepository.save(result);

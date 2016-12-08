@@ -38,6 +38,9 @@ public class SecurityRoleService {
     @Inject
     private SecurityResourceUpdateService updateService;
 
+    @Inject
+    private SecurityAppService securityAppService;
+
     /**
      * Save a securityRole.
      *
@@ -48,6 +51,12 @@ public class SecurityRoleService {
         log.debug("Request to save SecurityRole : {}", securityRole);
 
         OnUpdateSecurityResourceOption option = securityRole == null ? POST : PUT;
+
+        SecurityApp app = securityAppService.findCurrentSecurityApp();
+        // set app
+        if (app != null) {
+            securityRole.setApp(app);
+        }
 
         SecurityRole result = securityRoleRepository.save(securityRole);
         securityRoleSearchRepository.save(result);

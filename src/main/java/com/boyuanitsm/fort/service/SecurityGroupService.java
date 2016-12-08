@@ -50,12 +50,10 @@ public class SecurityGroupService {
 
         OnUpdateSecurityResourceOption option = securityGroup.getId() == null ? POST : PUT;
 
-        if (PUT.equals(option)) {// put option
-            SecurityApp app = securityAppService.findCurrentSecurityApp();
-            // set app
-            if (app != null) {
-                securityGroup.setApp(app);
-            }
+        SecurityApp app = securityAppService.findCurrentSecurityApp();
+        // set app
+        if (app != null) {
+            securityGroup.setApp(app);
         }
 
         SecurityGroup result = securityGroupRepository.save(securityGroup);

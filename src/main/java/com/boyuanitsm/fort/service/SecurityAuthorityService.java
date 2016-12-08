@@ -37,6 +37,9 @@ public class SecurityAuthorityService {
     @Inject
     private SecurityResourceUpdateService updateService;
 
+    @Inject
+    private SecurityAppService securityAppService;
+
     /**
      * Save a securityAuthority.
      *
@@ -47,6 +50,12 @@ public class SecurityAuthorityService {
         log.debug("Request to save SecurityAuthority : {}", securityAuthority);
 
         OnUpdateSecurityResourceOption option = securityAuthority == null ? POST : PUT;
+
+        SecurityApp app = securityAppService.findCurrentSecurityApp();
+        // set app
+        if (app != null) {
+            securityAuthority.setApp(app);
+        }
 
         SecurityAuthority result = securityAuthorityRepository.save(securityAuthority);
         securityAuthoritySearchRepository.save(result);

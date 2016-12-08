@@ -1,6 +1,7 @@
 package com.boyuanitsm.fort.service;
 
 import com.boyuanitsm.fort.bean.enumeration.OnUpdateSecurityResourceOption;
+import com.boyuanitsm.fort.domain.SecurityApp;
 import com.boyuanitsm.fort.domain.SecurityNav;
 import com.boyuanitsm.fort.domain.SecurityResourceEntity;
 import com.boyuanitsm.fort.repository.SecurityNavRepository;
@@ -38,6 +39,9 @@ public class SecurityNavService {
     @Inject
     private SecurityResourceUpdateService updateService;
 
+    @Inject
+    private SecurityAppService securityAppService;
+
     /**
      * Save a securityNav.
      *
@@ -48,6 +52,12 @@ public class SecurityNavService {
         log.debug("Request to save SecurityNav : {}", securityNav);
 
         OnUpdateSecurityResourceOption option = securityNav.getId() == null ? POST : PUT;
+
+        SecurityApp app = securityAppService.findCurrentSecurityApp();
+        // set app
+        if (app != null) {
+            securityNav.setApp(app);
+        }
 
         SecurityNav result = securityNavRepository.save(securityNav);
         securityNavSearchRepository.save(result);
