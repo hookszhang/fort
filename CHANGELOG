@@ -1,5 +1,9 @@
 Please view this file on the master branch, on stable branches it's out of date.
 
+v 1.1.10
+
+    - 修复使用FortCrudClient创建组会发生空指针异常的问题
+
 v 1.1.9
 
     - 修复生产环境日志不打印的问题
