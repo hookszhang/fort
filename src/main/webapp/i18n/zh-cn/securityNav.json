@@ -22,7 +22,8 @@
             "st": "St",
             "parent": "父导航",
             "resource": "资源",
-            "app": "应用"
+            "app": "应用",
+            "position": "位置"
         }
     }
 }
