@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="hookszhang (generated)" id="1481250265284-1">
+      <addColumn tableName="security_nav">
+         <column name="position" type="double precision"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-2">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_app"/>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-3">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_authority"/>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-4">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_group"/>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-5">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_login_event"/>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-6">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_nav"/>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-7">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_resource_entity"/>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-8">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_role"/>
+   </changeSet>
+   <changeSet author="hookszhang (generated)" id="1481250265284-9">
+      <dropDefaultValue columnDataType="datetime"
+                        columnName="created_date"
+                        tableName="security_user"/>
+   </changeSet>
+</databaseChangeLog>
