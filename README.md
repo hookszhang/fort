@@ -1,7 +1,5 @@
 # fort
 
-[![build status](http://172.16.8.21:20000/ppd/fort/badges/master/build.svg)](http://172.16.8.21:20000/fort/fort/commits/master)
-
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
 
 ## Development
@@ -53,32 +51,8 @@ Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in
     gulp test
 
 
+## Docker
 
-## Continuous Integration
-
-To setup this project in Jenkins, use the following configuration:
-
-* Project name: `fort`
-* Source Code Management
-    * Git Repository: `git@github.com:xxxx/fort.git`
-    * Branches to build: `*/master`
-    * Additional Behaviours: `Wipe out repository & force clone`
-* Build Triggers
-    * Poll SCM / Schedule: `H/5 * * * *`
-* Build
-    * Invoke Maven / Tasks: `-Pprod clean package`
-* Post-build Actions
-    * Publish JUnit test result report / Test Report XMLs: `build/test-results/*.xml`
-
-[JHipster]: https://jhipster.github.io/
-[Node.js]: https://nodejs.org/
-[Bower]: http://bower.io/
-[Gulp]: http://gulpjs.com/
-[BrowserSync]: http://www.browsersync.io/
-[Karma]: http://karma-runner.github.io/
-[Jasmine]: http://jasmine.github.io/2.0/introduction.html
-[Protractor]: https://angular.github.io/protractor/
-
-## TODO
-
-- Add super user, the super user have all the permissions
+    mvn clean package docker:build -Pprod -DskipTests
+    
+    docker-compose -f src/main/docker/app.yml up -d

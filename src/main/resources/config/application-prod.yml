@@ -21,7 +21,7 @@ spring:
         url: jdbc:mysql://localhost:3306/fort?useUnicode=true&characterEncoding=utf8&useSSL=false
         name:
         username: root
-        password: GitLab#tdc
+        password: fort-secret-pw
         hikari:
             data-source-properties:
                 cachePrepStmts: true
@@ -38,16 +38,9 @@ spring:
             hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     data:
-#        elasticsearch:
-#            cluster-name:
-#            cluster-nodes: localhost:9300
         elasticsearch:
-                    cluster-name:
-                    cluster-nodes:
-                    properties:
-                        path:
-                          logs: target/elasticsearch/log
-                          data: target/elasticsearch/data
+            cluster-name:
+            cluster-nodes: localhost:9300
     mail:
         host: smtp.163.com
         username: fort_serve@163.com
@@ -60,7 +53,7 @@ liquibase:
     contexts: prod
 
 server:
-    port: 9800
+    port: 8080
     compression:
         enabled: true
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
