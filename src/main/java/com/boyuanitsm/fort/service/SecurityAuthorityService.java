@@ -131,4 +131,14 @@ public class SecurityAuthorityService {
     public SecurityAuthority findByAppAndName(SecurityApp app, String name) {
         return securityAuthorityRepository.findByAppAndName(app, name);
     }
+
+    public Page<SecurityAuthority> findAll(Pageable pageable, Long appId) {
+        log.debug("Request to get all SecurityAuthorities");
+
+        if (appId != null) {
+            return securityAuthorityRepository.findAllByAppId(pageable, appId);
+        } else {
+            return securityAuthorityRepository.findOwnAll(pageable);
+        }
+    }
 }

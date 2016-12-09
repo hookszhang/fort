@@ -99,10 +99,10 @@ public class SecurityAuthorityResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<SecurityAuthority>> getAllSecurityAuthorities(Pageable pageable)
+    public ResponseEntity<List<SecurityAuthority>> getAllSecurityAuthorities(Pageable pageable, Long appId)
         throws URISyntaxException {
         log.debug("REST request to get a page of SecurityAuthorities");
-        Page<SecurityAuthority> page = securityAuthorityService.findAll(pageable);
+        Page<SecurityAuthority> page = securityAuthorityService.findAll(pageable, appId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/security-authorities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
