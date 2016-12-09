@@ -37,6 +37,7 @@
                     <th jh-sort-by="name"><span translate="fortApp.securityNav.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="icon"><span translate="fortApp.securityNav.icon">Icon</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="fortApp.securityNav.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="position"><span translate="fortApp.securityNav.position">Position</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="parent.id"><span translate="fortApp.securityNav.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="resource.id"><span translate="fortApp.securityNav.resource">Resource</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="app.id"><span translate="fortApp.securityNav.app">App</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -48,6 +49,7 @@
                     <td><a ui-sref="security-nav-detail({id:securityNav.id})">{{securityNav.name}}</a></td>
                     <td>{{securityNav.icon}}</td>
                     <td>{{securityNav.description}}</td>
+                    <td>{{securityNav.position}}</td>
                     <td>
                         <a ui-sref="security-nav-detail({id:securityNav.parent.id})">{{securityNav.parent.name}}</a>
                     </td>

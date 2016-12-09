@@ -36,6 +36,10 @@
                             <input type="text" class="form-control" name="description" id="field_description" ng-model="vm.securityNav.description" />
                         </div>
                         <div class="form-group">
+                            <label class="control-label" translate="fortApp.securityNav.position" for="field_position">Position</label>
+                            <input type="number" class="form-control" name="position" id="field_position" ng-model="vm.securityNav.position" />
+                        </div>
+                        <div class="form-group">
                             <label translate="fortApp.securityNav.app" for="field_app">App</label>
                             <select class="form-control" id="field_app" name="app" ng-model="vm.securityNav.app" ng-options="securityApp as securityApp.appName for securityApp in vm.securityapps track by securityApp.id" required>
                                 <option value=""></option>
