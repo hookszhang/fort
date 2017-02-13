@@ -59,6 +59,9 @@ server:
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
         min-response-size: 1024
 
+logging:
+  config: classpath:logback-prod.xml
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
