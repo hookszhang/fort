@@ -59,7 +59,7 @@ liquibase:
     contexts: dev
 
 server:
-    port: 8080
+    port: 6789
 
 logging:
   config: classpath:logback-dev.xml
